@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:rick_and_morty/features/characters/domain/entities/entities.dart';

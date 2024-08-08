@@ -6,7 +6,6 @@ import 'package:rick_and_morty/features/characters/domain/usecases/use_cases.dar
 import 'package:rick_and_morty/features/characters/presentation/bloc/characters_bloc.dart';
 import 'package:rick_and_morty/features/episodes/data/datasources/episodes_remote_data_source.dart';
 import 'package:rick_and_morty/features/episodes/data/repositories/episodes_repository_impl.dart';
-import 'package:rick_and_morty/features/episodes/domain/repositories/episodes_repository.dart';
 import 'package:rick_and_morty/features/episodes/domain/usecases/episodes_usecase.dart';
 import 'package:rick_and_morty/features/episodes/presentation/bloc/episodes_bloc.dart';
 import 'package:rick_and_morty/features/locations/data/datasources/locations_remote_data_source.dart';

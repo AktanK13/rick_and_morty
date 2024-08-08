@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:rick_and_morty/core/constants/constants.dart';
-import 'package:rick_and_morty/core/styles/app_text_style.dart';
 import 'package:rick_and_morty/features/locations/domain/entities/location_entity.dart';
 import 'package:rick_and_morty/features/locations/presentation/bloc/locations_bloc.dart';
 
