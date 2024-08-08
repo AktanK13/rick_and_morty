@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rick_and_morty/core/constants/constants.dart';
+import 'package:provider/provider.dart';
 import 'package:rick_and_morty/core/images/images_consts.dart';
 import 'package:rick_and_morty/core/styles/app_colors.dart';
 
@@ -34,20 +33,17 @@ class HomePage extends StatelessWidget {
               BlendMode.srcIn,
             ),
           ),
-          activeIcon: Consumer(
-            builder: (context, ref, child) {
-              return SvgPicture.asset(
-                AppSvg.characters,
-                colorFilter: ColorFilter.mode(
-                  ref.watch(appThemeProvider)
-                      ? AppColors.statusAlive
-                      : AppColors.buttonActive,
-                  BlendMode.srcIn,
-                ),
-              );
-            },
+          activeIcon: SvgPicture.asset(
+            AppSvg.characters,
+            colorFilter: ColorFilter.mode(
+              AppColors.statusAlive,
+              // ref.watch(appThemeProvider)
+              //     ? AppColors.statusAlive
+              //     : AppColors.buttonActive,
+              BlendMode.srcIn,
+            ),
           ),
-          label: 'Персонажи',   
+          label: 'Персонажи',
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
@@ -62,9 +58,10 @@ class HomePage extends StatelessWidget {
               return SvgPicture.asset(
                 AppSvg.locations,
                 colorFilter: ColorFilter.mode(
-                  ref.watch(appThemeProvider)
-                      ? AppColors.statusAlive
-                      : AppColors.buttonActive,
+                  AppColors.statusAlive,
+                  // ref.watch(appThemeProvider)
+                  //     ? AppColors.statusAlive
+                  //     : AppColors.buttonActive,
                   BlendMode.srcIn,
                 ),
               );
@@ -85,9 +82,10 @@ class HomePage extends StatelessWidget {
               return SvgPicture.asset(
                 AppSvg.episodes,
                 colorFilter: ColorFilter.mode(
-                  ref.watch(appThemeProvider)
-                      ? AppColors.statusAlive
-                      : AppColors.buttonActive,
+                  AppColors.statusAlive,
+                  // ref.watch(appThemeProvider)
+                  // ? AppColors.statusAlive
+                  // : AppColors.buttonActive,
                   BlendMode.srcIn,
                 ),
               );
@@ -108,9 +106,10 @@ class HomePage extends StatelessWidget {
               return SvgPicture.asset(
                 AppSvg.settings,
                 colorFilter: ColorFilter.mode(
-                  ref.watch(appThemeProvider)
-                      ? AppColors.statusAlive
-                      : AppColors.buttonActive,
+                  AppColors.statusAlive,
+                  // ref.watch(appThemeProvider)
+                  //     ? AppColors.statusAlive
+                  //     : AppColors.buttonActive,
                   BlendMode.srcIn,
                 ),
               );

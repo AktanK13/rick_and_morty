@@ -1,7 +1,5 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AppConsts {
-  static const String baseUrl = '';
+  static const String baseUrl = 'https://rickandmortyapi.com/api/character';
 }
 
-final appThemeProvider = StateProvider<bool>((ref) => true);

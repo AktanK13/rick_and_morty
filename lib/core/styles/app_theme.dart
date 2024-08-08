@@ -1,16 +1,17 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty/core/styles/app_font_size.dart';
-
-// import 'package:google_fonts/google_fonts.dart';
+import 'package:rick_and_morty/core/utils/injections.dart';
+import 'package:rick_and_morty/core/utils/shared_preferences_service.dart';
 
 import 'app_colors.dart';
 
-ThemeData getAppTheme(BuildContext context, bool isDarkTheme) {
+ThemeData getAppTheme(BuildContext context, isDarkTheme) {
+  log('data-unique: sharedPref: ${isDarkTheme} ');
   return ThemeData(
     fontFamily: 'Roboto',
     scaffoldBackgroundColor:
         isDarkTheme ? AppColors.backgroundDark : AppColors.backgroundWhite,
-    
     textTheme: const TextTheme().copyWith(
       bodySmall: TextStyle(
           color: isDarkTheme ? AppColors.textWhite : AppColors.textBlack),
@@ -49,13 +50,18 @@ ThemeData getAppTheme(BuildContext context, bool isDarkTheme) {
     appBarTheme: AppBarTheme(
       backgroundColor:
           isDarkTheme ? AppColors.backgroundDark : AppColors.backgroundWhite,
+      titleTextStyle: TextStyle(
+        color: isDarkTheme ? AppColors.textWhite : AppColors.textBlack,
+      ),
       iconTheme: IconThemeData(
         color: isDarkTheme ? AppColors.textWhite : AppColors.textBlack,
       ),
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor:
-          isDarkTheme ? AppColors.backgroundDark : AppColors.backgroundWhite,
+      elevation: 10,
+      backgroundColor: isDarkTheme
+          ? AppColors.navBarBackgroundBlack
+          : AppColors.navBarBackgroundWhite,
       selectedItemColor:
           isDarkTheme ? AppColors.statusAlive : AppColors.buttonActive,
       unselectedItemColor:
