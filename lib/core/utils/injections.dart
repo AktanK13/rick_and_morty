@@ -19,8 +19,6 @@ void setup() async {
   // Регистрация клиента dio
   getIt.registerLazySingleton<Dio>(() => Dio());
 
-
-
   // Регистрация remote data source
   getIt.registerLazySingleton<CharactersRemoteDataSource>(
       () => CharactersRemoteDataSource(
@@ -34,8 +32,6 @@ void setup() async {
       () => EpisodesRemoteDataSource(
             client: getIt<Dio>(),
           ));
-
-
 
   // // Регистрация repository
   getIt.registerLazySingleton<CharactersRepositoryImpl>(
@@ -51,8 +47,6 @@ void setup() async {
             remoteDataSource: getIt<EpisodesRemoteDataSource>(),
           ));
 
-
-
   // // Регистрация Use Cases
   getIt.registerLazySingleton<CharactersUseCases>(() => CharactersUseCases(
         repository: getIt<CharactersRepositoryImpl>(),
@@ -63,8 +57,6 @@ void setup() async {
   getIt.registerLazySingleton<EpisodesUsecase>(() => EpisodesUsecase(
         repository: getIt<EpisodesRepositoryImpl>(),
       ));
-
-
 
   // // Регистрация BLoC
   getIt.registerFactory<CharactersBloc>(() => CharactersBloc(

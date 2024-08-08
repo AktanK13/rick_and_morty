@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rick_and_morty/core/constants/constants.dart';
 import 'package:rick_and_morty/core/styles/app_theme.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class ThemeEvent {}
 
@@ -17,13 +18,19 @@ class ThemeChanged extends ThemeState {
 }
 
 class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
-  ThemeBloc() : super(ThemeChanged(AppTheme.lightTheme)) {
-    on<ToggleTheme>((event, emit) {
-      if (state.themeData == AppTheme.lightTheme) {
-        emit(ThemeChanged(AppTheme.darkTheme));
-      } else {
-        emit(ThemeChanged(AppTheme.lightTheme));
-      }
+  ThemeBloc(super.initialState) {
+    on<ToggleTheme>((event, emit) async {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final bool isDarkTheme = state.themeData == AppTheme.darkTheme;
+      await prefs.setBool(AppConsts.darkThemeKey, !isDarkTheme);
+      emit(ThemeChanged(isDarkTheme ? AppTheme.lightTheme : AppTheme.darkTheme));
+      
     });
+  }
+  static Future<ThemeState> getInitialTheme() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final bool isDarkTheme = prefs.getBool(AppConsts.darkThemeKey) ?? false;
+
+    return ThemeChanged(isDarkTheme ? AppTheme.darkTheme : AppTheme.lightTheme);
   }
 }

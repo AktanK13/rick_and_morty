@@ -3,8 +3,8 @@ abstract class AppPng {
 }
 
 abstract class AppSvg {
-  static const String characters = "assets/images/svg/characters_icon.svg";
-  static const String episodes = "assets/images/svg/episodes_icon.svg";
-  static const String locations = "assets/images/svg/locations_icon.svg";
-  static const String settings = "assets/images/svg/settings_icon.svg";
+  static const String characters = "assets/svg/characters_icon.svg";
+  static const String episodes = "assets/svg/episodes_icon.svg";
+  static const String locations = "assets/svg/locations_icon.svg";
+  static const String settings = "assets/svg/settings_icon.svg";
 }
