@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty/core/router/router.dart';
-import 'package:rick_and_morty/core/styles/app_theme.dart';
 import 'package:rick_and_morty/core/utils/injections.dart';
 import 'package:rick_and_morty/features/characters/presentation/bloc/characters_bloc.dart';
+import 'package:rick_and_morty/features/episodes/presentation/bloc/episodes_bloc.dart';
+import 'package:rick_and_morty/features/locations/presentation/bloc/locations_bloc.dart';
+import 'package:rick_and_morty/shared/app_theme_bloc.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
   setup();
   runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -26,13 +22,24 @@ class _MyAppState extends State<MyApp> {
         BlocProvider<CharactersBloc>(
           create: (context) => getIt<CharactersBloc>(),
         ),
+        BlocProvider<LocationsBloc>(
+          create: (context) => getIt<LocationsBloc>(),
+        ),
+        BlocProvider<EpisodesBloc>(
+          create: (context) => getIt<EpisodesBloc>(),
+        ),
+        BlocProvider(create: (context) => ThemeBloc())
       ],
-      child: MaterialApp.router(
-            title: 'Rick & Mirty',
-            debugShowCheckedModeBanner: false,
-            theme: getAppTheme(context, false),
-            routerConfig: router,
-          ),
+      child: BlocBuilder<ThemeBloc, ThemeState>(
+        builder: (BuildContext context, ThemeState themeState) {
+          return MaterialApp.router(
+                title: 'Rick & Mirty',
+                debugShowCheckedModeBanner: false,
+                theme: themeState.themeData,
+                routerConfig: router,
+              );
+        }
+      ),
     );
   }
 }

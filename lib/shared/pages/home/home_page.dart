@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:rick_and_morty/core/images/images_consts.dart';
 import 'package:rick_and_morty/core/styles/app_colors.dart';
 
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key, required this.navigationShell});
 
@@ -14,7 +15,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: navigationShell,
       bottomNavigationBar: BottomNavigationBar(
-        items: _buildBottomNavBarItems,
+        items: _buildBottomNavBarItems(context),
         currentIndex: navigationShell.currentIndex,
         onTap: (index) => navigationShell.goBranch(
           index,
@@ -24,7 +25,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  List<BottomNavigationBarItem> get _buildBottomNavBarItems => [
+  List<BottomNavigationBarItem> _buildBottomNavBarItems(BuildContext context) => [
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
             AppSvg.characters,
@@ -36,10 +37,7 @@ class HomePage extends StatelessWidget {
           activeIcon: SvgPicture.asset(
             AppSvg.characters,
             colorFilter: ColorFilter.mode(
-              AppColors.statusAlive,
-              // ref.watch(appThemeProvider)
-              //     ? AppColors.statusAlive
-              //     : AppColors.buttonActive,
+              Theme.of(context).iconTheme.color!,
               BlendMode.srcIn,
             ),
           ),
@@ -58,10 +56,7 @@ class HomePage extends StatelessWidget {
               return SvgPicture.asset(
                 AppSvg.locations,
                 colorFilter: ColorFilter.mode(
-                  AppColors.statusAlive,
-                  // ref.watch(appThemeProvider)
-                  //     ? AppColors.statusAlive
-                  //     : AppColors.buttonActive,
+                  Theme.of(context).iconTheme.color!,
                   BlendMode.srcIn,
                 ),
               );
@@ -82,10 +77,7 @@ class HomePage extends StatelessWidget {
               return SvgPicture.asset(
                 AppSvg.episodes,
                 colorFilter: ColorFilter.mode(
-                  AppColors.statusAlive,
-                  // ref.watch(appThemeProvider)
-                  // ? AppColors.statusAlive
-                  // : AppColors.buttonActive,
+                  Theme.of(context).iconTheme.color!,
                   BlendMode.srcIn,
                 ),
               );
@@ -106,10 +98,7 @@ class HomePage extends StatelessWidget {
               return SvgPicture.asset(
                 AppSvg.settings,
                 colorFilter: ColorFilter.mode(
-                  AppColors.statusAlive,
-                  // ref.watch(appThemeProvider)
-                  //     ? AppColors.statusAlive
-                  //     : AppColors.buttonActive,
+                  Theme.of(context).iconTheme.color!,
                   BlendMode.srcIn,
                 ),
               );

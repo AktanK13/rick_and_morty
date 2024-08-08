@@ -11,10 +11,10 @@ class CharactersRepositoryImpl implements CharactersRepository {
   @override
   Future<Either<String, List<CharactersEntity>>> getCharacters(int page) async {
     try {
-      final movies = await remoteDataSource.fetchCharacters(page);
-      return Right(movies);
+      final characters = await remoteDataSource.fetchCharacters(page);
+      return Right(characters);
     } catch (e) {
-      return Left('Failed to fetch movies: ${e.toString()}');
+      return Left('Failed to fetch characters: ${e.toString()}');
     }
   }
 }

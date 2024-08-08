@@ -9,7 +9,7 @@ class CharactersRemoteDataSource {
   Future<List<CharactersModel>> fetchCharacters(int page) async {
     try {
       final response = await client.get(
-        AppConsts.baseUrl,
+        AppConsts.charactersUrl,
         queryParameters: {
           'page': page,
         },
@@ -19,10 +19,10 @@ class CharactersRemoteDataSource {
         final List<CharactersModel> characters = parseData(response.data);
         return characters;
       } else {
-        throw Exception('Failed to load movies');
+        throw Exception('Failed to load characters');
       }
     } catch (e) {
-      throw Exception('Failed to fetch movies: $e');
+      throw Exception('Failed to fetch characters: $e');
     }
   }
 

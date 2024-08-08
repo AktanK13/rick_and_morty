@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:rick_and_morty/core/utils/shared_preferences_service.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rick_and_morty/shared/app_theme_bloc.dart';
 
-class SettingsPage extends StatelessWidget {
+class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
 
+  @override
+  State<SettingsPage> createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,7 +17,7 @@ class SettingsPage extends StatelessWidget {
         title: const Text("characters page"),
       ),
       floatingActionButton: FloatingActionButton(onPressed: () {
-
+        BlocProvider.of<ThemeBloc>(context).add(ToggleTheme());
       }),
     );
   }

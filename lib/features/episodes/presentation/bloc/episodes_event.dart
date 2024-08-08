@@ -6,3 +6,13 @@ abstract class EpisodesEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+
+class FetchEpisodes extends EpisodesEvent {
+  const FetchEpisodes({required this.page});
+
+  final int page;
+
+  @override
+  List<Object> get props => [page];
+}
