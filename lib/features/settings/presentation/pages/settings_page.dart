@@ -16,9 +16,11 @@ class _SettingsPageState extends State<SettingsPage> {
       appBar: AppBar(
         title: const Text("characters page"),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        BlocProvider.of<ThemeBloc>(context).add(ToggleTheme());
-      }),
+      floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.switch_right),
+          onPressed: () {
+            BlocProvider.of<ThemeBloc>(context).add(ToggleTheme());
+          }),
     );
   }
 }

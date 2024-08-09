@@ -7,6 +7,7 @@ import 'package:rick_and_morty/core/styles/app_colors.dart';
 import 'package:rick_and_morty/core/styles/app_text_style.dart';
 import 'package:rick_and_morty/features/characters/domain/entities/entities.dart';
 import 'package:rick_and_morty/features/characters/presentation/bloc/characters_bloc.dart';
+import 'package:rick_and_morty/features/characters/presentation/widgets/detail_circle_avatar.dart';
 import 'package:rick_and_morty/shared/widgets/appbar_widget.dart';
 
 class CharactersPage extends StatefulWidget {
@@ -80,10 +81,9 @@ class _CharactersPageState extends State<CharactersPage> {
                           onTap: () {
                             context.go('/characters/details', extra: character);
                           },
-                          leading: CircleAvatar(
+                          leading: DetailCircleAvatar(
                             radius: 35,
-                            backgroundImage: NetworkImage(character.image),
-                            backgroundColor: AppColors.buttonDisabled,
+                            imageurl: character.image,
                           ),
                           title: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

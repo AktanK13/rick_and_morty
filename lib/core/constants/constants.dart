@@ -6,4 +6,5 @@ class AppConsts {
   static const pageSize = 20;
   static const darkThemeKey = "isDArkTheme";
   static const isDarkTheme = false;
+  static const heroCharacter = 'character';
 }
