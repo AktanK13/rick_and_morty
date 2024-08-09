@@ -1,3 +1,4 @@
+
 abstract class AppFontSize {
   static const double xxSmall = 10.0;
   static const double xSmall = 12.0;

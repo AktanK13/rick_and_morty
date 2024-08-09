@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:rick_and_morty/core/constants/constants.dart';
 import 'package:rick_and_morty/features/characters/data/models/characters_model.dart';
+import 'package:rick_and_morty/features/characters/data/models/info_model.dart';
 
 class CharactersRemoteDataSource {
   final Dio client;
@@ -25,9 +26,33 @@ class CharactersRemoteDataSource {
       throw Exception('Failed to fetch characters: $e');
     }
   }
+  Future<List<CharactersModel>> fetchSearchedCharacters(int page, String name) async {
+    try {
+      final response = await client.get(
+        AppConsts.charactersUrl,
+        queryParameters: {
+          'page': page,
+          'name': name,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final List<CharactersModel> characters = parseData(response.data);
+        return characters;
+      } else {
+        throw Exception('Failed to load characters');
+      }
+    } catch (e) {
+      throw Exception('Failed to fetch characters: $e');
+    }
+  }
 
   List<CharactersModel> parseData(responseBody) {
     final List<dynamic> jsonList = responseBody['results'];
     return jsonList.map((json) => CharactersModel.fromJson(json)).toList();
+  }
+  List<InfoModel> parseInfoData(responseBody) {
+    final List<dynamic> jsonInfo = responseBody['info'];
+    return jsonInfo.map((json) => InfoModel.fromJson(json)).toList();
   }
 }

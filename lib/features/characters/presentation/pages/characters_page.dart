@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:rick_and_morty/core/constants/constants.dart';
 import 'package:rick_and_morty/core/styles/app_colors.dart';
 import 'package:rick_and_morty/core/styles/app_text_style.dart';
 import 'package:rick_and_morty/features/characters/domain/entities/entities.dart';
 import 'package:rick_and_morty/features/characters/presentation/bloc/characters_bloc.dart';
+import 'package:rick_and_morty/shared/widgets/appbar_widget.dart';
 
 class CharactersPage extends StatefulWidget {
   const CharactersPage({super.key});
@@ -41,9 +43,7 @@ class _CharactersPageState extends State<CharactersPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("characters page"),
-      ),
+      appBar: const AppbarWidget(),
       body: SafeArea(
         top: false,
         child: Column(
@@ -75,14 +75,10 @@ class _CharactersPageState extends State<CharactersPage> {
                             itemBuilder: (context, character, index) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 5),
+                            horizontal: 0, vertical: 5),
                         child: ListTile(
                           onTap: () {
-                            // Navigator.pushNamed(
-                            //   context,
-                            //   '/detail',
-                            //   arguments: character,
-                            // );
+                            context.go('/characters/details', extra: character);
                           },
                           leading: CircleAvatar(
                             radius: 35,

@@ -17,4 +17,15 @@ class CharactersRepositoryImpl implements CharactersRepository {
       return Left('Failed to fetch characters: ${e.toString()}');
     }
   }
+
+  @override
+  Future<Either<String, List<CharactersEntity>>> searchCharacters(
+      int page, String name) async {
+    try {
+      final characters = await remoteDataSource.fetchSearchedCharacters(page, name);
+      return Right(characters);
+    } catch (e) {
+      return Left('Failed to fetch characters: ${e.toString()}');
+    }
+  }
 }

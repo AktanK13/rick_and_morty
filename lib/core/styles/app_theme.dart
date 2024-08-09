@@ -16,10 +16,13 @@ ThemeData getAppTheme(BuildContext context, isDarkTheme) {
       bodyLarge: TextStyle(
           color: isDarkTheme ? AppColors.textWhite : AppColors.textBlack),
       labelSmall: TextStyle(
+          fontSize: AppFontSize.medium,
           color: isDarkTheme ? AppColors.textWhite : AppColors.textBlack),
       labelMedium: TextStyle(
+          fontSize: AppFontSize.large,
           color: isDarkTheme ? AppColors.textWhite : AppColors.textBlack),
       labelLarge: TextStyle(
+          fontSize: AppFontSize.xLarge,
           color: isDarkTheme ? AppColors.textWhite : AppColors.textBlack),
       displaySmall: TextStyle(
           color: isDarkTheme ? AppColors.textWhite : AppColors.textBlack),
@@ -41,7 +44,10 @@ ThemeData getAppTheme(BuildContext context, isDarkTheme) {
       ),
     ),
     listTileTheme: ListTileThemeData(
-      iconColor: isDarkTheme ? AppColors.buttonActive : AppColors.buttonActive,
+      iconColor: isDarkTheme ? AppColors.backgroundWhite : AppColors.textBlack,
+      leadingAndTrailingTextStyle: TextStyle(
+        color: isDarkTheme ? AppColors.backgroundWhite : AppColors.textBlack,
+      ),
     ),
     appBarTheme: AppBarTheme(
       backgroundColor:
@@ -82,14 +88,25 @@ class AppTheme {
       bodySmall: const TextStyle(color: AppColors.textBlack),
       bodyMedium: const TextStyle(color: AppColors.textBlack),
       bodyLarge: const TextStyle(color: AppColors.textBlack),
-      labelSmall: const TextStyle(color: AppColors.textBlack),
-      labelMedium: const TextStyle(color: AppColors.textBlack),
-      labelLarge: const TextStyle(color: AppColors.textBlack),
+      labelSmall: const TextStyle(
+        color: AppColors.textBlack,
+        fontSize: AppFontSize.medium,
+      ),
+      labelMedium: const TextStyle(
+        color: AppColors.textBlack,
+        fontSize: AppFontSize.large,
+      ),
+      labelLarge: const TextStyle(
+        color: AppColors.textBlack,
+        fontSize: AppFontSize.xLarge,
+      ),
       displaySmall: const TextStyle(color: AppColors.textBlack),
       displayMedium: const TextStyle(color: AppColors.textBlack),
       displayLarge: const TextStyle(color: AppColors.textBlack),
     ),
-    iconTheme: const IconThemeData(color: AppColors.buttonActive),
+    iconTheme: const IconThemeData(
+      color: AppColors.buttonActive,
+    ),
     searchBarTheme: SearchBarThemeData(
       backgroundColor: WidgetStateProperty.all(
         AppColors.searchBackgroundWhite,
@@ -101,7 +118,7 @@ class AppTheme {
       ),
     ),
     listTileTheme: const ListTileThemeData(
-      iconColor: AppColors.buttonActive,
+      iconColor: AppColors.textBlack,
     ),
     appBarTheme: const AppBarTheme(
       backgroundColor: AppColors.backgroundWhite,
@@ -118,7 +135,7 @@ class AppTheme {
       selectedItemColor: AppColors.buttonActive,
       unselectedItemColor: AppColors.buttonDisabled,
       selectedLabelStyle: TextStyle(fontSize: AppFontSize.xSmall),
-      unselectedLabelStyle: const TextStyle(
+      unselectedLabelStyle: TextStyle(
         color: AppColors.buttonDisabled,
         fontSize: AppFontSize.xSmall,
       ),
@@ -161,7 +178,7 @@ class AppTheme {
       ),
     ),
     listTileTheme: const ListTileThemeData(
-      iconColor: AppColors.buttonActive,
+      iconColor: AppColors.textWhite,
     ),
     appBarTheme: const AppBarTheme(
       backgroundColor: AppColors.backgroundDark,
