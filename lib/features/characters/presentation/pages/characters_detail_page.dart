@@ -215,28 +215,30 @@ class CharactersDetailPage extends StatelessWidget {
                     ],
                   ),
                   addVerticalSpace(24),
-                  ListView.separated(
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        contentPadding: const EdgeInsets.all(0),
-                        title: Text(
-                          character.episode[index],
-                          style: AppTextStyle.mediumBlack
-                              .copyWith(color: AppColors.textGray),
-                        ),
-                        subtitle: Text(
-                          character.origin.name,
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                        trailing: const Icon(
-                          Icons.arrow_forward_ios,
-                        ),
-                      );
-                    },
-                    separatorBuilder: (BuildContext context, int index) {
-                      return addVerticalSpace(24);
-                    },
-                    itemCount: character.episode.length,
+                  Expanded(
+                    child: ListView.separated(
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          contentPadding: const EdgeInsets.all(0),
+                          title: Text(
+                            character.episode[index],
+                            style: AppTextStyle.mediumBlack
+                                .copyWith(color: AppColors.textGray),
+                          ),
+                          subtitle: Text(
+                            character.origin.name,
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          trailing: const Icon(
+                            Icons.arrow_forward_ios,
+                          ),
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return addVerticalSpace(24);
+                      },
+                      itemCount: character.episode.length,
+                    ),
                   )
                 ],
               ),
