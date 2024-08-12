@@ -77,12 +77,9 @@ class DetailAppBar extends StatelessWidget {
                 child: CircleAvatar(
                   radius: 83.r,
                   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                  child: Hero(
-                    tag: 'tag',
-                    child: DetailCircleAvatar(
-                      radius: 73,
-                      imageurl: character.image,
-                    ),
+                  child: DetailCircleAvatar(
+                    radius: 63.r,
+                    imageurl: character.image,
                   ),
                 ),
               )

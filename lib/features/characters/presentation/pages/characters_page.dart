@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:rick_and_morty/core/constants/constants.dart';
@@ -8,8 +9,11 @@ import 'package:rick_and_morty/core/styles/app_colors.dart';
 import 'package:rick_and_morty/core/styles/app_text_style.dart';
 import 'package:rick_and_morty/features/characters/domain/entities/entities.dart';
 import 'package:rick_and_morty/features/characters/presentation/bloc/characters_bloc.dart';
+import 'package:rick_and_morty/features/characters/presentation/widgets/character_paged_grid_view.dart';
+import 'package:rick_and_morty/features/characters/presentation/widgets/character_paged_list_view.dart';
 import 'package:rick_and_morty/features/characters/presentation/widgets/detail_circle_avatar.dart';
 import 'package:rick_and_morty/shared/widgets/appbar_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CharactersPage extends StatefulWidget {
   const CharactersPage({super.key});
@@ -22,6 +26,9 @@ class _CharactersPageState extends State<CharactersPage> {
   final PagingController<int, CharactersEntity> _pagingController =
       PagingController(firstPageKey: 1);
 
+  int _count = 0;
+  bool _isGridView = false;
+
   @override
   void initState() {
     super.initState();
@@ -30,10 +37,18 @@ class _CharactersPageState extends State<CharactersPage> {
             page: pageKey,
           ));
     });
+    _getCount();
   }
 
   Future<void> _refreshPage() async {
     _pagingController.refresh();
+  }
+
+  Future<void> _getCount() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _count = prefs.getInt(AppConsts.count) ?? 0;
+    });
   }
 
   @override
@@ -50,6 +65,33 @@ class _CharactersPageState extends State<CharactersPage> {
         top: false,
         child: Column(
           children: [
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 16.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Всего персонажей: $_count',
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleSmall
+                        ?.copyWith(color: AppColors.textGray),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      setState(() {
+                        _isGridView = !_isGridView;
+                      });
+                    },
+                    icon: _isGridView
+                        ? const Icon(Icons.list_rounded,
+                            color: AppColors.textGray)
+                        : const Icon(Icons.grid_view_rounded,
+                            color: AppColors.textGray),
+                  ),
+                ],
+              ),
+            ),
             Expanded(
               child: BlocListener<CharactersBloc, CharactersState>(
                 listener: (context, state) {
@@ -69,52 +111,12 @@ class _CharactersPageState extends State<CharactersPage> {
                   }
                 },
                 child: RefreshIndicator(
-                  onRefresh: _refreshPage,
-                  child: PagedListView<int, CharactersEntity>(
-                    pagingController: _pagingController,
-                    builderDelegate:
-                        PagedChildBuilderDelegate<CharactersEntity>(
-                            itemBuilder: (context, character, index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 0, vertical: 5),
-                        child: ListTile(
-                          onTap: () {
-                            context.go(AppRouter.charactersDetails, extra: character);
-                          },
-                          leading: DetailCircleAvatar(
-                            radius: 35,
-                            imageurl: character.image,
-                          ),
-                          title: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                character.status == 'Alive'
-                                    ? 'Живой'
-                                    : 'Мертвый',
-                                style: AppTextStyle.xSmallBlack.copyWith(
-                                  color: character.status == 'Alive'
-                                      ? AppColors.statusAlive
-                                      : AppColors.statusDead,
-                                ),
-                              ),
-                              Text(
-                                character.name,
-                                style: Theme.of(context).textTheme.titleMedium,
-                              ),
-                            ],
-                          ),
-                          subtitle: Text(
-                            '${character.species}/${character.gender == 'Male' ? 'Мужской' : 'Женский'}',
-                            style: TextStyle(
-                                color: Theme.of(context).unselectedWidgetColor),
-                          ),
-                        ),
-                      );
-                    }),
-                  ),
-                ),
+                    onRefresh: _refreshPage,
+                    child: _isGridView
+                        ? CharacterPagedGridView(
+                            pagingController: _pagingController)
+                        : CharacterPagedListView(
+                            pagingController: _pagingController)),
               ),
             ),
           ],

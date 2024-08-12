@@ -9,14 +9,14 @@ import 'package:rick_and_morty/features/locations/presentation/bloc/locations_bl
 import 'package:rick_and_morty/shared/app_theme_bloc.dart';
 
 void main() async {
-   WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   final ThemeState initialThemeState = await ThemeBloc.getInitialTheme();
   setup();
-  runApp( MyApp(initialThemeState));
+  runApp(MyApp(initialThemeState));
 }
 
 class MyApp extends StatelessWidget {
-   final ThemeState initialThemeState;
+  final ThemeState initialThemeState;
 
   const MyApp(this.initialThemeState, {super.key});
 

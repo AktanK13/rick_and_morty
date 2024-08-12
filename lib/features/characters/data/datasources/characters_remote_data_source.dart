@@ -1,13 +1,16 @@
+import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:rick_and_morty/core/constants/constants.dart';
 import 'package:rick_and_morty/features/characters/data/models/characters_model.dart';
 import 'package:rick_and_morty/features/characters/data/models/info_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CharactersRemoteDataSource {
   final Dio client;
   CharactersRemoteDataSource({required this.client});
 
   Future<List<CharactersModel>> fetchCharacters(int page) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     try {
       final response = await client.get(
         AppConsts.charactersUrl,
@@ -18,6 +21,9 @@ class CharactersRemoteDataSource {
 
       if (response.statusCode == 200) {
         final List<CharactersModel> characters = parseData(response.data);
+        final InfoModel info = parseInfoData(response.data);
+        await prefs.setInt(AppConsts.count, info.count ?? 0);
+
         return characters;
       } else {
         throw Exception('Failed to load characters');
@@ -26,7 +32,9 @@ class CharactersRemoteDataSource {
       throw Exception('Failed to fetch characters: $e');
     }
   }
-  Future<List<CharactersModel>> fetchSearchedCharacters(int page, String name) async {
+
+  Future<List<CharactersModel>> fetchSearchedCharacters(
+      int page, String name) async {
     try {
       final response = await client.get(
         AppConsts.charactersUrl,
@@ -51,8 +59,10 @@ class CharactersRemoteDataSource {
     final List<dynamic> jsonList = responseBody['results'];
     return jsonList.map((json) => CharactersModel.fromJson(json)).toList();
   }
-  List<InfoModel> parseInfoData(responseBody) {
-    final List<dynamic> jsonInfo = responseBody['info'];
-    return jsonInfo.map((json) => InfoModel.fromJson(json)).toList();
+
+  InfoModel parseInfoData(responseBody) {
+    final Map<String, dynamic> jsonInfo = responseBody['info'];
+    // log('data-unique: jsonInfo: ${jsonInfo} ');
+    return InfoModel.fromJson(jsonInfo);
   }
 }

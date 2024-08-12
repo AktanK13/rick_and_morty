@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:rick_and_morty/core/styles/app_font_size.dart';
 
 import 'app_colors.dart';
@@ -122,6 +123,9 @@ class AppTheme {
     ),
     appBarTheme: const AppBarTheme(
       backgroundColor: AppColors.backgroundWhite,
+      foregroundColor: AppColors.backgroundWhite,
+      surfaceTintColor: Colors.transparent,
+      elevation: 0,
       titleTextStyle: TextStyle(
         color: AppColors.textBlack,
       ),
@@ -142,6 +146,13 @@ class AppTheme {
       type: BottomNavigationBarType.fixed,
       showSelectedLabels: true,
       showUnselectedLabels: true,
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ButtonStyle(
+        backgroundColor: WidgetStateProperty.all(AppColors.textGray),
+        textStyle: WidgetStateProperty.all(
+            const TextStyle(color: AppColors.textBlack)),
+      ),
     ),
   );
 
@@ -182,6 +193,9 @@ class AppTheme {
     ),
     appBarTheme: const AppBarTheme(
       backgroundColor: AppColors.backgroundDark,
+      foregroundColor: AppColors.backgroundDark,
+      surfaceTintColor: Colors.transparent,
+      elevation: 0,
       titleTextStyle: TextStyle(
         color: AppColors.textWhite,
       ),
@@ -202,6 +216,13 @@ class AppTheme {
       type: BottomNavigationBarType.fixed,
       showSelectedLabels: true,
       showUnselectedLabels: true,
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ButtonStyle(
+        backgroundColor: WidgetStateProperty.all(AppColors.textGray),
+        textStyle: WidgetStateProperty.all(
+            const TextStyle(color: AppColors.textBlack)),
+      ),
     ),
   );
 }
