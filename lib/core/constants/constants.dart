@@ -7,4 +7,5 @@ class AppConsts {
   static const darkThemeKey = "isDArkTheme";
   static const isDarkTheme = false;
   static const heroCharacter = 'character';
+
 }

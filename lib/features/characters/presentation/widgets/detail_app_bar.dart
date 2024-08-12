@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rick_and_morty/core/constants/constants.dart';
 import 'package:rick_and_morty/core/styles/app_colors.dart';
 import 'package:rick_and_morty/features/characters/domain/entities/entities.dart';
 import 'package:rick_and_morty/features/characters/presentation/widgets/detail_circle_avatar.dart';

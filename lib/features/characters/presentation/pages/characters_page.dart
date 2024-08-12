@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:rick_and_morty/core/constants/constants.dart';
+import 'package:rick_and_morty/core/router/app_router.dart';
 import 'package:rick_and_morty/core/styles/app_colors.dart';
 import 'package:rick_and_morty/core/styles/app_text_style.dart';
 import 'package:rick_and_morty/features/characters/domain/entities/entities.dart';
@@ -79,7 +80,7 @@ class _CharactersPageState extends State<CharactersPage> {
                             horizontal: 0, vertical: 5),
                         child: ListTile(
                           onTap: () {
-                            context.go('/characters/details', extra: character);
+                            context.go(AppRouter.charactersDetails, extra: character);
                           },
                           leading: DetailCircleAvatar(
                             radius: 35,

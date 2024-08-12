@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:rick_and_morty/core/constants/constants.dart';
+import 'package:rick_and_morty/core/router/app_router.dart';
 import 'package:rick_and_morty/features/episodes/domain/entities/episodes_entity.dart';
 import 'package:rick_and_morty/features/episodes/presentation/bloc/episodes_bloc.dart';
 
@@ -74,11 +76,7 @@ class _EpisodesPageState extends State<EpisodesPage> {
                             horizontal: 8, vertical: 5),
                         child: ListTile(
                           onTap: () {
-                            // Navigator.pushNamed(
-                            //   context,
-                            //   '/detail',
-                            //   arguments: character,
-                            // );
+                            context.go(AppRouter.episodesDetails, extra: character);
                           },
                           title: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
