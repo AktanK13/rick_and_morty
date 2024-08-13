@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:rick_and_morty/core/constants/constants.dart';
-import 'package:rick_and_morty/core/router/app_router.dart';
 import 'package:rick_and_morty/core/styles/app_colors.dart';
-import 'package:rick_and_morty/core/styles/app_text_style.dart';
 import 'package:rick_and_morty/features/characters/domain/entities/entities.dart';
 import 'package:rick_and_morty/features/characters/presentation/bloc/characters_bloc.dart';
 import 'package:rick_and_morty/features/characters/presentation/widgets/character_paged_grid_view.dart';
 import 'package:rick_and_morty/features/characters/presentation/widgets/character_paged_list_view.dart';
-import 'package:rick_and_morty/features/characters/presentation/widgets/detail_circle_avatar.dart';
-import 'package:rick_and_morty/shared/widgets/appbar_widget.dart';
+import 'package:rick_and_morty/shared/widgets/search_appbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CharactersPage extends StatefulWidget {
@@ -60,13 +56,13 @@ class _CharactersPageState extends State<CharactersPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppbarWidget(),
+      appBar: const SearchAppbar(),
       body: SafeArea(
         top: false,
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 16.w),
+              padding: EdgeInsets.symmetric(vertical: 6.h, horizontal: 16.w),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

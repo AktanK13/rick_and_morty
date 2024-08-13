@@ -1,5 +1,6 @@
 abstract class AppPng {
   static const String bell = "assets/images/png/splash_screen_logo.png";
+  static const String notFound = "assets/images/png/not_found.png";
 }
 
 abstract class AppSvg {

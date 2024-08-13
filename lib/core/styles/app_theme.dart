@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:rick_and_morty/core/styles/app_font_size.dart';
 
 import 'app_colors.dart';
@@ -84,6 +83,8 @@ ThemeData getAppTheme(BuildContext context, isDarkTheme) {
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
     fontFamily: 'Roboto',
+    primaryColorLight: AppColors.buttonActive,
+    colorSchemeSeed: AppColors.buttonActive,
     scaffoldBackgroundColor: AppColors.backgroundWhite,
     textTheme: const TextTheme().copyWith(
       bodySmall: const TextStyle(color: AppColors.textBlack),
@@ -148,16 +149,37 @@ class AppTheme {
       showUnselectedLabels: true,
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ButtonStyle(
-        backgroundColor: WidgetStateProperty.all(AppColors.textGray),
-        textStyle: WidgetStateProperty.all(
-            const TextStyle(color: AppColors.textBlack)),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.backgroundWhite,
+        foregroundColor: AppColors.buttonActive,
+        elevation: 0,
+        textStyle: const TextStyle(fontSize: 16),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+          side: const BorderSide(
+            color: AppColors.buttonActive,
+            width: 1,
+          ),
+        ),
       ),
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      hintStyle: const TextStyle(color: AppColors.textGray),
+      filled: true,
+      iconColor: AppColors.textGray,
+      fillColor: AppColors.searchBackgroundWhite,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(30),
+        borderSide: BorderSide.none,
+      ),
+      contentPadding: const EdgeInsets.all(0),
     ),
   );
 
   static ThemeData darkTheme = ThemeData(
     fontFamily: 'Roboto',
+    primaryColorDark: AppColors.statusAlive,
+    colorSchemeSeed: AppColors.statusAlive,
     scaffoldBackgroundColor: AppColors.backgroundDark,
     textTheme: const TextTheme().copyWith(
       bodySmall: const TextStyle(color: AppColors.textWhite),
@@ -218,11 +240,32 @@ class AppTheme {
       showUnselectedLabels: true,
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ButtonStyle(
-        backgroundColor: WidgetStateProperty.all(AppColors.textGray),
-        textStyle: WidgetStateProperty.all(
-            const TextStyle(color: AppColors.textBlack)),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.backgroundDark,
+        foregroundColor: AppColors.buttonActive,
+        elevation: 0,
+        textStyle: const TextStyle(fontSize: 16),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+          side: const BorderSide(
+            color: AppColors.buttonActive,
+            width: 1,
+          ),
+        ),
       ),
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      hintStyle: const TextStyle(color: AppColors.textGray),
+      filled: true,
+      iconColor: AppColors.textGray,
+      suffixIconColor: AppColors.textGray,
+      prefixIconColor: AppColors.textGray,
+      fillColor: AppColors.searchBackgroundDark,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(30),
+        borderSide: BorderSide.none,
+      ),
+      contentPadding: const EdgeInsets.all(0),
     ),
   );
 }

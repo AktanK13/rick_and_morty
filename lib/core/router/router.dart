@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rick_and_morty/features/characters/domain/entities/entities.dart';
 import 'package:rick_and_morty/features/characters/presentation/pages/characters_detail_page.dart';
+import 'package:rick_and_morty/features/characters/presentation/pages/characters_filter_page.dart';
 import 'package:rick_and_morty/features/characters/presentation/pages/characters_page.dart';
+import 'package:rick_and_morty/features/characters/presentation/pages/characters_search_page.dart';
 import 'package:rick_and_morty/features/episodes/domain/entities/episodes_entity.dart';
 import 'package:rick_and_morty/features/episodes/presentation/pages/episode_detail_page.dart';
 import 'package:rick_and_morty/features/episodes/presentation/pages/episodes_page.dart';
@@ -33,6 +35,18 @@ final router = GoRouter(
                     return CharactersDetailPage(
                       character: character,
                     );
+                  },
+                ),
+                GoRoute(
+                  path: 'search',
+                  builder: (BuildContext context, GoRouterState state) {
+                    return const CharactersSearchPage();
+                  },
+                ),
+                GoRoute(
+                  path: 'filter',
+                  builder: (BuildContext context, GoRouterState state) {
+                    return const CharactersFilterPage();
                   },
                 ),
               ],

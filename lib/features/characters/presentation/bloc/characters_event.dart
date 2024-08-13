@@ -17,7 +17,7 @@ class FetchCharacters extends CharactersEvent {
 }
 
 class SearchCharacters extends CharactersEvent {
-  const SearchCharacters(this.name, {required this.page});
+  const SearchCharacters({required this.page, required this.name});
   final int page;
   final String name;
 

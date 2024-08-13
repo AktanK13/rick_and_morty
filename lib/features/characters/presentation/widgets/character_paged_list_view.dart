@@ -18,6 +18,9 @@ class CharacterPagedListView extends StatelessWidget {
     return PagedListView<int, CharactersEntity>(
       pagingController: pagingController,
       builderDelegate: PagedChildBuilderDelegate<CharactersEntity>(
+        firstPageProgressIndicatorBuilder: (context) {
+          return const Center(child: Text('nothing here!'));
+        },
         itemBuilder: (context, character, index) {
           return Padding(
             padding: EdgeInsets.symmetric(vertical: 10.h),

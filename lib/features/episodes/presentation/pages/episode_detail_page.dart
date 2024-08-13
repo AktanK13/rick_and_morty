@@ -4,10 +4,12 @@ import 'package:rick_and_morty/core/styles/app_colors.dart';
 import 'package:rick_and_morty/core/utils/sized_box_helper.dart';
 import 'package:rick_and_morty/features/characters/presentation/widgets/detail_character_text.dart';
 import 'package:rick_and_morty/features/episodes/domain/entities/episodes_entity.dart';
+import 'package:rick_and_morty/shared/widgets/divider_line.dart';
 
 class EpisodeDetailPage extends StatelessWidget {
   const EpisodeDetailPage({
-    super.key, required this.episode,
+    super.key,
+    required this.episode,
   });
 
   final EpisodesEntity episode;
@@ -34,12 +36,7 @@ class EpisodeDetailPage extends StatelessWidget {
                   )
                 ],
               ),
-              addVerticalSpace(36),
-              Divider(
-                height: 2.h,
-                color: AppColors.dividerColor,
-              ),
-              addVerticalSpace(36),
+              const DividerLine(),
               Row(
                 children: [
                   Text(

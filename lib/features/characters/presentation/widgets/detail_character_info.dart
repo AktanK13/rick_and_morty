@@ -5,6 +5,7 @@ import 'package:rick_and_morty/core/utils/sized_box_helper.dart';
 import 'package:rick_and_morty/features/characters/domain/entities/entities.dart';
 import 'package:rick_and_morty/features/characters/presentation/widgets/detail_character_list_tile.dart';
 import 'package:rick_and_morty/features/characters/presentation/widgets/detail_character_text.dart';
+import 'package:rick_and_morty/shared/widgets/divider_line.dart';
 
 class DetailCharacterInfo extends StatelessWidget {
   const DetailCharacterInfo({super.key, required this.character});
@@ -62,12 +63,7 @@ class DetailCharacterInfo extends StatelessWidget {
               characterInfo: character.location.name,
               title: "Местоположение",
             ),
-            addVerticalSpace(36),
-            Divider(
-              height: 2.h,
-              color: AppColors.dividerColor,
-            ),
-            addVerticalSpace(36),
+            DividerLine(),
             Row(
               children: [
                 Text(
