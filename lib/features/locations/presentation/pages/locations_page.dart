@@ -4,8 +4,10 @@ import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:rick_and_morty/core/constants/constants.dart';
 import 'package:rick_and_morty/core/router/app_router.dart';
+import 'package:rick_and_morty/core/utils/sized_box_helper.dart';
 import 'package:rick_and_morty/features/locations/domain/entities/location_entity.dart';
 import 'package:rick_and_morty/features/locations/presentation/bloc/locations_bloc.dart';
+import 'package:rick_and_morty/shared/pages/not_found.dart';
 
 class LocationsPage extends StatefulWidget {
   const LocationsPage({super.key});
@@ -15,26 +17,53 @@ class LocationsPage extends StatefulWidget {
 }
 
 class _LocationsPageState extends State<LocationsPage> {
-  final PagingController<int, LocationsEntity> _pagingController =
-      PagingController(firstPageKey: 1);
+  final ScrollController _scrollController = ScrollController();
+
+  List<LocationsEntity> _locations = [];
+
+  int _currentPage = 1;
+  bool _isLoading = false;
+  bool _isLastPage = false;
 
   @override
   void initState() {
     super.initState();
-    _pagingController.addPageRequestListener((pageKey) {
-      context.read<LocationsBloc>().add(FetchLocations(
-            page: pageKey,
-          ));
+    _scrollController.addListener(_scrollListener);
+    _fetchLocations(_currentPage);
+  }
+
+  void _fetchLocations(int page) {
+    if (_isLoading || _isLastPage) return;
+    setState(() {
+      _isLoading = true;
     });
+    context.read<LocationsBloc>().add(FetchLocations(
+          page: page,
+        ));
+  }
+
+  void _scrollListener() {
+    if (_scrollController.position.extentAfter < 500 && !_isLoading) {
+      _fetchLocations(
+        _currentPage + 1,
+      );
+    }
   }
 
   Future<void> _refreshPage() async {
-    _pagingController.refresh();
+    setState(() {
+      _locations.clear();
+      _currentPage = 1;
+      _isLastPage = false;
+    });
+    _fetchLocations(
+      _currentPage,
+    );
   }
 
   @override
   void dispose() {
-    _pagingController.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -55,54 +84,70 @@ class _LocationsPageState extends State<LocationsPage> {
               child: BlocListener<LocationsBloc, LocationsState>(
                 listener: (context, state) {
                   if (state is LocationsLoadedSuccess) {
-                    final isLastPage =
-                        state.locations.length < AppConsts.pageSize;
-                    if (isLastPage) {
-                      _pagingController.appendLastPage(state.locations);
-                    } else {
-                      final nextPageKey =
-                          (_pagingController.nextPageKey ?? 1) + 1;
-                      _pagingController.appendPage(
-                          state.locations, nextPageKey);
-                    }
+                    setState(() {
+                      final fetchedEpisodes = state.locations;
+                      _locations.addAll(fetchedEpisodes);
+                      _isLastPage = fetchedEpisodes.length < AppConsts.pageSize;
+                      _isLoading = false;
+                      _currentPage++;
+                    });
+                  } else if (state is LocationsLoading && _isLoading) {
+                    const Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: CircularProgressIndicator(),
+                    );
                   } else if (state is LocationsError) {
-                    _pagingController.error = state.message;
+                    setState(() {
+                      _isLoading = false;
+                    });
+                    const NotFound();
                   }
                 },
                 child: RefreshIndicator(
                   onRefresh: _refreshPage,
-                  child: PagedListView<int, LocationsEntity>(
-                    pagingController: _pagingController,
-                    builderDelegate: PagedChildBuilderDelegate<LocationsEntity>(
-                        itemBuilder: (context, location, index) {
+                  child: ListView.separated(
+                    controller: _scrollController,
+                    itemCount: _locations.length + (_isLoading ? 1 : 0),
+                    separatorBuilder: (context, index) {
+                      return addVerticalSpace(16);
+                    },
+                    itemBuilder: (context, index) {
+                      if (index >= _locations.length) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+
+                      final episodes = _locations[index];
                       return Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8, vertical: 5),
                         child: ListTile(
                           onTap: () {
-                            context.go(AppRouter.locationsDetails,
-                                extra: location);
+                            context.go(AppRouter.episodesDetails,
+                                extra: episodes);
                           },
                           title: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(location.type,
-                                  style:
-                                      Theme.of(context).textTheme.titleSmall),
                               Text(
-                                location.name,
+                                episodes.type,
+                                style: Theme.of(context).textTheme.titleSmall,
+                              ),
+                              Text(
+                                episodes.name,
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                             ],
                           ),
                           subtitle: Text(
-                            location.dimension,
+                            episodes.dimension,
                             style: TextStyle(
                                 color: Theme.of(context).unselectedWidgetColor),
                           ),
                         ),
                       );
-                    }),
+                    },
                   ),
                 ),
               ),

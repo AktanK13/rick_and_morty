@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:rick_and_morty/core/constants/constants.dart';
+import 'package:rick_and_morty/core/router/app_router.dart';
 import 'package:rick_and_morty/core/styles/app_colors.dart';
 import 'package:rick_and_morty/features/characters/domain/entities/entities.dart';
 import 'package:rick_and_morty/features/characters/presentation/bloc/characters_bloc.dart';
@@ -29,26 +31,44 @@ class _CharactersPageState extends State<CharactersPage> {
   bool _isLoading = false;
   bool _isLastPage = false;
 
+  String? _selectedStatus = '';
+  String? _selectedGender = '';
+
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(_scrollListener);
-    _fetchCharacters(_currentPage);
+    _fetchCharacters(_currentPage, _selectedStatus, _selectedGender);
     _getCount();
   }
 
-  Future<void> _fetchCharacters(int page) async {
+  Future<void> _fetchCharacters(
+      int page, String? status, String? gender) async {
     if (_isLoading || _isLastPage) return;
     setState(() {
       _isLoading = true;
     });
-    context.read<CharactersBloc>().add(FetchCharacters(page: page));
+    context.read<CharactersBloc>().add(FetchCharacters(
+        page: page, status: _selectedStatus, gender: _selectedGender));
+    _getCount();
+
   }
 
   void _scrollListener() {
     if (_scrollController.position.extentAfter < 500 && !_isLoading) {
-      _fetchCharacters(_currentPage + 1);
+      _fetchCharacters(_currentPage + 1, _selectedStatus, _selectedGender);
     }
+  }
+
+  Future<void> _applyFilters(Map<String, String?> filters) async {
+    setState(() {
+      _selectedStatus = filters['status'];
+      _selectedGender = filters['gender'];
+      _characters.clear();
+      _currentPage = 1;
+      _isLastPage = false;
+    });
+    await _fetchCharacters(_currentPage, _selectedStatus, _selectedGender);
   }
 
   Future<void> _refreshPage() async {
@@ -57,7 +77,7 @@ class _CharactersPageState extends State<CharactersPage> {
       _currentPage = 1;
       _isLastPage = false;
     });
-    await _fetchCharacters(_currentPage);
+    await _fetchCharacters(_currentPage, _selectedStatus, _selectedGender);
   }
 
   Future<void> _getCount() async {
@@ -76,7 +96,11 @@ class _CharactersPageState extends State<CharactersPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const SearchAppbar(),
+      appBar: SearchAppbar(
+        applyFilters: _applyFilters,
+        selectedStatus: _selectedStatus,
+        selectedGender: _selectedGender,
+      ),
       body: SafeArea(
         top: false,
         child: Column(

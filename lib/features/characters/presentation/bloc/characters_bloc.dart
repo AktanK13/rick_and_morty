@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:rick_and_morty/features/characters/domain/entities/entities.dart';
@@ -16,7 +17,9 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
   void _onFetchCharacters(
       FetchCharacters event, Emitter<CharactersState> emit) async {
     emit(CharactersLoading());
-    final result = await useCases.getCharacters(event.page);
+    final result =
+        await useCases.getCharacters(event.page, event.status, event.gender);
+    log('data-unique: result: ${result} ');
     result.fold(
       (error) => emit(CharactersError(error)),
       (characters) {
@@ -24,6 +27,7 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
       },
     );
   }
+
   void _onSearchCharacters(
       SearchCharacters event, Emitter<CharactersState> emit) async {
     emit(CharactersLoading());

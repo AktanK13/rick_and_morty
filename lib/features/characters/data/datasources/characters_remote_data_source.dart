@@ -9,13 +9,15 @@ class CharactersRemoteDataSource {
   final Dio client;
   CharactersRemoteDataSource({required this.client});
 
-  Future<List<CharactersModel>> fetchCharacters(int page) async {
+  Future<List<CharactersModel>> fetchCharacters(int page, String? status, String? gender) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     try {
       final response = await client.get(
         AppConsts.charactersUrl,
         queryParameters: {
           'page': page,
+          'status': status,
+          'gender': gender,
         },
       );
 

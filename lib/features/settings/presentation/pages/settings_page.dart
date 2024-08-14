@@ -30,79 +30,113 @@ class _SettingsPageState extends State<SettingsPage> {
         centerTitle: false,
       ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-          child: Column(
-            children: [
-              Column(
-                children: [
-                  Row(
-                    children: [
-                      const CircleAvatar(
-                        radius: 40,
-                        backgroundColor: Colors.amber,
-                      ),
-                      addHorizontalSpace(16),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Oleg Belotserkovsky',
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                          Text(
-                            'Rick',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium
-                                ?.copyWith(color: AppColors.textGray),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                  addVerticalSpace(30),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: ElevatedButton(
-                      style: Theme.of(context).elevatedButtonTheme.style,
-                      onPressed: () {},
-                      child: const Text("Редактировать"),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+            child: Column(
+              children: [
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        const CircleAvatar(
+                          radius: 40,
+                          backgroundColor: Colors.amber,
+                        ),
+                        addHorizontalSpace(16),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Oleg Belotserkovsky',
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                            Text(
+                              'Rick',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(color: AppColors.textGray),
+                            )
+                          ],
+                        )
+                      ],
                     ),
-                  ),
-                  const DividerLine(),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text('Внешний вид'),
-                      addVerticalSpace(12),
-                      ListTile(
-                        contentPadding: const EdgeInsets.all(0),
-                        leading: const Icon(
-                          Icons.palette_outlined,
-                          size: 36,
-                        ),
-                        title: Text(
-                          'Темная тема',
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                        subtitle: Text(
-                          'Включена',
-                          style: AppTextStyle.mediumBlack
-                              .copyWith(color: AppColors.textGray),
-                        ),
-                        trailing: const Icon(Icons.arrow_forward_ios),
-                        onTap: () {
-                          // BlocProvider.of<ThemeBloc>(context)
-                          //     .add(ToggleTheme());
-                          _showThemeDialog(context);
-                        },
+                    addVerticalSpace(30),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: ElevatedButton(
+                        style: Theme.of(context).elevatedButtonTheme.style,
+                        onPressed: () {},
+                        child: const Text("Редактировать"),
                       ),
-                    ],
-                  ),
-                ],
-              )
-            ],
+                    ),
+                    const DividerLine(),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Внешний вид',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(color: AppColors.textGray),
+                        ),
+                        addVerticalSpace(12),
+                        ListTile(
+                          contentPadding: const EdgeInsets.all(0),
+                          leading: const Icon(
+                            Icons.palette_outlined,
+                            size: 36,
+                          ),
+                          title: Text(
+                            'Темная тема',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          subtitle: Text(
+                            'Включена',
+                            style: AppTextStyle.mediumBlack
+                                .copyWith(color: AppColors.textGray),
+                          ),
+                          trailing: const Icon(Icons.arrow_forward_ios),
+                          onTap: () {
+                            // BlocProvider.of<ThemeBloc>(context)
+                            //     .add(ToggleTheme());
+                            _showThemeDialog(context);
+                          },
+                        ),
+                        const DividerLine(),
+                        Text(
+                          'О приложении',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(color: AppColors.textGray),
+                        ),
+                        addVerticalSpace(12),
+                        Text(
+                          'Зигерионцы помещают Джерри и Рика в симуляцию, чтобы узнать секрет изготовления концен-трирован- ной темной материи.',
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        const DividerLine(),
+                        Text(
+                          'Версия приложения',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(color: AppColors.textGray),
+                        ),
+                        addVerticalSpace(12),
+                        Text(
+                          'Rick & Morty  v1.0.0',
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      ],
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),

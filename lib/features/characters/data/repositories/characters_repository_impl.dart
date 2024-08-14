@@ -9,9 +9,11 @@ class CharactersRepositoryImpl implements CharactersRepository {
   CharactersRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<Either<String, List<CharactersEntity>>> getCharacters(int page) async {
+  Future<Either<String, List<CharactersEntity>>> getCharacters(
+      int page, String? status, String? gender) async {
     try {
-      final characters = await remoteDataSource.fetchCharacters(page);
+      final characters =
+          await remoteDataSource.fetchCharacters(page, status, gender);
       return Right(characters);
     } catch (e) {
       return Left('Failed to fetch characters: ${e.toString()}');
@@ -22,7 +24,8 @@ class CharactersRepositoryImpl implements CharactersRepository {
   Future<Either<String, List<CharactersEntity>>> searchCharacters(
       int page, String name) async {
     try {
-      final characters = await remoteDataSource.fetchSearchedCharacters(page, name);
+      final characters =
+          await remoteDataSource.fetchSearchedCharacters(page, name);
       return Right(characters);
     } catch (e) {
       return Left('Failed to fetch characters: ${e.toString()}');
