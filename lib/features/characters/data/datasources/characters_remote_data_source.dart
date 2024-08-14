@@ -36,7 +36,6 @@ class CharactersRemoteDataSource {
   Future<List<CharactersModel>> fetchSearchedCharacters(
       int page, String name) async {
     try {
-      log('data-unique: 1 ');
       final response = await client.get(
         AppConsts.charactersUrl,
         queryParameters: {
@@ -47,7 +46,6 @@ class CharactersRemoteDataSource {
 
       if (response.statusCode == 200) {
         final List<CharactersModel> characters = parseData(response.data);
-        // log('data-unique: characters: ${characters} ');
         return characters;
       } else {
         throw Exception('Failed to load characters');
@@ -64,7 +62,6 @@ class CharactersRemoteDataSource {
 
   InfoModel parseInfoData(responseBody) {
     final Map<String, dynamic> jsonInfo = responseBody['info'];
-    // log('data-unique: jsonInfo: ${jsonInfo} ');
     return InfoModel.fromJson(jsonInfo);
   }
 }
