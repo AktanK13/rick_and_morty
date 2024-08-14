@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:rick_and_morty/core/constants/constants.dart';
 import 'package:rick_and_morty/core/styles/app_colors.dart';
 import 'package:rick_and_morty/features/characters/domain/entities/entities.dart';
 import 'package:rick_and_morty/features/characters/presentation/bloc/characters_bloc.dart';
 import 'package:rick_and_morty/features/characters/presentation/widgets/character_paged_grid_view.dart';
 import 'package:rick_and_morty/features/characters/presentation/widgets/character_paged_list_view.dart';
+import 'package:rick_and_morty/shared/pages/not_found.dart';
 import 'package:rick_and_morty/shared/widgets/search_appbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,25 +19,45 @@ class CharactersPage extends StatefulWidget {
 }
 
 class _CharactersPageState extends State<CharactersPage> {
-  final PagingController<int, CharactersEntity> _pagingController =
-      PagingController(firstPageKey: 1);
+  final ScrollController _scrollController = ScrollController();
+
+  List<CharactersEntity> _characters = [];
 
   int _count = 0;
+  int _currentPage = 1;
   bool _isGridView = false;
+  bool _isLoading = false;
+  bool _isLastPage = false;
 
   @override
   void initState() {
     super.initState();
-    _pagingController.addPageRequestListener((pageKey) {
-      context.read<CharactersBloc>().add(FetchCharacters(
-            page: pageKey,
-          ));
-    });
+    _scrollController.addListener(_scrollListener);
+    _fetchCharacters(_currentPage);
     _getCount();
   }
 
+  Future<void> _fetchCharacters(int page) async {
+    if (_isLoading || _isLastPage) return;
+    setState(() {
+      _isLoading = true;
+    });
+    context.read<CharactersBloc>().add(FetchCharacters(page: page));
+  }
+
+  void _scrollListener() {
+    if (_scrollController.position.extentAfter < 500 && !_isLoading) {
+      _fetchCharacters(_currentPage + 1);
+    }
+  }
+
   Future<void> _refreshPage() async {
-    _pagingController.refresh();
+    setState(() {
+      _characters.clear();
+      _currentPage = 1;
+      _isLastPage = false;
+    });
+    await _fetchCharacters(_currentPage);
   }
 
   Future<void> _getCount() async {
@@ -49,7 +69,7 @@ class _CharactersPageState extends State<CharactersPage> {
 
   @override
   void dispose() {
-    _pagingController.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -92,27 +112,40 @@ class _CharactersPageState extends State<CharactersPage> {
               child: BlocListener<CharactersBloc, CharactersState>(
                 listener: (context, state) {
                   if (state is CharactersLoadSuccess) {
-                    final isLastPage =
-                        state.characters.length < AppConsts.pageSize;
-                    if (isLastPage) {
-                      _pagingController.appendLastPage(state.characters);
-                    } else {
-                      final nextPageKey =
-                          (_pagingController.nextPageKey ?? 1) + 1;
-                      _pagingController.appendPage(
-                          state.characters, nextPageKey);
-                    }
+                    setState(() {
+                      final fetchedCharacters = state.characters;
+                      _characters.addAll(fetchedCharacters);
+                      _isLastPage =
+                          fetchedCharacters.length < AppConsts.pageSize;
+                      _isLoading = false;
+                      _currentPage++;
+                    });
+                  } else if (state is CharactersLoading && _isLoading) {
+                    const Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: CircularProgressIndicator(),
+                    );
                   } else if (state is CharactersError) {
-                    _pagingController.error = state.message;
+                    setState(() {
+                      _isLoading = false;
+                    });
+                    const NotFound();
                   }
                 },
                 child: RefreshIndicator(
-                    onRefresh: _refreshPage,
-                    child: _isGridView
-                        ? CharacterPagedGridView(
-                            pagingController: _pagingController)
-                        : CharacterPagedListView(
-                            pagingController: _pagingController)),
+                  onRefresh: _refreshPage,
+                  child: _isGridView
+                      ? CharacterPagedGridView(
+                          scrollController: _scrollController,
+                          characters: _characters,
+                          isLoading: _isLoading,
+                        )
+                      : CharacterPagedListView(
+                          scrollController: _scrollController,
+                          characters: _characters,
+                          isLoading: _isLoading,
+                        ),
+                ),
               ),
             ),
           ],

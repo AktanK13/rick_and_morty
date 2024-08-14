@@ -17,7 +17,6 @@ class LocationsBloc extends Bloc<LocationsEvent, LocationsState> {
       FetchLocations event, Emitter<LocationsState> emit) async {
     emit(LocationsLoading());
     final result = await usecase.getLocations(event.page);
-    log('data-unique: result: ${result} ');
     result.fold(
       (error) => emit(LocationsError(error)),
       (characters) {

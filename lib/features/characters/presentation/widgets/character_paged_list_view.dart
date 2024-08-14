@@ -1,63 +1,39 @@
 import 'package:flutter/material.dart';
-
-import 'package:go_router/go_router.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:rick_and_morty/core/styles/app_colors.dart';
-import 'package:rick_and_morty/core/styles/app_text_style.dart';
+import 'package:rick_and_morty/core/utils/sized_box_helper.dart';
 import 'package:rick_and_morty/features/characters/domain/entities/entities.dart';
-import 'package:rick_and_morty/features/characters/presentation/widgets/detail_circle_avatar.dart';
-
-import '../../../../core/router/app_router.dart';
+import 'package:rick_and_morty/features/characters/presentation/widgets/list_tile.dart';
 
 class CharacterPagedListView extends StatelessWidget {
-  const CharacterPagedListView({super.key, required this.pagingController});
-
-  final PagingController<int, CharactersEntity> pagingController;
+  const CharacterPagedListView({
+    super.key,
+    required ScrollController scrollController,
+    required List<CharactersEntity> characters,
+    required bool isLoading,
+  })  : _scrollController = scrollController,
+        _characters = characters,
+        _isLoading = isLoading;
+  final ScrollController _scrollController;
+  final List<CharactersEntity> _characters;
+  final bool _isLoading;
   @override
   Widget build(BuildContext context) {
-    return PagedListView<int, CharactersEntity>(
-      pagingController: pagingController,
-      builderDelegate: PagedChildBuilderDelegate<CharactersEntity>(
-        firstPageProgressIndicatorBuilder: (context) {
-          return const Center(child: Text('nothing here!'));
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: ListView.separated(
+        controller: _scrollController,
+        itemCount: _characters.length + (_isLoading ? 1 : 0),
+        separatorBuilder: (context, index) {
+          return addVerticalSpace(16);
         },
-        itemBuilder: (context, character, index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: ListTile(
-              contentPadding: const EdgeInsets.all(0),
-              horizontalTitleGap: 0,
-              onTap: () {
-                context.go(AppRouter.charactersDetails, extra: character);
-              },
-              leading: DetailCircleAvatar(
-                radius: 34,
-                imageurl: character.image,
-              ),
-              title: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    character.status == 'Alive' ? 'Живой' : 'Мертвый',
-                    style: AppTextStyle.xSmallBlack.copyWith(
-                      color: character.status == 'Alive'
-                          ? AppColors.statusAlive
-                          : AppColors.statusDead,
-                    ),
-                  ),
-                  Text(
-                    character.name,
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                ],
-              ),
-              subtitle: Text(
-                '${character.species}/${character.gender == 'Male' ? 'Мужской' : 'Женский'}',
-                style:
-                    TextStyle(color: Theme.of(context).unselectedWidgetColor),
-              ),
-            ),
-          );
+        itemBuilder: (context, index) {
+          if (index >= _characters.length) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          final character = _characters[index];
+          return CustomListTile(character: character);
         },
       ),
     );

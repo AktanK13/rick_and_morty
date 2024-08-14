@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:rick_and_morty/core/utils/injections.dart';
 import 'package:rick_and_morty/features/characters/domain/entities/entities.dart';
 import 'package:rick_and_morty/features/characters/presentation/pages/characters_detail_page.dart';
 import 'package:rick_and_morty/features/characters/presentation/pages/characters_filter_page.dart';
@@ -9,6 +11,7 @@ import 'package:rick_and_morty/features/episodes/domain/entities/episodes_entity
 import 'package:rick_and_morty/features/episodes/presentation/pages/episode_detail_page.dart';
 import 'package:rick_and_morty/features/episodes/presentation/pages/episodes_page.dart';
 import 'package:rick_and_morty/features/locations/domain/entities/location_entity.dart';
+import 'package:rick_and_morty/features/locations/presentation/bloc/locations_bloc.dart';
 import 'package:rick_and_morty/features/locations/presentation/pages/location_details_page.dart';
 import 'package:rick_and_morty/features/locations/presentation/pages/locations_page.dart';
 import 'package:rick_and_morty/features/settings/presentation/pages/settings_page.dart';
@@ -57,7 +60,10 @@ final router = GoRouter(
           routes: [
             GoRoute(
               path: '/locations',
-              builder: (context, state) => const LocationsPage(),
+              builder: (context, state) => BlocProvider<LocationsBloc>(
+                create: (context) => getIt<LocationsBloc>(),
+                child: const LocationsPage(),
+              ),
               routes: [
                 GoRoute(
                   path: 'details',

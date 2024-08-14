@@ -23,10 +23,10 @@ class _SettingsPageState extends State<SettingsPage> {
           "Настройки",
           style: Theme.of(context).textTheme.headlineSmall,
         ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () {},
-        ),
+        // leading: IconButton(
+        //   icon: const Icon(Icons.arrow_back_ios),
+        //   onPressed: () {},
+        // ),
         centerTitle: false,
       ),
       body: SafeArea(

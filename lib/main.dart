@@ -26,9 +26,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<CharactersBloc>(
           create: (context) => getIt<CharactersBloc>(),
         ),
-        BlocProvider<LocationsBloc>(
-          create: (context) => getIt<LocationsBloc>(),
-        ),
+        // BlocProvider<LocationsBloc>(
+        //   create: (context) => getIt<LocationsBloc>(),
+        // ),
         BlocProvider<EpisodesBloc>(
           create: (context) => getIt<EpisodesBloc>(),
         ),

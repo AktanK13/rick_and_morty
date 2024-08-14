@@ -42,7 +42,10 @@ class _EpisodesPageState extends State<EpisodesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("episodes page"),
+        title: Text(
+          "Эпизоды",
+          style: Theme.of(context).textTheme.labelMedium,
+        ),
       ),
       body: SafeArea(
         top: false,
@@ -76,7 +79,8 @@ class _EpisodesPageState extends State<EpisodesPage> {
                             horizontal: 8, vertical: 5),
                         child: ListTile(
                           onTap: () {
-                            context.go(AppRouter.episodesDetails, extra: character);
+                            context.go(AppRouter.episodesDetails,
+                                extra: character);
                           },
                           title: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

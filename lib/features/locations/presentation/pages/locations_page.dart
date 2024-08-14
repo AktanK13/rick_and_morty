@@ -42,7 +42,10 @@ class _LocationsPageState extends State<LocationsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("locations page"),
+        title: Text(
+          "Локациии",
+          style: Theme.of(context).textTheme.labelMedium,
+        ),
       ),
       body: SafeArea(
         top: false,
@@ -77,7 +80,8 @@ class _LocationsPageState extends State<LocationsPage> {
                             horizontal: 8, vertical: 5),
                         child: ListTile(
                           onTap: () {
-                            context.go(AppRouter.locationsDetails, extra: location);
+                            context.go(AppRouter.locationsDetails,
+                                extra: location);
                           },
                           title: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
