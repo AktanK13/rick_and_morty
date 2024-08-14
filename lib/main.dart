@@ -4,7 +4,6 @@ import 'package:rick_and_morty/core/router/router.dart';
 import 'package:rick_and_morty/core/utils/injections.dart';
 import 'package:rick_and_morty/features/characters/presentation/bloc/characters_bloc.dart';
 import 'package:rick_and_morty/features/episodes/presentation/bloc/episodes_bloc.dart';
-import 'package:rick_and_morty/features/locations/presentation/bloc/locations_bloc.dart';
 import 'package:rick_and_morty/shared/app_theme_bloc.dart';
 
 void main() async {
