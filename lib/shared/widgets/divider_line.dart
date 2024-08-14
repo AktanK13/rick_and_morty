@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:rick_and_morty/core/styles/app_colors.dart';
 import 'package:rick_and_morty/core/utils/sized_box_helper.dart';
 
@@ -11,8 +11,8 @@ class DividerLine extends StatelessWidget {
     return Column(
       children: [
         addVerticalSpace(36),
-        Divider(
-          height: 2.h,
+        const Divider(
+          height: 2,
           color: AppColors.dividerColor,
         ),
         addVerticalSpace(36),

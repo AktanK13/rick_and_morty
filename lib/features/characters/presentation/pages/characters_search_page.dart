@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:go_router/go_router.dart';
 import 'package:rick_and_morty/core/router/app_router.dart';
 import 'package:rick_and_morty/core/styles/app_colors.dart';
@@ -201,7 +201,7 @@ class _CharactersSearchPageState extends State<CharactersSearchPage> {
                                 extra: character);
                           },
                           leading: DetailCircleAvatar(
-                            radius: 34.r,
+                            radius: 34,
                             imageurl: character.image,
                           ),
                           title: Column(

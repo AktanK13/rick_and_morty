@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:rick_and_morty/core/styles/app_colors.dart';
 
 class DetailCircleAvatar extends StatelessWidget {
@@ -11,7 +11,7 @@ class DetailCircleAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-      radius: radius.r,
+      radius: radius,
       backgroundImage: NetworkImage(imageurl),
       backgroundColor: AppColors.buttonDisabled,
     );

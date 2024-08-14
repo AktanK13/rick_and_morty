@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:rick_and_morty/core/constants/constants.dart';
 import 'package:rick_and_morty/core/styles/app_colors.dart';
@@ -62,7 +62,7 @@ class _CharactersPageState extends State<CharactersPage> {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 6.h, horizontal: 16.w),
+              padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

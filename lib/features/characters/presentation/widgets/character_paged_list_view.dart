@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:rick_and_morty/core/styles/app_colors.dart';
@@ -23,7 +23,7 @@ class CharacterPagedListView extends StatelessWidget {
         },
         itemBuilder: (context, character, index) {
           return Padding(
-            padding: EdgeInsets.symmetric(vertical: 10.h),
+            padding: const EdgeInsets.symmetric(vertical: 10),
             child: ListTile(
               contentPadding: const EdgeInsets.all(0),
               horizontalTitleGap: 0,
@@ -31,7 +31,7 @@ class CharacterPagedListView extends StatelessWidget {
                 context.go(AppRouter.charactersDetails, extra: character);
               },
               leading: DetailCircleAvatar(
-                radius: 34.r,
+                radius: 34,
                 imageurl: character.image,
               ),
               title: Column(

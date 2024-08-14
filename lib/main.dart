@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rick_and_morty/core/router/router.dart';
 import 'package:rick_and_morty/core/utils/injections.dart';
 import 'package:rick_and_morty/features/characters/presentation/bloc/characters_bloc.dart';
@@ -37,14 +36,11 @@ class MyApp extends StatelessWidget {
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(
           builder: (BuildContext context, ThemeState themeState) {
-        return ScreenUtilInit(
-          designSize: const Size(375, 812),
-          child: MaterialApp.router(
-            title: 'Rick & Mirty',
-            debugShowCheckedModeBanner: false,
-            theme: themeState.themeData,
-            routerConfig: router,
-          ),
+        return MaterialApp.router(
+          title: 'Rick & Mirty',
+          debugShowCheckedModeBanner: false,
+          theme: themeState.themeData,
+          routerConfig: router,
         );
       }),
     );

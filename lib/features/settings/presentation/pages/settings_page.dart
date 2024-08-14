@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:rick_and_morty/core/styles/app_colors.dart';
 import 'package:rick_and_morty/core/styles/app_text_style.dart';
 import 'package:rick_and_morty/core/utils/sized_box_helper.dart';
@@ -31,7 +31,7 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 16.w),
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
           child: Column(
             children: [
               Column(
@@ -61,7 +61,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       )
                     ],
                   ),
-                  addVerticalSpace(30.h),
+                  addVerticalSpace(30),
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: ElevatedButton(

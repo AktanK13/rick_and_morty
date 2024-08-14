@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:rick_and_morty/core/styles/app_colors.dart';
 import 'package:rick_and_morty/core/utils/sized_box_helper.dart';
 import 'package:rick_and_morty/features/characters/domain/entities/entities.dart';

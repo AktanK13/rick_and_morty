@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:rick_and_morty/core/router/app_router.dart';
@@ -32,7 +32,7 @@ class CharacterPagedGridView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 DetailCircleAvatar(
-                  radius: 40.r,
+                  radius: 40,
                   imageurl: character.image,
                 ),
                 addVerticalSpace(18),
