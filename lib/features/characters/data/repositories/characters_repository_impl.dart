@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:rick_and_morty/features/characters/data/datasources/characters_remote_data_source.dart';
-import 'package:rick_and_morty/features/characters/domain/entities/entities.dart';
 import 'package:rick_and_morty/features/characters/domain/entities/main_entity.dart';
 import 'package:rick_and_morty/features/characters/domain/repositories/characters_repository.dart';
 

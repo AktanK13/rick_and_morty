@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:rick_and_morty/features/characters/domain/entities/entities.dart';
 import 'package:rick_and_morty/features/characters/domain/entities/main_entity.dart';
 
 abstract class CharactersRepository {
