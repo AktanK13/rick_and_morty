@@ -18,7 +18,7 @@ class EpisodesPage extends StatefulWidget {
 class _EpisodesPageState extends State<EpisodesPage> {
   final ScrollController _scrollController = ScrollController();
 
-  List<EpisodesEntity> _episodes = [];
+  final List<EpisodesEntity> _episodes = [];
 
   int _currentPage = 1;
   bool _isLoading = false;

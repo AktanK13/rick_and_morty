@@ -22,9 +22,14 @@ class FetchCharacters extends CharactersEvent {
 }
 
 class SearchCharacters extends CharactersEvent {
-  const SearchCharacters({required this.page, required this.name});
+  const SearchCharacters({
+    required this.page,
+    required this.name,
+    required this.isLoadMore,
+  });
   final int page;
   final String name;
+  final bool isLoadMore;
 
   @override
   List<Object> get props => [page, name];

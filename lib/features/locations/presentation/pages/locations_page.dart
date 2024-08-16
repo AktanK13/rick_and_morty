@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:rick_and_morty/core/constants/constants.dart';
 import 'package:rick_and_morty/core/router/app_router.dart';
 import 'package:rick_and_morty/core/utils/sized_box_helper.dart';
@@ -19,7 +18,7 @@ class LocationsPage extends StatefulWidget {
 class _LocationsPageState extends State<LocationsPage> {
   final ScrollController _scrollController = ScrollController();
 
-  List<LocationsEntity> _locations = [];
+  final List<LocationsEntity> _locations = [];
 
   int _currentPage = 1;
   bool _isLoading = false;

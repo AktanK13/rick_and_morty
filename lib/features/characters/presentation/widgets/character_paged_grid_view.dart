@@ -21,7 +21,7 @@ class CharacterPagedGridView extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: GridView.builder(
         controller: _scrollController,
-        itemCount: _characters.length + (_isLoading ? 1 : 0),
+        itemCount: _characters.length + (_isLoading ? 0 : 1),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           childAspectRatio: 0.9,

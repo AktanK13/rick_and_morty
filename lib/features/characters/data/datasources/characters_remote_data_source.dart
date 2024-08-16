@@ -3,14 +3,15 @@ import 'package:dio/dio.dart';
 import 'package:rick_and_morty/core/constants/constants.dart';
 import 'package:rick_and_morty/features/characters/data/models/characters_model.dart';
 import 'package:rick_and_morty/features/characters/data/models/info_model.dart';
+import 'package:rick_and_morty/features/characters/data/models/main_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CharactersRemoteDataSource {
   final Dio client;
   CharactersRemoteDataSource({required this.client});
 
-  Future<List<CharactersModel>> fetchCharacters(int page, String? status, String? gender) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
+  Future<MainModel> fetchCharacters(
+      int page, String? status, String? gender) async {
     try {
       final response = await client.get(
         AppConsts.charactersUrl,
@@ -24,9 +25,10 @@ class CharactersRemoteDataSource {
       if (response.statusCode == 200) {
         final List<CharactersModel> characters = parseData(response.data);
         final InfoModel info = parseInfoData(response.data);
-        await prefs.setInt(AppConsts.count, info.count ?? 0);
+        final MainModel data =
+            MainModel(charactersEntity: characters, info: info);
 
-        return characters;
+        return data;
       } else {
         throw Exception('Failed to load characters');
       }

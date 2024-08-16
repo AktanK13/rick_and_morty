@@ -3,15 +3,10 @@ import 'package:go_router/go_router.dart';
 import 'package:rick_and_morty/core/router/app_router.dart';
 
 class SearchAppbar extends StatelessWidget implements PreferredSizeWidget {
-  const SearchAppbar(
-      {super.key,
-      required this.applyFilters,
-      required this.selectedStatus,
-      required this.selectedGender});
+  const SearchAppbar({
+    super.key,
+  });
 
-  final Function applyFilters;
-  final String? selectedStatus;
-  final String? selectedGender;
   @override
   Widget build(BuildContext context) {
     InputDecorationTheme textfieldTheme =
@@ -35,17 +30,8 @@ class SearchAppbar extends StatelessWidget implements PreferredSizeWidget {
               prefixIcon: const Icon(Icons.search),
               suffixIcon: IconButton(
                 icon: const Icon(Icons.filter_list),
-                onPressed: () async {
-                  final result = await context.push(
-                    AppRouter.charactersFilter,
-                    extra: {
-                      'status': selectedStatus,
-                      'gender': selectedGender,
-                    },
-                  );
-                  if (result != null && result is Map<String, String?>) {
-                    await applyFilters(result);
-                  }
+                onPressed: () {
+                  context.push(AppRouter.charactersFilter);
                 },
               ),
               iconColor: textfieldTheme.iconColor,

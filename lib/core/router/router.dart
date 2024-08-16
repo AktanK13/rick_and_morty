@@ -49,9 +49,7 @@ final router = GoRouter(
                 GoRoute(
                   path: 'filter',
                   builder: (BuildContext context, GoRouterState state) {
-                    final Map<String, String?> select =
-                        GoRouterState.of(context).extra as Map<String, String?>;
-                    return CharactersFilterPage(select: select);
+                    return CharactersFilterPage();
                   },
                 ),
               ],

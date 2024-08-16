@@ -21,7 +21,7 @@ class CharacterPagedListView extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: ListView.separated(
         controller: _scrollController,
-        itemCount: _characters.length + (_isLoading ? 1 : 0),
+        itemCount: _characters.length + (_isLoading ? 0 : 1),
         separatorBuilder: (context, index) {
           return addVerticalSpace(16);
         },

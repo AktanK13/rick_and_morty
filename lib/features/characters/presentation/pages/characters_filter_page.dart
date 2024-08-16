@@ -1,23 +1,27 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:rick_and_morty/features/characters/presentation/bloc/characters_bloc.dart';
 
 class CharactersFilterPage extends StatefulWidget {
-  const CharactersFilterPage({super.key, required this.select});
+  const CharactersFilterPage({
+    super.key,
+  });
 
-  final Map<String, String?> select;
   @override
   State<CharactersFilterPage> createState() => _CharactersFilterPageState();
 }
 
 class _CharactersFilterPageState extends State<CharactersFilterPage> {
-  String? selectedStatus = '';
-  String? selectedGnder = '';
+  String selectedStatus = '';
+  String selectedGnder = '';
 
   void _resetFilters() {
-    setState(() {
-      widget.select['status'] = '';
-      widget.select['gender'] = '';
-    });
+    // setState(() {
+    //   widget.select['status'] = '';
+    //   widget.select['gender'] = '';
+    // });
   }
 
   @override
@@ -52,11 +56,11 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               value: 'alive',
-              groupValue: widget.select['status'],
+              groupValue: selectedStatus,
               onChanged: (value) {
                 setState(() {
+                  selectedStatus = value!;
                   selectedStatus = value;
-                  widget.select['status'] = value;
                 });
               },
             ),
@@ -66,11 +70,11 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               value: 'dead',
-              groupValue: widget.select['status'],
+              groupValue: selectedStatus,
               onChanged: (value) {
                 setState(() {
+                  selectedStatus = value!;
                   selectedStatus = value;
-                  widget.select['status'] = value;
                 });
               },
             ),
@@ -80,11 +84,11 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               value: '',
-              groupValue: widget.select['status'],
+              groupValue: selectedStatus,
               onChanged: (value) {
                 setState(() {
+                  selectedStatus = value!;
                   selectedStatus = value;
-                  widget.select['status'] = value;
                 });
               },
             ),
@@ -99,11 +103,11 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               value: 'male',
-              groupValue: widget.select['gender'],
+              groupValue: selectedGnder,
               onChanged: (value) {
                 setState(() {
+                  selectedGnder = value!;
                   selectedGnder = value;
-                  widget.select['gender'] = value;
                 });
               },
             ),
@@ -113,11 +117,11 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               value: 'female',
-              groupValue: widget.select['gender'],
+              groupValue: selectedGnder,
               onChanged: (value) {
                 setState(() {
+                  selectedGnder = value!;
                   selectedGnder = value;
-                  widget.select['gender'] = value;
                 });
               },
             ),
@@ -127,11 +131,11 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               value: '',
-              groupValue: widget.select['gender'],
+              groupValue: selectedGnder,
               onChanged: (value) {
                 setState(() {
+                  selectedGnder = value!;
                   selectedGnder = value;
-                  widget.select['gender'] = value;
                 });
               },
             ),
@@ -140,10 +144,13 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          context.pop({
-            'status': widget.select['status'],
-            'gender': widget.select['gender'],
-          });
+          // context.read<CharactersBloc>().add(FetchCharacters(
+          //       page: 1,
+          //       status: selectedStatus,
+          //       gender: selectedGnder,
+          //       isLoadMore: null,
+          //     ));
+          Navigator.pop(context);
         },
         child: const Icon(Icons.check),
       ),

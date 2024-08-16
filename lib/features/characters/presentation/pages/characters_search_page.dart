@@ -1,12 +1,11 @@
+import 'dart:developer';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:go_router/go_router.dart';
-import 'package:rick_and_morty/core/constants/constants.dart';
 import 'package:rick_and_morty/core/styles/app_colors.dart';
-import 'package:rick_and_morty/features/characters/domain/entities/entities.dart';
 import 'package:rick_and_morty/features/characters/presentation/bloc/characters_bloc.dart';
 import 'package:rick_and_morty/features/characters/presentation/widgets/search_list_view.dart';
 import 'package:rick_and_morty/shared/pages/not_found.dart';
@@ -24,21 +23,9 @@ class _CharactersSearchPageState extends State<CharactersSearchPage> {
 
   Timer? _debounce;
 
-  List<CharactersEntity> _characters = [];
-  bool _isLoading = false;
-  bool _hasMore = true;
-  bool _isEmpty = false;
-  int _currentPage = 1;
-
   void _onSearchChanged(String query) {
     if (_debounce?.isActive ?? false) _debounce?.cancel();
     _debounce = Timer(const Duration(milliseconds: 500), () {
-      setState(() {
-        _characters.clear();
-        _currentPage = 1;
-        _hasMore = true;
-        _isEmpty = false;
-      });
       _loadCharacters(query);
     });
   }
@@ -46,26 +33,28 @@ class _CharactersSearchPageState extends State<CharactersSearchPage> {
   @override
   void initState() {
     super.initState();
-    _scrollController.addListener(_onScroll);
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        _loadCharacters(_searchController.text);
+      }
+    });
   }
 
   void _loadCharacters(String query) {
-    if (_isLoading || !_hasMore) return;
-
-    setState(() {
-      _isLoading = true;
-    });
-    context
-        .read<CharactersBloc>()
-        .add(SearchCharacters(page: _currentPage, name: query));
-  }
-
-  void _onScroll() {
-    if (_scrollController.position.pixels ==
-            _scrollController.position.maxScrollExtent &&
-        _hasMore &&
-        !_isLoading) {
-      _loadCharacters(_searchController.text);
+    if (query.isNotEmpty) {
+      final state = context.read<CharactersBloc>().state;
+      log('data-unique: 1 ');
+      log('data-unique: state: ${state} ');
+      if (state is CharactersLoadSuccess && !state.hasReachedMax) {
+        context.read<CharactersBloc>().add(
+              SearchCharacters(
+                name: query,
+                page: (state.characters.length ~/ 20) + 1,
+                isLoadMore: true,
+              ),
+            );
+      }
     }
   }
 
@@ -141,38 +130,29 @@ class _CharactersSearchPageState extends State<CharactersSearchPage> {
             ),
           ),
           Expanded(
-            child: BlocListener<CharactersBloc, CharactersState>(
-              listener: (context, state) {
-                if (state is SearchCharactersLoadSuccess) {
-                  setState(() {
-                    _characters.addAll(state.characters);
-                    _isLoading = false;
-                    _hasMore = state.characters.length == AppConsts.pageSize;
-                    _currentPage++;
-                    if (_characters.isEmpty) {
-                      _isEmpty = true;
-                    }
-                  });
+            child: BlocBuilder<CharactersBloc, CharactersState>(
+              builder: (context, state) {
+                if (state is CharactersLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state is SearchCharactersLoadSuccess) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: SearchListView(
+                      scrollController: _scrollController,
+                      characters: state.characters,
+                    ),
+                  );
                 } else if (state is CharactersError) {
-                  setState(() {
-                    _isLoading = false;
-                    _hasMore = false;
-                    if (_characters.isEmpty) {
-                      _isEmpty = true;
-                    }
-                  });
+                  return Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(state.message),
+                    ),
+                  );
+                } else {
+                  return const NotFound();
                 }
               },
-              child: _isEmpty
-                  ? const NotFound()
-                  : Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: SearchListView(
-                        scrollController: _scrollController,
-                        characters: _characters,
-                        isLoading: _isLoading,
-                      ),
-                    ),
             ),
           ),
         ],
