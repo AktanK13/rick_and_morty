@@ -8,20 +8,20 @@ class CharacterPagedListView extends StatelessWidget {
     super.key,
     required ScrollController scrollController,
     required List<CharactersEntity> characters,
-    required bool isLoading,
+    required bool hasReachedMax,
   })  : _scrollController = scrollController,
         _characters = characters,
-        _isLoading = isLoading;
+        _hasReachedMax = hasReachedMax;
   final ScrollController _scrollController;
   final List<CharactersEntity> _characters;
-  final bool _isLoading;
+  final bool _hasReachedMax;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: ListView.separated(
         controller: _scrollController,
-        itemCount: _characters.length + (_isLoading ? 0 : 1),
+        itemCount: _characters.length + (_hasReachedMax ? 0 : 1),
         separatorBuilder: (context, index) {
           return addVerticalSpace(16);
         },
@@ -31,9 +31,7 @@ class CharacterPagedListView extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           }
-
-          final character = _characters[index];
-          return CustomListTile(character: character);
+          return CustomListTile(character: _characters[index]);
         },
       ),
     );

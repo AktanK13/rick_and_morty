@@ -122,12 +122,12 @@ class _CharactersPageState extends State<CharactersPage> {
                           ? CharacterPagedGridView(
                               scrollController: _scrollController,
                               characters: state.characters,
-                              isLoading: state.hasReachedMax,
+                              hasReachedMax: state.hasReachedMax,
                             )
                           : CharacterPagedListView(
                               scrollController: _scrollController,
                               characters: state.characters,
-                              isLoading: state.hasReachedMax,
+                              hasReachedMax: state.hasReachedMax,
                             ),
                     );
                   }

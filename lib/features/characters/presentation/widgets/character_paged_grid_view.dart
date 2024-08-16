@@ -8,20 +8,18 @@ class CharacterPagedGridView extends StatelessWidget {
     super.key,
     required ScrollController scrollController,
     required List<CharactersEntity> characters,
-    required bool isLoading,
+    required bool hasReachedMax,
   })  : _scrollController = scrollController,
-        _characters = characters,
-        _isLoading = isLoading;
+        _characters = characters;
   final ScrollController _scrollController;
   final List<CharactersEntity> _characters;
-  final bool _isLoading;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: GridView.builder(
         controller: _scrollController,
-        itemCount: _characters.length + (_isLoading ? 0 : 1),
+        itemCount: _characters.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           childAspectRatio: 0.9,
