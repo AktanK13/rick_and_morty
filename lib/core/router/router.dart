@@ -21,8 +21,13 @@ final router = GoRouter(
   initialLocation: '/characters',
   routes: [
     StatefulShellRoute.indexedStack(
-      builder: (context, state, navigationShell) =>
-          HomePage(navigationShell: navigationShell),
+      builder: (context, state, navigationShell) {
+        final currentRoute = state.fullPath ?? '';
+        return HomePage(
+          navigationShell: navigationShell,
+          currentRoute: currentRoute,
+        );
+      },
       branches: [
         StatefulShellBranch(
           routes: [

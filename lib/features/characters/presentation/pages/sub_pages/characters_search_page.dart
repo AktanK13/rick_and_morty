@@ -83,6 +83,7 @@ class _CharactersSearchPageState extends State<CharactersSearchPage> {
           child: TextField(
             onChanged: _onSearchChanged,
             controller: _searchController,
+            autofocus: true,
             style: Theme.of(context).textTheme.bodyMedium,
             onTapOutside: (event) {
               FocusManager.instance.primaryFocus?.unfocus();
@@ -133,6 +134,9 @@ class _CharactersSearchPageState extends State<CharactersSearchPage> {
           ),
           Expanded(
             child: BlocBuilder<CharactersBloc, CharactersState>(
+              buildWhen: (previous, current) =>
+                  current is SearchCharactersLoadSuccess ||
+                  current is SearchCharactersLoading,
               builder: (context, state) {
                 if (state is SearchCharactersLoading) {
                   return const Center(child: CircularProgressIndicator());

@@ -117,30 +117,30 @@ class _LocationsPageState extends State<LocationsPage> {
                         );
                       }
 
-                      final episodes = _locations[index];
+                      final location = _locations[index];
                       return Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8, vertical: 5),
                         child: ListTile(
                           onTap: () {
-                            context.go(AppRouter.episodesDetails,
-                                extra: episodes);
+                            context.go(AppRouter.locationsDetails,
+                                extra: location);
                           },
                           title: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                episodes.type,
+                                location.type,
                                 style: Theme.of(context).textTheme.titleSmall,
                               ),
                               Text(
-                                episodes.name,
+                                location.name,
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                             ],
                           ),
                           subtitle: Text(
-                            episodes.dimension,
+                            location.dimension,
                             style: TextStyle(
                                 color: Theme.of(context).unselectedWidgetColor),
                           ),

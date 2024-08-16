@@ -14,6 +14,8 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
   bool hasReachedMax = false;
   bool hasReachedMaxSearch = false;
   String query = '';
+  String selectedStatus = '';
+  String selectedGnder = '';
   List<CharactersEntity> allCharacters = [];
   List<CharactersEntity> allSearchCharacters = [];
 
@@ -28,8 +30,15 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
     if (state is CharactersInitial) {
       emit(CharactersLoading());
     }
-    final result =
-        await useCases.getCharacters(currentPage, event.status, event.gender);
+    if (selectedStatus != event.status || selectedGnder != event.gender) {
+      allCharacters.clear();
+      currentPage = 1;
+      selectedStatus = event.status;
+      selectedGnder = event.gender;
+    }
+    log('data-unique: event.status, event.gender: ${event.status} ${event.gender} ');
+    final result = await useCases.getCharacters(
+        currentPage, selectedStatus, selectedGnder);
     result.fold(
       (error) => emit(CharactersError(error)),
       (data) {

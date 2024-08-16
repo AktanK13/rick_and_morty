@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty/core/styles/app_colors.dart';
@@ -21,7 +22,9 @@ class _CharactersPageState extends State<CharactersPage> {
   @override
   void initState() {
     super.initState();
-    context.read<CharactersBloc>().add(const FetchCharacters(page: 1));
+    context
+        .read<CharactersBloc>()
+        .add(const FetchCharacters(page: 1, status: '', gender: ''));
 
     _scrollController.addListener(_onScroll);
   }
@@ -30,13 +33,17 @@ class _CharactersPageState extends State<CharactersPage> {
     if (_scrollController.position.pixels ==
             _scrollController.position.maxScrollExtent &&
         !context.read<CharactersBloc>().hasReachedMax) {
-      context.read<CharactersBloc>().add(
-          FetchCharacters(page: context.read<CharactersBloc>().currentPage));
+      context.read<CharactersBloc>().add(FetchCharacters(
+          page: context.read<CharactersBloc>().currentPage,
+          status: context.read<CharactersBloc>().selectedStatus,
+          gender: context.read<CharactersBloc>().selectedGnder));
     }
   }
 
   Future<void> _refreshPage() async {
-    context.read<CharactersBloc>().add(const FetchCharacters(page: 1));
+    context
+        .read<CharactersBloc>()
+        .add(const FetchCharacters(page: 1, status: '', gender: ''));
   }
 
   @override
@@ -100,11 +107,15 @@ class _CharactersPageState extends State<CharactersPage> {
             ),
             Expanded(
               child: BlocBuilder<CharactersBloc, CharactersState>(
+                buildWhen: (previous, current) =>
+                    current is CharactersLoadSuccess ||
+                    current is CharactersLoading,
                 builder: (context, state) {
                   if (state is CharactersLoading) {
                     return const Center(child: CircularProgressIndicator());
                   }
                   if (state is CharactersLoadSuccess) {
+                    log('data-unique: state: ${state.count} ');
                     return RefreshIndicator(
                       onRefresh: _refreshPage,
                       child: _isGridView

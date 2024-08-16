@@ -5,27 +5,37 @@ import 'package:provider/provider.dart';
 import 'package:rick_and_morty/core/images/images_consts.dart';
 import 'package:rick_and_morty/core/styles/app_colors.dart';
 
-
 class HomePage extends StatelessWidget {
-  const HomePage({super.key, required this.navigationShell});
+  const HomePage({
+    super.key,
+    required this.navigationShell,
+    required this.currentRoute,
+  });
 
   final StatefulNavigationShell navigationShell;
+  final String currentRoute;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: navigationShell,
-      bottomNavigationBar: BottomNavigationBar(
-        items: _buildBottomNavBarItems(context),
-        currentIndex: navigationShell.currentIndex,
-        onTap: (index) => navigationShell.goBranch(
-          index,
-          initialLocation: index == navigationShell.currentIndex,
-        ),
-      ),
+      bottomNavigationBar: currentRoute.startsWith('/characters/search') ||
+              currentRoute.startsWith('/characters/details')||
+              currentRoute.startsWith('/locations/details')||
+              currentRoute.startsWith('/episodes/details')
+          ? null
+          : BottomNavigationBar(
+              items: _buildBottomNavBarItems(context),
+              currentIndex: navigationShell.currentIndex,
+              onTap: (index) => navigationShell.goBranch(
+                index,
+                initialLocation: index == navigationShell.currentIndex,
+              ),
+            ),
     );
   }
 
-  List<BottomNavigationBarItem> _buildBottomNavBarItems(BuildContext context) => [
+  List<BottomNavigationBarItem> _buildBottomNavBarItems(BuildContext context) =>
+      [
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
             AppSvg.characters,

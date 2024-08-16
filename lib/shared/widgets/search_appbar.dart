@@ -14,31 +14,28 @@ class SearchAppbar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: Hero(
         tag: 'searchField',
-        child: Material(
-          color: Colors.transparent,
-          child: TextField(
-            onTap: () {
-              context.go(AppRouter.charactersSearch);
-            },
-            readOnly: true,
-            style: Theme.of(context).textTheme.bodyMedium,
-            decoration: InputDecoration(
-              fillColor: textfieldTheme.fillColor,
-              border: textfieldTheme.border,
-              hintText: 'Найти персонажа',
-              hintStyle: textfieldTheme.hintStyle,
-              prefixIcon: const Icon(Icons.search),
-              suffixIcon: IconButton(
-                icon: const Icon(Icons.filter_list),
-                onPressed: () {
-                  context.push(AppRouter.charactersFilter);
-                },
-              ),
-              iconColor: textfieldTheme.iconColor,
-              suffixIconColor: textfieldTheme.suffixIconColor,
-              prefixIconColor: textfieldTheme.prefixIconColor,
-              contentPadding: textfieldTheme.contentPadding,
+        child: TextField(
+          onTap: () {
+            context.go(AppRouter.charactersSearch);
+          },
+          readOnly: true,
+          style: Theme.of(context).textTheme.bodyMedium,
+          decoration: InputDecoration(
+            fillColor: textfieldTheme.fillColor,
+            border: textfieldTheme.border,
+            hintText: 'Найти персонажа',
+            hintStyle: textfieldTheme.hintStyle,
+            prefixIcon: const Icon(Icons.search),
+            suffixIcon: IconButton(
+              icon: const Icon(Icons.filter_list),
+              onPressed: () {
+                context.push(AppRouter.charactersFilter);
+              },
             ),
+            iconColor: textfieldTheme.iconColor,
+            suffixIconColor: textfieldTheme.suffixIconColor,
+            prefixIconColor: textfieldTheme.prefixIconColor,
+            contentPadding: textfieldTheme.contentPadding,
           ),
         ),
       ),
