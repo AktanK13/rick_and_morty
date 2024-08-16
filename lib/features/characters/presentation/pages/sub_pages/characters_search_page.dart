@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:developer';
 import 'dart:async';
 
@@ -22,39 +23,40 @@ class _CharactersSearchPageState extends State<CharactersSearchPage> {
   final ScrollController _scrollController = ScrollController();
 
   Timer? _debounce;
-
-  void _onSearchChanged(String query) {
-    if (_debounce?.isActive ?? false) _debounce?.cancel();
-    _debounce = Timer(const Duration(milliseconds: 500), () {
-      _loadCharacters(query);
-    });
-  }
+  bool isEmpty = false;
 
   @override
   void initState() {
     super.initState();
-    _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
-        _loadCharacters(_searchController.text);
-      }
+    _scrollController.addListener(_onScroll);
+  }
+
+  void _onSearchChanged(String query) {
+    if (_debounce?.isActive ?? false) _debounce?.cancel();
+    _debounce = Timer(const Duration(milliseconds: 500), () {
+      setState(() {
+        _loadCharacters(query);
+      });
     });
+  }
+
+  void _onScroll() {
+    if (_scrollController.position.pixels ==
+            _scrollController.position.maxScrollExtent &&
+        !context.read<CharactersBloc>().hasReachedMax) {
+      _loadCharacters(_searchController.text);
+    }
   }
 
   void _loadCharacters(String query) {
     if (query.isNotEmpty) {
-      final state = context.read<CharactersBloc>().state;
-      log('data-unique: 1 ');
-      log('data-unique: state: ${state} ');
-      if (state is CharactersLoadSuccess && !state.hasReachedMax) {
-        context.read<CharactersBloc>().add(
-              SearchCharacters(
-                name: query,
-                page: (state.characters.length ~/ 20) + 1,
-                isLoadMore: true,
-              ),
-            );
-      }
+      isEmpty = false;
+      context.read<CharactersBloc>().add(SearchCharacters(
+            page: context.read<CharactersBloc>().searchCurrentPage,
+            name: query,
+          ));
+    } else {
+      isEmpty = true;
     }
   }
 
@@ -132,26 +134,22 @@ class _CharactersSearchPageState extends State<CharactersSearchPage> {
           Expanded(
             child: BlocBuilder<CharactersBloc, CharactersState>(
               builder: (context, state) {
-                if (state is CharactersLoading) {
+                if (state is SearchCharactersLoading) {
                   return const Center(child: CircularProgressIndicator());
-                } else if (state is SearchCharactersLoadSuccess) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: SearchListView(
-                      scrollController: _scrollController,
-                      characters: state.characters,
-                    ),
-                  );
-                } else if (state is CharactersError) {
-                  return Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text(state.message),
-                    ),
-                  );
-                } else {
-                  return const NotFound();
                 }
+                if (state is SearchCharactersLoadSuccess) {
+                  return isEmpty
+                      ? const SizedBox()
+                      : Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: SearchListView(
+                            scrollController: _scrollController,
+                            characters: state.characters,
+                            isLoading: state.hasReachedMax,
+                          ),
+                        );
+                }
+                return const NotFound();
               },
             ),
           ),

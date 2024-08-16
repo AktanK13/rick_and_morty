@@ -1,14 +1,11 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rick_and_morty/core/constants/constants.dart';
 import 'package:rick_and_morty/core/styles/app_colors.dart';
 import 'package:rick_and_morty/features/characters/presentation/bloc/characters_bloc.dart';
 import 'package:rick_and_morty/features/characters/presentation/widgets/character_paged_grid_view.dart';
 import 'package:rick_and_morty/features/characters/presentation/widgets/character_paged_list_view.dart';
 import 'package:rick_and_morty/shared/pages/not_found.dart';
 import 'package:rick_and_morty/shared/widgets/search_appbar.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class CharactersPage extends StatefulWidget {
   const CharactersPage({super.key});
@@ -24,9 +21,7 @@ class _CharactersPageState extends State<CharactersPage> {
   @override
   void initState() {
     super.initState();
-    context.read<CharactersBloc>().add(const FetchCharacters(
-          page: 1,
-        ));
+    context.read<CharactersBloc>().add(const FetchCharacters(page: 1));
 
     _scrollController.addListener(_onScroll);
   }
@@ -41,9 +36,7 @@ class _CharactersPageState extends State<CharactersPage> {
   }
 
   Future<void> _refreshPage() async {
-    context.read<CharactersBloc>().add(const FetchCharacters(
-          page: 1,
-        ));
+    context.read<CharactersBloc>().add(const FetchCharacters(page: 1));
   }
 
   @override

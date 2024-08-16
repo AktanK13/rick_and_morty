@@ -8,17 +8,20 @@ class SearchListView extends StatelessWidget {
     super.key,
     required ScrollController scrollController,
     required List<CharactersEntity> characters,
+    required bool isLoading,
   })  : _scrollController = scrollController,
-        _characters = characters;
+        _characters = characters,
+        _isLoading = isLoading;
 
   final ScrollController _scrollController;
   final List<CharactersEntity> _characters;
+  final bool _isLoading;
 
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
       controller: _scrollController,
-      itemCount: _characters.length,
+      itemCount: _characters.length + (_isLoading ? 0 : 1),
       separatorBuilder: (context, index) {
         return addVerticalSpace(16);
       },
@@ -28,7 +31,7 @@ class SearchListView extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         }
-        
+
         return CustomListTile(character: _characters[index]);
       },
     );

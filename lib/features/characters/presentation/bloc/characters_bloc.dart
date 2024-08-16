@@ -9,15 +9,17 @@ part 'characters_state.dart';
 
 class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
   final CharactersUseCases useCases;
-  bool _hasReachedMax = false;
   int currentPage = 1;
+  int searchCurrentPage = 1;
   bool hasReachedMax = false;
+  bool hasReachedMaxSearch = false;
+  String query = '';
   List<CharactersEntity> allCharacters = [];
-
+  List<CharactersEntity> allSearchCharacters = [];
 
   CharactersBloc({required this.useCases}) : super(CharactersInitial()) {
     on<FetchCharacters>(_onFetchCharacters);
-    // on<SearchCharacters>(_onSearchCharacters);
+    on<SearchCharacters>(_onSearchCharacters);
   }
 
   void _onFetchCharacters(
@@ -31,7 +33,7 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
     result.fold(
       (error) => emit(CharactersError(error)),
       (data) {
-        _hasReachedMax = data.info.pages == currentPage;
+        hasReachedMax = data.info.pages == currentPage;
         if (currentPage <= data.info.pages) {
           allCharacters.addAll(data.charactersEntity);
           currentPage++;
@@ -39,7 +41,7 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
             CharactersLoadSuccess(
               List.from(allCharacters),
               count: data.info.count,
-              hasReachedMax: _hasReachedMax,
+              hasReachedMax: hasReachedMax,
             ),
           );
         }
@@ -47,40 +49,34 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
     );
   }
 
-  // void _onSearchCharacters(
-  //     SearchCharacters event, Emitter<CharactersState> emit) async {
-  //   if (!event.isLoadMore) {
-  //     _hasReachedMaxSearch = false;
-  //     emit(SearchCharactersLoading());
-  //   }
-  //   if (_hasReachedMaxSearch) return;
-
-  //   final result = await useCases.searchCharacters(event.page, event.name);
-  //   result.fold(
-  //     (error) => emit(SearchCharactersError(error)),
-  //     (characters) {
-  //       if (pageNumber <= totalPage) {
-  //         /// -
-  //         // success
-  //         pageNumber++;
-  //       }
-  //       _hasReachedMaxSearch = characters.isEmpty;
-  //       log('data-unique: event.isLoadMore: ${event.isLoadMore} ');
-  //       useCases.charactersT.addAll(characters);
-  //       if (event.isLoadMore) {
-  //         emit(SearchCharactersLoadSuccess(
-  //           useCases.charactersT,
-  //           hasReachedMax: _hasReachedMaxSearch,
-  //         ));
-  //       } else {
-  //         emit(
-  //           SearchCharactersLoadSuccess(
-  //             useCases.charactersT,
-  //             hasReachedMax: _hasReachedMaxSearch,
-  //           ),
-  //         );
-  //       }
-  //     },
-  //   );
-  // }
+  void _onSearchCharacters(
+      SearchCharacters event, Emitter<CharactersState> emit) async {
+    if (hasReachedMaxSearch) return;
+    if (query != event.name) {
+      allSearchCharacters.clear();
+      searchCurrentPage = 1;
+    }
+    if (allSearchCharacters.isEmpty) {
+      emit(SearchCharactersLoading());
+    }
+    final result =
+        await useCases.searchCharacters(searchCurrentPage, event.name);
+    query = event.name;
+    result.fold(
+      (error) => emit(SearchCharactersError(error)),
+      (data) {
+        hasReachedMaxSearch = data.info.pages == searchCurrentPage;
+        if (searchCurrentPage <= data.info.pages) {
+          allSearchCharacters.addAll(data.charactersEntity);
+          searchCurrentPage++;
+          emit(
+            SearchCharactersLoadSuccess(
+              List.from(allSearchCharacters),
+              hasReachedMax: hasReachedMaxSearch,
+            ),
+          );
+        }
+      },
+    );
+  }
 }

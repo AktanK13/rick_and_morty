@@ -13,7 +13,7 @@ class CharactersUseCases {
     return await repository.getCharacters(page, status, gender);
   }
 
-  Future<Either<String, List<CharactersEntity>>> searchCharacters(
+  Future<Either<String, MainEntity>> searchCharacters(
       int page, String name) async {
     return await repository.searchCharacters(page, name);
   }

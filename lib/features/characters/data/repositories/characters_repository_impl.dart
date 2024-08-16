@@ -22,7 +22,7 @@ class CharactersRepositoryImpl implements CharactersRepository {
   }
 
   @override
-  Future<Either<String, List<CharactersEntity>>> searchCharacters(
+  Future<Either<String, MainEntity>> searchCharacters(
       int page, String name) async {
     try {
       final characters =
