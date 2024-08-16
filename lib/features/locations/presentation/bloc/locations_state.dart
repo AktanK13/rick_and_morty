@@ -13,9 +13,10 @@ class LocationsLoading extends LocationsState {}
 
 class LocationsLoadedSuccess extends LocationsState {
   final List<LocationsEntity> locations;
-  const LocationsLoadedSuccess(this.locations);
+  final bool hasReachedMax;
+  const LocationsLoadedSuccess(this.locations, this.hasReachedMax);
     @override
-  List<Object> get props => [locations];
+  List<Object> get props => [locations, hasReachedMax];
 }
 
 class LocationsError extends LocationsState {

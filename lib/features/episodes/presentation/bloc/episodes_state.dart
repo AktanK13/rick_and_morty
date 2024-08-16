@@ -11,12 +11,13 @@ class EpisodesInitial extends EpisodesState {}
 class EpisodesLoading extends EpisodesState {}
 
 class EpisodesLoadSuccess extends EpisodesState {
-  const EpisodesLoadSuccess(this.episodes);
+  const EpisodesLoadSuccess(this.episodes, this.hasReachedMax);
 
   final List<EpisodesEntity> episodes;
+  final bool hasReachedMax;
 
   @override
-  List<Object> get props => [episodes];
+  List<Object> get props => [episodes, hasReachedMax];
 }
 
 class EpisodesError extends EpisodesState {

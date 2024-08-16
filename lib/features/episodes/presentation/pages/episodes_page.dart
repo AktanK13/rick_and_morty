@@ -18,46 +18,29 @@ class EpisodesPage extends StatefulWidget {
 class _EpisodesPageState extends State<EpisodesPage> {
   final ScrollController _scrollController = ScrollController();
 
-  final List<EpisodesEntity> _episodes = [];
-
-  int _currentPage = 1;
-  bool _isLoading = false;
-  bool _isLastPage = false;
-
   @override
   void initState() {
     super.initState();
-    _scrollController.addListener(_scrollListener);
-    _fetchEpisodes(_currentPage);
-  }
-
-  void _fetchEpisodes(int page) {
-    if (_isLoading || _isLastPage) return;
-    setState(() {
-      _isLoading = true;
-    });
-    context.read<EpisodesBloc>().add(FetchEpisodes(
-          page: page,
+    context.read<EpisodesBloc>().add(const FetchEpisodes(
+          page: 1,
         ));
+    _scrollController.addListener(_scrollListener);
   }
 
   void _scrollListener() {
-    if (_scrollController.position.extentAfter < 500 && !_isLoading) {
-      _fetchEpisodes(
-        _currentPage + 1,
-      );
+    if (_scrollController.position.pixels ==
+            _scrollController.position.maxScrollExtent &&
+        !context.read<EpisodesBloc>().hasReachedMax) {
+      context.read<EpisodesBloc>().add(FetchEpisodes(
+            page: context.read<EpisodesBloc>().currentPage,
+          ));
     }
   }
 
   Future<void> _refreshPage() async {
-    setState(() {
-      _episodes.clear();
-      _currentPage = 1;
-      _isLastPage = false;
-    });
-    _fetchEpisodes(
-      _currentPage,
-    );
+    context.read<EpisodesBloc>().add(const FetchEpisodes(
+          page: 1,
+        ));
   }
 
   @override
@@ -72,7 +55,7 @@ class _EpisodesPageState extends State<EpisodesPage> {
       appBar: AppBar(
         title: Text(
           "Эпизоды",
-          style: Theme.of(context).textTheme.labelMedium,
+          style: Theme.of(context).textTheme.headlineSmall,
         ),
       ),
       body: SafeArea(
@@ -80,75 +63,66 @@ class _EpisodesPageState extends State<EpisodesPage> {
         child: Column(
           children: [
             Expanded(
-              child: BlocListener<EpisodesBloc, EpisodesState>(
-                listener: (context, state) {
-                  if (state is EpisodesLoadSuccess) {
-                    setState(() {
-                      final fetchedEpisodes = state.episodes;
-                      _episodes.addAll(fetchedEpisodes);
-                      _isLastPage = fetchedEpisodes.length < AppConsts.pageSize;
-                      _isLoading = false;
-                      _currentPage++;
-                    });
-                  } else if (state is EpisodesLoading && _isLoading) {
-                    const Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: CircularProgressIndicator(),
-                    );
-                  } else if (state is EpisodesError) {
-                    setState(() {
-                      _isLoading = false;
-                    });
-                    const NotFound();
+              child: BlocBuilder<EpisodesBloc, EpisodesState>(
+                builder: (context, state) {
+                  if (state is EpisodesLoading) {
+                    return const Center(child: CircularProgressIndicator());
                   }
-                },
-                child: RefreshIndicator(
-                  onRefresh: _refreshPage,
-                  child: ListView.separated(
-                    controller: _scrollController,
-                    itemCount: _episodes.length + (_isLoading ? 1 : 0),
-                    separatorBuilder: (context, index) {
-                      return addVerticalSpace(16);
-                    },
-                    itemBuilder: (context, index) {
-                      if (index >= _episodes.length) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
+                  if (state is EpisodesLoadSuccess) {
+                    return RefreshIndicator(
+                      onRefresh: _refreshPage,
+                      child: ListView.separated(
+                        controller: _scrollController,
+                        itemCount: state.episodes.length +
+                            (state.hasReachedMax ? 0 : 1),
+                        separatorBuilder: (context, index) {
+                          return addVerticalSpace(16);
+                        },
+                        itemBuilder: (context, index) {
+                          if (index >= state.episodes.length) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
 
-                      final episodes = _episodes[index];
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 5),
-                        child: ListTile(
-                          onTap: () {
-                            context.go(AppRouter.episodesDetails,
-                                extra: episodes);
-                          },
-                          title: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                episodes.episode,
-                                style: Theme.of(context).textTheme.titleSmall,
+                          final episode = state.episodes[index];
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 5),
+                            child: ListTile(
+                              onTap: () {
+                                context.go(AppRouter.episodesDetails,
+                                    extra: episode);
+                              },
+                              title: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    episode.episode,
+                                    style:
+                                        Theme.of(context).textTheme.titleSmall,
+                                  ),
+                                  Text(
+                                    episode.name,
+                                    style:
+                                        Theme.of(context).textTheme.titleMedium,
+                                  ),
+                                ],
                               ),
-                              Text(
-                                episodes.name,
-                                style: Theme.of(context).textTheme.titleMedium,
+                              subtitle: Text(
+                                episode.airDate,
+                                style: TextStyle(
+                                    color: Theme.of(context)
+                                        .unselectedWidgetColor),
                               ),
-                            ],
-                          ),
-                          subtitle: Text(
-                            episodes.airDate,
-                            style: TextStyle(
-                                color: Theme.of(context).unselectedWidgetColor),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  }
+                  return const NotFound();
+                },
               ),
             ),
           ],

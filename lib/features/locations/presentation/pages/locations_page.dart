@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rick_and_morty/core/constants/constants.dart';
 import 'package:rick_and_morty/core/router/app_router.dart';
 import 'package:rick_and_morty/core/utils/sized_box_helper.dart';
-import 'package:rick_and_morty/features/locations/domain/entities/location_entity.dart';
 import 'package:rick_and_morty/features/locations/presentation/bloc/locations_bloc.dart';
 import 'package:rick_and_morty/shared/pages/not_found.dart';
 
@@ -18,46 +16,29 @@ class LocationsPage extends StatefulWidget {
 class _LocationsPageState extends State<LocationsPage> {
   final ScrollController _scrollController = ScrollController();
 
-  final List<LocationsEntity> _locations = [];
-
-  int _currentPage = 1;
-  bool _isLoading = false;
-  bool _isLastPage = false;
-
   @override
   void initState() {
     super.initState();
-    _scrollController.addListener(_scrollListener);
-    _fetchLocations(_currentPage);
-  }
-
-  void _fetchLocations(int page) {
-    if (_isLoading || _isLastPage) return;
-    setState(() {
-      _isLoading = true;
-    });
-    context.read<LocationsBloc>().add(FetchLocations(
-          page: page,
+    context.read<LocationsBloc>().add(const FetchLocations(
+          page: 1,
         ));
+    _scrollController.addListener(_scrollListener);
   }
 
   void _scrollListener() {
-    if (_scrollController.position.extentAfter < 500 && !_isLoading) {
-      _fetchLocations(
-        _currentPage + 1,
-      );
+    if (_scrollController.position.pixels ==
+            _scrollController.position.maxScrollExtent &&
+        !context.read<LocationsBloc>().hasReachedMax) {
+      context.read<LocationsBloc>().add(FetchLocations(
+            page: context.read<LocationsBloc>().currentPage,
+          ));
     }
   }
 
   Future<void> _refreshPage() async {
-    setState(() {
-      _locations.clear();
-      _currentPage = 1;
-      _isLastPage = false;
-    });
-    _fetchLocations(
-      _currentPage,
-    );
+    context.read<LocationsBloc>().add(const FetchLocations(
+          page: 1,
+        ));
   }
 
   @override
@@ -72,7 +53,7 @@ class _LocationsPageState extends State<LocationsPage> {
       appBar: AppBar(
         title: Text(
           "Локациии",
-          style: Theme.of(context).textTheme.labelMedium,
+          style: Theme.of(context).textTheme.headlineSmall,
         ),
       ),
       body: SafeArea(
@@ -80,75 +61,65 @@ class _LocationsPageState extends State<LocationsPage> {
         child: Column(
           children: [
             Expanded(
-              child: BlocListener<LocationsBloc, LocationsState>(
-                listener: (context, state) {
-                  if (state is LocationsLoadedSuccess) {
-                    setState(() {
-                      final fetchedEpisodes = state.locations;
-                      _locations.addAll(fetchedEpisodes);
-                      _isLastPage = fetchedEpisodes.length < AppConsts.pageSize;
-                      _isLoading = false;
-                      _currentPage++;
-                    });
-                  } else if (state is LocationsLoading && _isLoading) {
-                    const Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: CircularProgressIndicator(),
-                    );
-                  } else if (state is LocationsError) {
-                    setState(() {
-                      _isLoading = false;
-                    });
-                    const NotFound();
+              child: BlocBuilder<LocationsBloc, LocationsState>(
+                builder: (context, state) {
+                  if (state is LocationsLoading) {
+                    return const Center(child: CircularProgressIndicator());
                   }
-                },
-                child: RefreshIndicator(
-                  onRefresh: _refreshPage,
-                  child: ListView.separated(
-                    controller: _scrollController,
-                    itemCount: _locations.length + (_isLoading ? 1 : 0),
-                    separatorBuilder: (context, index) {
-                      return addVerticalSpace(16);
-                    },
-                    itemBuilder: (context, index) {
-                      if (index >= _locations.length) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
+                  if (state is LocationsLoadedSuccess) {
+                    return RefreshIndicator(
+                      onRefresh: _refreshPage,
+                      child: ListView.separated(
+                        controller: _scrollController,
+                        itemCount: state.locations.length + (state.hasReachedMax ? 0 : 1),
+                        separatorBuilder: (context, index) {
+                          return addVerticalSpace(16);
+                        },
+                        itemBuilder: (context, index) {
+                          if (index >= state.locations.length) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
 
-                      final location = _locations[index];
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 5),
-                        child: ListTile(
-                          onTap: () {
-                            context.go(AppRouter.locationsDetails,
-                                extra: location);
-                          },
-                          title: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                location.type,
-                                style: Theme.of(context).textTheme.titleSmall,
+                          final location =  state.locations[index];
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 5),
+                            child: ListTile(
+                              onTap: () {
+                                context.go(AppRouter.locationsDetails,
+                                    extra: location);
+                              },
+                              title: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    location.type,
+                                    style:
+                                        Theme.of(context).textTheme.titleSmall,
+                                  ),
+                                  Text(
+                                    location.name,
+                                    style:
+                                        Theme.of(context).textTheme.titleMedium,
+                                  ),
+                                ],
                               ),
-                              Text(
-                                location.name,
-                                style: Theme.of(context).textTheme.titleMedium,
+                              subtitle: Text(
+                                location.dimension,
+                                style: TextStyle(
+                                    color: Theme.of(context)
+                                        .unselectedWidgetColor),
                               ),
-                            ],
-                          ),
-                          subtitle: Text(
-                            location.dimension,
-                            style: TextStyle(
-                                color: Theme.of(context).unselectedWidgetColor),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  }
+                  return const NotFound();
+                },
               ),
             ),
           ],

@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:rick_and_morty/features/episodes/domain/entities/episodes_entity.dart';
+import 'package:rick_and_morty/features/episodes/data/models/main_model.dart';
 
 abstract class EpisodesRepository {
-  Future<Either<String, List<EpisodesEntity>>> getEpisodes(int page);
+  Future<Either<String, MainModel>> getEpisodes(int page);
 }

@@ -36,7 +36,6 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
       selectedStatus = event.status;
       selectedGnder = event.gender;
     }
-    log('data-unique: event.status, event.gender: ${event.status} ${event.gender} ');
     final result = await useCases.getCharacters(
         currentPage, selectedStatus, selectedGnder);
     result.fold(

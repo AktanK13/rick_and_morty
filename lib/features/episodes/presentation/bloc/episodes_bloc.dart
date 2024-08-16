@@ -8,17 +8,31 @@ part 'episodes_state.dart';
 
 class EpisodesBloc extends Bloc<EpisodesEvent, EpisodesState> {
   final EpisodesUsecase usecase;
+  int currentPage = 1;
+  bool hasReachedMax = false;
+  List<EpisodesEntity> allEpisode = [];
+
   EpisodesBloc({required this.usecase}) : super(EpisodesInitial()) {
     on<FetchEpisodes>(_onFetchEpisodes);
   }
 
   void _onFetchEpisodes(
       FetchEpisodes event, Emitter<EpisodesState> emit) async {
-    emit(EpisodesLoading());
-    final result = await usecase.getEpisodes(event.page);
+    if (hasReachedMax) return;
+    if (state is EpisodesInitial) {
+      emit(EpisodesLoading());
+    }
+    final result = await usecase.getEpisodes(currentPage);
     result.fold(
       (error) => emit(EpisodesError(error)),
-      (episodes) => emit(EpisodesLoadSuccess(episodes)),
+      (data) {
+        hasReachedMax = data.info.pages == currentPage;
+        if (currentPage <= data.info.pages) {
+          allEpisode.addAll(data.episodeentity);
+          currentPage++;
+          emit(EpisodesLoadSuccess(List.from(allEpisode), hasReachedMax));
+        }
+      },
     );
   }
 }

@@ -8,18 +8,30 @@ part 'locations_state.dart';
 
 class LocationsBloc extends Bloc<LocationsEvent, LocationsState> {
   final LocationsUseCases usecase;
+  int currentPage = 1;
+  bool hasReachedMax = false;
+  List<LocationsEntity> allLocation = [];
+
   LocationsBloc({required this.usecase}) : super(LocationsInitial()) {
     on<FetchLocations>(_onFetchLocations);
   }
 
   void _onFetchLocations(
       FetchLocations event, Emitter<LocationsState> emit) async {
-    emit(LocationsLoading());
-    final result = await usecase.getLocations(event.page);
+    if (hasReachedMax) return;
+    if (state is LocationsInitial) {
+      emit(LocationsLoading());
+    }
+    final result = await usecase.getLocations(currentPage);
     result.fold(
       (error) => emit(LocationsError(error)),
-      (characters) {
-        emit(LocationsLoadedSuccess(characters));
+      (data) {
+        hasReachedMax = data.info.pages == currentPage;
+        if (currentPage <= data.info.pages) {
+          allLocation.addAll(data.locationsEntity);
+          currentPage++;
+          emit(LocationsLoadedSuccess(List.from(allLocation), hasReachedMax));
+        }
       },
     );
   }
