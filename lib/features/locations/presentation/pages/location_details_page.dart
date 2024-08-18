@@ -19,73 +19,53 @@ class LocationDetailsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(location.name),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  DetailCharacterText(
-                    title: "Тип",
-                    characterInfo: location.type,
-                  ),
-                  DetailCharacterText(
-                    title: "Dimension",
-                    characterInfo: location.dimension,
-                  )
-                ],
-              ),
-              const DividerLine(),
-              Row(
-                children: [
-                  Text(
-                    "Residents",
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleLarge
-                        ?.copyWith(fontWeight: FontWeight.w500),
-                  ),
-                  const Spacer(),
-                  Text(
-                    "Все residents",
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleMedium
-                        ?.copyWith(color: AppColors.textGray),
-                  )
-                ],
-              ),
-              addVerticalSpace(24),
-              // TODO: parse dataile episode
-              // Expanded(
-              //   child: ListView.separated(
-              //     itemBuilder: (context, index) {
-              //       return ListTile(
-              //         contentPadding: const EdgeInsets.all(0),
-              //         title: Text(
-              //           character.episode[index],
-              //           style: AppTextStyle.mediumBlack
-              //               .copyWith(color: AppColors.textGray),
-              //         ),
-              //         subtitle: Text(
-              //           character.origin.name,
-              //           style: Theme.of(context).textTheme.titleMedium,
-              //         ),
-              //         trailing: const Icon(
-              //           Icons.arrow_forward_ios,
-              //         ),
-              //       );
-              //     },
-              //     separatorBuilder: (BuildContext context, int index) {
-              //       return addVerticalSpace(24);
-              //     },
-              //     itemCount: character.episode.length,
-              //   ),
-              // )
-            ],
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              children: [
+                Row(
+                  children: [
+                    DetailCharacterText(
+                      title: "Тип",
+                      characterInfo: location.type,
+                    ),
+                    DetailCharacterText(
+                      title: "Dimension",
+                      characterInfo: location.dimension,
+                    )
+                  ],
+                ),
+                const DividerLine(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        "Residents",
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                    Flexible(
+                      child: Text(
+                        "Все residents",
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelSmall
+                            ?.copyWith(color: AppColors.textGray),
+                      ),
+                    )
+                  ],
+                ),
+                addVerticalSpace(24),
+              ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

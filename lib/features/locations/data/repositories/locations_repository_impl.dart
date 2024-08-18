@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:rick_and_morty/features/locations/data/datasources/locations_remote_data_source.dart';
 import 'package:rick_and_morty/features/locations/data/models/main_model.dart';
-import 'package:rick_and_morty/features/locations/domain/entities/location_entity.dart';
 import 'package:rick_and_morty/features/locations/domain/repositories/locations_repository.dart';
 
 class LocationsRepositoryImpl implements LocationsRepository {

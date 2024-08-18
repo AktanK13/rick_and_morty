@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:rick_and_morty/core/styles/app_colors.dart';
-import 'package:rick_and_morty/core/styles/app_text_style.dart';
 import 'package:rick_and_morty/core/utils/sized_box_helper.dart';
 import 'package:rick_and_morty/shared/app_theme_bloc.dart';
 import 'package:rick_and_morty/shared/widgets/divider_line.dart';
@@ -21,12 +20,8 @@ class _SettingsPageState extends State<SettingsPage> {
       appBar: AppBar(
         title: Text(
           "Настройки",
-          style: Theme.of(context).textTheme.headlineSmall,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
-        // leading: IconButton(
-        //   icon: const Icon(Icons.arrow_back_ios),
-        //   onPressed: () {},
-        // ),
         centerTitle: false,
       ),
       body: SafeArea(
@@ -44,21 +39,23 @@ class _SettingsPageState extends State<SettingsPage> {
                           backgroundColor: Colors.amber,
                         ),
                         addHorizontalSpace(16),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Oleg Belotserkovsky',
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                            Text(
-                              'Rick',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium
-                                  ?.copyWith(color: AppColors.textGray),
-                            )
-                          ],
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Oleg Belotserkovsky',
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                              Text(
+                                'Rick',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelLarge
+                                    ?.copyWith(color: AppColors.textGray),
+                              )
+                            ],
+                          ),
                         )
                       ],
                     ),
@@ -79,7 +76,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           'Внешний вид',
                           style: Theme.of(context)
                               .textTheme
-                              .bodyMedium
+                              .bodySmall
                               ?.copyWith(color: AppColors.textGray),
                         ),
                         addVerticalSpace(12),
@@ -91,12 +88,14 @@ class _SettingsPageState extends State<SettingsPage> {
                           ),
                           title: Text(
                             'Темная тема',
-                            style: Theme.of(context).textTheme.titleMedium,
+                            style: Theme.of(context).textTheme.titleLarge,
                           ),
                           subtitle: Text(
                             'Включена',
-                            style: AppTextStyle.mediumBlack
-                                .copyWith(color: AppColors.textGray),
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelLarge
+                                ?.copyWith(color: AppColors.textGray),
                           ),
                           trailing: const Icon(Icons.arrow_forward_ios),
                           onTap: () {
@@ -110,26 +109,26 @@ class _SettingsPageState extends State<SettingsPage> {
                           'О приложении',
                           style: Theme.of(context)
                               .textTheme
-                              .bodyMedium
+                              .bodySmall
                               ?.copyWith(color: AppColors.textGray),
                         ),
                         addVerticalSpace(12),
                         Text(
                           'Зигерионцы помещают Джерри и Рика в симуляцию, чтобы узнать секрет изготовления концен-трирован- ной темной материи.',
-                          style: Theme.of(context).textTheme.bodyMedium,
+                          style: Theme.of(context).textTheme.labelMedium,
                         ),
                         const DividerLine(),
                         Text(
                           'Версия приложения',
                           style: Theme.of(context)
                               .textTheme
-                              .bodyMedium
+                              .bodySmall
                               ?.copyWith(color: AppColors.textGray),
                         ),
                         addVerticalSpace(12),
                         Text(
                           'Rick & Morty  v1.0.0',
-                          style: Theme.of(context).textTheme.bodyMedium,
+                          style: Theme.of(context).textTheme.labelMedium,
                         ),
                       ],
                     ),

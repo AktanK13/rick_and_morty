@@ -5,7 +5,6 @@ import 'package:rick_and_morty/features/characters/presentation/widgets/detail_c
 
 import '../../../../core/router/app_router.dart';
 import '../../../../core/styles/app_colors.dart';
-import '../../../../core/styles/app_text_style.dart';
 import '../../../../core/utils/sized_box_helper.dart';
 
 class CustomGridTile extends StatelessWidget {
@@ -25,33 +24,38 @@ class CustomGridTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           DetailCircleAvatar(
-            radius: 40,
+            radius: 60,
             imageurl: character.image,
           ),
           addVerticalSpace(18),
-          Flexible(
+          Expanded(
             child: Text(
               character.status == 'Alive' ? 'Живой' : 'Мертвый',
               textAlign: TextAlign.center,
-              style: AppTextStyle.xSmallBlack.copyWith(
-                color: character.status == 'Alive'
-                    ? AppColors.statusAlive
-                    : AppColors.statusDead,
-              ),
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: character.status == 'Alive'
+                        ? AppColors.statusAlive
+                        : AppColors.statusDead,
+                    height: 2.2,
+                  ),
             ),
           ),
-          Flexible(
+          Expanded(
             child: Text(
               character.name,
+              overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.titleMedium,
+              style: Theme.of(context).textTheme.labelLarge,
             ),
           ),
-          Flexible(
+          Expanded(
             child: Text(
               '${character.species}/${character.gender == 'Male' ? 'Мужской' : 'Женский'}',
               textAlign: TextAlign.center,
-              style: TextStyle(color: Theme.of(context).unselectedWidgetColor),
+              style: Theme.of(context)
+                  .textTheme
+                  .labelSmall
+                  ?.copyWith(color: AppColors.textGray),
             ),
           ),
         ],

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty/core/styles/app_colors.dart';
-import 'package:rick_and_morty/core/styles/app_text_style.dart';
 
 class DetailCharacterListTile extends StatelessWidget {
   const DetailCharacterListTile(
@@ -19,11 +18,14 @@ class DetailCharacterListTile extends StatelessWidget {
       contentPadding: const EdgeInsets.all(0),
       title: Text(
         title,
-        style: AppTextStyle.mediumBlack.copyWith(color: AppColors.textGray),
+        style: Theme.of(context)
+            .textTheme
+            .labelSmall
+            ?.copyWith(color: AppColors.textGray),
       ),
       subtitle: Text(
         characterInfo,
-        style: Theme.of(context).textTheme.titleMedium,
+        style: Theme.of(context).textTheme.labelLarge,
       ),
       trailing: const Icon(
         Icons.arrow_forward_ios,

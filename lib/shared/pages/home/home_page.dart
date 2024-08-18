@@ -19,8 +19,8 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: navigationShell,
       bottomNavigationBar: currentRoute.startsWith('/characters/search') ||
-              currentRoute.startsWith('/characters/details')||
-              currentRoute.startsWith('/locations/details')||
+              currentRoute.startsWith('/characters/details') ||
+              currentRoute.startsWith('/locations/details') ||
               currentRoute.startsWith('/episodes/details')
           ? null
           : BottomNavigationBar(

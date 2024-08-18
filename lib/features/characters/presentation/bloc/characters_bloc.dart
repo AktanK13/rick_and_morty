@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:rick_and_morty/features/characters/domain/entities/entities.dart';
@@ -13,6 +12,7 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
   int searchCurrentPage = 1;
   bool hasReachedMax = false;
   bool hasReachedMaxSearch = false;
+  int totalCount = 0;
   String query = '';
   String selectedStatus = '';
   String selectedGnder = '';
@@ -42,6 +42,7 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
       (error) => emit(CharactersError(error)),
       (data) {
         hasReachedMax = data.info.pages == currentPage;
+        totalCount = data.info.count;
         if (currentPage <= data.info.pages) {
           allCharacters.addAll(data.charactersEntity);
           currentPage++;
@@ -63,15 +64,16 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
     if (query != event.name) {
       allSearchCharacters.clear();
       searchCurrentPage = 1;
+      query = event.name;
     }
     if (allSearchCharacters.isEmpty) {
       emit(SearchCharactersLoading());
     }
-    final result =
-        await useCases.searchCharacters(searchCurrentPage, event.name);
-    query = event.name;
+    final result = await useCases.searchCharacters(searchCurrentPage, query);
     result.fold(
-      (error) => emit(SearchCharactersError(error)),
+      (error) {
+        emit(SearchCharactersError(error));
+      },
       (data) {
         hasReachedMaxSearch = data.info.pages == searchCurrentPage;
         if (searchCurrentPage <= data.info.pages) {

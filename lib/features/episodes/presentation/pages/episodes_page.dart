@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rick_and_morty/core/constants/constants.dart';
 import 'package:rick_and_morty/core/router/app_router.dart';
+import 'package:rick_and_morty/core/styles/app_colors.dart';
 import 'package:rick_and_morty/core/utils/sized_box_helper.dart';
-import 'package:rick_and_morty/features/episodes/domain/entities/episodes_entity.dart';
 import 'package:rick_and_morty/features/episodes/presentation/bloc/episodes_bloc.dart';
 import 'package:rick_and_morty/shared/pages/not_found.dart';
 
@@ -55,11 +54,11 @@ class _EpisodesPageState extends State<EpisodesPage> {
       appBar: AppBar(
         title: Text(
           "Эпизоды",
-          style: Theme.of(context).textTheme.headlineSmall,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
       ),
-      body: SafeArea(
-        top: false,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           children: [
             Expanded(
@@ -73,8 +72,8 @@ class _EpisodesPageState extends State<EpisodesPage> {
                       onRefresh: _refreshPage,
                       child: ListView.separated(
                         controller: _scrollController,
-                        itemCount: state.episodes.length +
-                            (state.hasReachedMax ? 0 : 1),
+                        itemCount:
+                            state.episodes.length + (state.hasReachedMax ? 0 : 1),
                         separatorBuilder: (context, index) {
                           return addVerticalSpace(16);
                         },
@@ -84,37 +83,33 @@ class _EpisodesPageState extends State<EpisodesPage> {
                               child: CircularProgressIndicator(),
                             );
                           }
-
+                  
                           final episode = state.episodes[index];
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 5),
-                            child: ListTile(
-                              onTap: () {
-                                context.go(AppRouter.episodesDetails,
-                                    extra: episode);
-                              },
-                              title: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    episode.episode,
-                                    style:
-                                        Theme.of(context).textTheme.titleSmall,
-                                  ),
-                                  Text(
-                                    episode.name,
-                                    style:
-                                        Theme.of(context).textTheme.titleMedium,
-                                  ),
-                                ],
-                              ),
-                              subtitle: Text(
-                                episode.airDate,
-                                style: TextStyle(
-                                    color: Theme.of(context)
-                                        .unselectedWidgetColor),
-                              ),
+                          return ListTile(
+                            contentPadding: const EdgeInsets.all(0),
+                            onTap: () {
+                              context.go(AppRouter.episodesDetails,
+                                  extra: episode);
+                            },
+                            title: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  episode.episode,
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
+                                Text(
+                                  episode.name,
+                                  style: Theme.of(context).textTheme.bodyLarge,
+                                ),
+                              ],
+                            ),
+                            subtitle: Text(
+                              episode.airDate,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelSmall
+                                  ?.copyWith(color: AppColors.textGray),
                             ),
                           );
                         },

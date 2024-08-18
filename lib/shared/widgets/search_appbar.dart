@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rick_and_morty/core/router/app_router.dart';
+import 'package:rick_and_morty/core/styles/app_colors.dart';
 
 class SearchAppbar extends StatelessWidget implements PreferredSizeWidget {
   const SearchAppbar({
@@ -24,7 +25,10 @@ class SearchAppbar extends StatelessWidget implements PreferredSizeWidget {
             fillColor: textfieldTheme.fillColor,
             border: textfieldTheme.border,
             hintText: 'Найти персонажа',
-            hintStyle: textfieldTheme.hintStyle,
+            hintStyle: Theme.of(context)
+                .textTheme
+                .titleLarge
+                ?.copyWith(color: AppColors.textGray),
             prefixIcon: const Icon(Icons.search),
             suffixIcon: IconButton(
               icon: const Icon(Icons.filter_list),

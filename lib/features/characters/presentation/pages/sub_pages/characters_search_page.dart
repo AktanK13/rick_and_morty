@@ -26,6 +26,7 @@ class _CharactersSearchPageState extends State<CharactersSearchPage> {
   void initState() {
     super.initState();
     _scrollController.addListener(_onScroll);
+    _loadCharacters(_searchController.text);
   }
 
   void _onSearchChanged(String query) {
@@ -88,7 +89,10 @@ class _CharactersSearchPageState extends State<CharactersSearchPage> {
             decoration: InputDecoration(
               fillColor: textfieldTheme.fillColor,
               hintText: 'Найти персонажа',
-              hintStyle: textfieldTheme.hintStyle,
+              hintStyle: Theme.of(context)
+                  .textTheme
+                  .titleLarge
+                  ?.copyWith(color: AppColors.textGray),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(0),
                 borderSide: BorderSide.none,
@@ -125,7 +129,7 @@ class _CharactersSearchPageState extends State<CharactersSearchPage> {
               "Результаты поиска",
               style: Theme.of(context)
                   .textTheme
-                  .titleSmall
+                  .bodySmall
                   ?.copyWith(color: AppColors.textGray),
             ),
           ),
@@ -133,14 +137,18 @@ class _CharactersSearchPageState extends State<CharactersSearchPage> {
             child: BlocBuilder<CharactersBloc, CharactersState>(
               buildWhen: (previous, current) =>
                   current is SearchCharactersLoadSuccess ||
-                  current is SearchCharactersLoading,
+                  current is SearchCharactersLoading ||
+                  current is SearchCharactersError,
               builder: (context, state) {
                 if (state is SearchCharactersLoading) {
                   return const Center(child: CircularProgressIndicator());
                 }
+                if (state is SearchCharactersError) {
+                  return const NotFound();
+                }
                 if (state is SearchCharactersLoadSuccess) {
                   return isEmpty
-                      ? const SizedBox()
+                      ? const SizedBox.shrink()
                       : Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: SearchListView(
@@ -150,7 +158,8 @@ class _CharactersSearchPageState extends State<CharactersSearchPage> {
                           ),
                         );
                 }
-                return const NotFound();
+
+                return const SizedBox.shrink();
               },
             ),
           ),

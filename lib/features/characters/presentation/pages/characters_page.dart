@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty/core/styles/app_colors.dart';
@@ -25,7 +24,6 @@ class _CharactersPageState extends State<CharactersPage> {
     context
         .read<CharactersBloc>()
         .add(const FetchCharacters(page: 1, status: '', gender: ''));
-
     _scrollController.addListener(_onScroll);
   }
 
@@ -65,30 +63,25 @@ class _CharactersPageState extends State<CharactersPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      Text(
-                        'Всего персонажей: ',
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleSmall
-                            ?.copyWith(color: AppColors.textGray),
-                      ),
-                      BlocBuilder<CharactersBloc, CharactersState>(
-                        builder: (context, state) {
-                          if (state is CharactersLoadSuccess) {
-                            return Text(
-                              '${state.count}',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleSmall
-                                  ?.copyWith(color: AppColors.textGray),
-                            );
-                          }
-                          return const Text('');
-                        },
-                      )
-                    ],
+                  Expanded(
+                    child: BlocBuilder<CharactersBloc, CharactersState>(
+                      buildWhen: (previous, current) =>
+                          current is CharactersLoadSuccess ||
+                          current is CharactersLoading ||
+                          current is CharactersError,
+                      builder: (context, state) {
+                        if (state is CharactersLoadSuccess) {
+                          return Text(
+                            'Всего персонажей: ${state.count}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall
+                                ?.copyWith(color: AppColors.textGray),
+                          );
+                        }
+                        return const Text('');
+                      },
+                    ),
                   ),
                   IconButton(
                     onPressed: () {
@@ -98,9 +91,9 @@ class _CharactersPageState extends State<CharactersPage> {
                     },
                     icon: _isGridView
                         ? const Icon(Icons.list_rounded,
-                            color: AppColors.textGray)
+                            size: 24, color: AppColors.textGray)
                         : const Icon(Icons.grid_view_rounded,
-                            color: AppColors.textGray),
+                            size: 24, color: AppColors.textGray),
                   ),
                 ],
               ),
@@ -109,13 +102,13 @@ class _CharactersPageState extends State<CharactersPage> {
               child: BlocBuilder<CharactersBloc, CharactersState>(
                 buildWhen: (previous, current) =>
                     current is CharactersLoadSuccess ||
-                    current is CharactersLoading,
+                    current is CharactersLoading ||
+                    current is CharactersError,
                 builder: (context, state) {
                   if (state is CharactersLoading) {
                     return const Center(child: CircularProgressIndicator());
                   }
                   if (state is CharactersLoadSuccess) {
-                    log('data-unique: state: ${state.count} ');
                     return RefreshIndicator(
                       onRefresh: _refreshPage,
                       child: _isGridView
@@ -130,6 +123,9 @@ class _CharactersPageState extends State<CharactersPage> {
                               hasReachedMax: state.hasReachedMax,
                             ),
                     );
+                  }
+                  if (state is CharactersError) {
+                    return const NotFound();
                   }
                   return const NotFound();
                 },

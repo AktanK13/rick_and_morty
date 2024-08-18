@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty/core/styles/app_colors.dart';
-import 'package:rick_and_morty/core/styles/app_text_style.dart';
 
 class DetailCharacterText extends StatelessWidget {
-  const DetailCharacterText({super.key, required this.characterInfo, required this.title});
+  const DetailCharacterText(
+      {super.key, required this.characterInfo, required this.title});
 
   final String characterInfo;
   final String title;
@@ -16,11 +16,14 @@ class DetailCharacterText extends StatelessWidget {
         children: [
           Text(
             title,
-            style: AppTextStyle.mediumBlack.copyWith(color: AppColors.textGray),
+            style: Theme.of(context)
+                .textTheme
+                .labelSmall
+                ?.copyWith(color: AppColors.textGray),
           ),
           Text(
             characterInfo,
-            style: Theme.of(context).textTheme.titleMedium,
+            style: Theme.of(context).textTheme.labelLarge,
           ),
         ],
       ),

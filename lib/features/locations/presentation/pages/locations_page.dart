@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rick_and_morty/core/router/app_router.dart';
+import 'package:rick_and_morty/core/styles/app_colors.dart';
 import 'package:rick_and_morty/core/utils/sized_box_helper.dart';
 import 'package:rick_and_morty/features/locations/presentation/bloc/locations_bloc.dart';
 import 'package:rick_and_morty/shared/pages/not_found.dart';
@@ -53,11 +54,11 @@ class _LocationsPageState extends State<LocationsPage> {
       appBar: AppBar(
         title: Text(
           "Локациии",
-          style: Theme.of(context).textTheme.headlineSmall,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
       ),
-      body: SafeArea(
-        top: false,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           children: [
             Expanded(
@@ -71,7 +72,8 @@ class _LocationsPageState extends State<LocationsPage> {
                       onRefresh: _refreshPage,
                       child: ListView.separated(
                         controller: _scrollController,
-                        itemCount: state.locations.length + (state.hasReachedMax ? 0 : 1),
+                        itemCount: state.locations.length +
+                            (state.hasReachedMax ? 0 : 1),
                         separatorBuilder: (context, index) {
                           return addVerticalSpace(16);
                         },
@@ -82,36 +84,32 @@ class _LocationsPageState extends State<LocationsPage> {
                             );
                           }
 
-                          final location =  state.locations[index];
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 5),
-                            child: ListTile(
-                              onTap: () {
-                                context.go(AppRouter.locationsDetails,
-                                    extra: location);
-                              },
-                              title: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    location.type,
-                                    style:
-                                        Theme.of(context).textTheme.titleSmall,
-                                  ),
-                                  Text(
-                                    location.name,
-                                    style:
-                                        Theme.of(context).textTheme.titleMedium,
-                                  ),
-                                ],
-                              ),
-                              subtitle: Text(
-                                location.dimension,
-                                style: TextStyle(
-                                    color: Theme.of(context)
-                                        .unselectedWidgetColor),
-                              ),
+                          final location = state.locations[index];
+                          return ListTile(
+                            contentPadding: const EdgeInsets.all(0),
+                            onTap: () {
+                              context.go(AppRouter.locationsDetails,
+                                  extra: location);
+                            },
+                            title: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  location.type,
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
+                                Text(
+                                  location.name,
+                                  style: Theme.of(context).textTheme.bodyLarge,
+                                ),
+                              ],
+                            ),
+                            subtitle: Text(
+                              location.dimension,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelSmall
+                                  ?.copyWith(color: AppColors.textGray),
                             ),
                           );
                         },

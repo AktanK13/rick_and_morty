@@ -8,24 +8,29 @@ class NotFound extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            width: MediaQuery.of(context).size.width / 2.5,
-            child: Image.asset(AppPng.notFound),
-          ),
-          addVerticalSpace(20),
-          Text(
-            'Персонаж с таким именем не найден',
-            style: Theme.of(context)
-                .textTheme
-                .titleMedium
-                ?.copyWith(color: AppColors.textGray),
-          )
-        ],
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            addVerticalSpace(60),
+            SizedBox(
+              width: MediaQuery.of(context).size.width / 2.5,
+              child: Image.asset(AppPng.notFound),
+            ),
+            addVerticalSpace(20),
+            Text(
+              'Персонаж с таким именем не найден',
+              textAlign: TextAlign.center,
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge
+                  ?.copyWith(color: AppColors.textGray),
+            )
+          ],
+        ),
       ),
     );
   }

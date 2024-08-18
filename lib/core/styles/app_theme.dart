@@ -156,10 +156,17 @@ class AppTheme {
       backgroundColor: AppColors.navBarBackgroundWhite,
       selectedItemColor: AppColors.buttonActive,
       unselectedItemColor: AppColors.buttonDisabled,
-      selectedLabelStyle: TextStyle(fontSize: AppFontSize.xSmall),
+      selectedLabelStyle: TextStyle(
+        fontSize: 12,
+        fontWeight: FontWeight.w400,
+      ),
       unselectedLabelStyle: TextStyle(
         color: AppColors.buttonDisabled,
-        fontSize: AppFontSize.xSmall,
+        fontSize: 12,
+        fontWeight: FontWeight.w400,
+      ),
+      unselectedIconTheme: IconThemeData(
+        color: AppColors.buttonDisabled,
       ),
       type: BottomNavigationBarType.fixed,
       showSelectedLabels: true,
@@ -170,7 +177,10 @@ class AppTheme {
         backgroundColor: AppColors.backgroundWhite,
         foregroundColor: AppColors.buttonActive,
         elevation: 0,
-        textStyle: const TextStyle(fontSize: 16),
+        textStyle: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w400,
+        ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
           side: const BorderSide(
@@ -204,9 +214,11 @@ class AppTheme {
           fontSize: 16,
           fontWeight: FontWeight.w400),
       titleMedium: const TextStyle(
-          color: AppColors.textWhite,
-          fontSize: 20,
-          fontWeight: FontWeight.w500),
+        color: AppColors.textWhite,
+        fontSize: 20,
+        fontWeight: FontWeight.w500,
+        
+      ),
       bodySmall: const TextStyle(
           color: AppColors.textWhite,
           fontSize: 10,
@@ -266,11 +278,15 @@ class AppTheme {
       elevation: 10,
       backgroundColor: AppColors.navBarBackgroundBlack,
       selectedItemColor: AppColors.statusAlive,
-      unselectedItemColor: AppColors.darkGray,
+      unselectedItemColor: AppColors.buttonDisabled,
       selectedLabelStyle: TextStyle(fontSize: AppFontSize.xSmall),
       unselectedLabelStyle: TextStyle(
-        color: AppColors.darkGray,
-        fontSize: AppFontSize.xSmall,
+        color: AppColors.buttonDisabled,
+        fontSize: 12,
+        fontWeight: FontWeight.w400,
+      ),
+      unselectedIconTheme: IconThemeData(
+        color: AppColors.buttonDisabled,
       ),
       type: BottomNavigationBarType.fixed,
       showSelectedLabels: true,
@@ -281,7 +297,10 @@ class AppTheme {
         backgroundColor: AppColors.backgroundDark,
         foregroundColor: AppColors.buttonActive,
         elevation: 0,
-        textStyle: const TextStyle(fontSize: 16),
+        textStyle: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w400,
+        ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
           side: const BorderSide(

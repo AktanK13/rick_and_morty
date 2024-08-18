@@ -14,104 +14,73 @@ class DetailCharacterInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Center(
-              child: Text(
-                character.name,
+    return Expanded(
+      child: ListView(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        children: [
+          Center(
+            child: Text(character.name,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.displaySmall),
+          ),
+          addVerticalSpace(5),
+          Center(
+            child: Text(
+              character.status,
+              style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.w500,
+                color: character.status == 'Alive'
+                    ? AppColors.statusAlive
+                    : AppColors.statusDead,
+              ),
+            ),
+          ),
+          addVerticalSpace(30),
+          Row(
+            children: [
+              DetailCharacterText(
+                title: "Пол",
+                characterInfo: character.gender,
+              ),
+              DetailCharacterText(
+                title: "Расса",
+                characterInfo: character.species,
+              )
+            ],
+          ),
+          addVerticalSpace(20),
+          DetailCharacterListTile(
+            characterInfo: character.origin.name,
+            title: "Место рождения",
+          ),
+          addVerticalSpace(5),
+          DetailCharacterListTile(
+            characterInfo: character.location.name,
+            title: "Местоположение",
+          ),
+          const DividerLine(),
+          Row(
+            children: [
+              Text(
+                "Эпизоды",
                 style: Theme.of(context)
                     .textTheme
-                    .headlineLarge
+                    .titleMedium
                     ?.copyWith(fontWeight: FontWeight.w500),
               ),
-            ),
-            addVerticalSpace(5),
-            Center(
-              child: Text(
-                character.status,
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  color: character.status == 'Alive'
-                      ? AppColors.statusAlive
-                      : AppColors.statusDead,
-                ),
-              ),
-            ),
-            addVerticalSpace(30),
-            Row(
-              children: [
-                DetailCharacterText(
-                  title: "Пол",
-                  characterInfo: character.gender,
-                ),
-                DetailCharacterText(
-                  title: "Расса",
-                  characterInfo: character.species,
-                )
-              ],
-            ),
-            addVerticalSpace(20),
-            DetailCharacterListTile(
-              characterInfo: character.origin.name,
-              title: "Место рождения",
-            ),
-            addVerticalSpace(5),
-            DetailCharacterListTile(
-              characterInfo: character.location.name,
-              title: "Местоположение",
-            ),
-            DividerLine(),
-            Row(
-              children: [
-                Text(
-                  "Эпизоды",
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleLarge
-                      ?.copyWith(fontWeight: FontWeight.w500),
-                ),
-                const Spacer(),
-                Text(
-                  "Все эпизоды",
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium
-                      ?.copyWith(color: AppColors.textGray),
-                )
-              ],
-            ),
-            addVerticalSpace(24),
-            // TODO: parse dataile episode
-            // Expanded(
-            //   child: ListView.separated(
-            //     itemBuilder: (context, index) {
-            //       return ListTile(
-            //         contentPadding: const EdgeInsets.all(0),
-            //         title: Text(
-            //           character.episode[index],
-            //           style: AppTextStyle.mediumBlack
-            //               .copyWith(color: AppColors.textGray),
-            //         ),
-            //         subtitle: Text(
-            //           character.origin.name,
-            //           style: Theme.of(context).textTheme.titleMedium,
-            //         ),
-            //         trailing: const Icon(
-            //           Icons.arrow_forward_ios,
-            //         ),
-            //       );
-            //     },
-            //     separatorBuilder: (BuildContext context, int index) {
-            //       return addVerticalSpace(24);
-            //     },
-            //     itemCount: character.episode.length,
-            //   ),
-            // )
-          ],
-        ),
+              const Spacer(),
+              Text(
+                "Все эпизоды",
+                style: Theme.of(context)
+                    .textTheme
+                    .labelSmall
+                    ?.copyWith(color: AppColors.textGray),
+              )
+            ],
+          ),
+          addVerticalSpace(24),
+        ],
       ),
     );
   }
