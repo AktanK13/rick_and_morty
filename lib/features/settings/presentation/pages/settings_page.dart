@@ -1,6 +1,4 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:rick_and_morty/core/styles/app_colors.dart';
@@ -18,9 +16,6 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
-    var brightness =
-        SchedulerBinding.instance.platformDispatcher.platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -145,11 +140,6 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
         ),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //     child: const Icon(Icons.switch_right),
-      //     onPressed: () {
-      //       BlocProvider.of<ThemeBloc>(context).add(ToggleTheme());
-      //     }),
     );
   }
 
