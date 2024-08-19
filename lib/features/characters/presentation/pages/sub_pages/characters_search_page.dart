@@ -31,7 +31,7 @@ class _CharactersSearchPageState extends State<CharactersSearchPage> {
 
   void _onSearchChanged(String query) {
     if (_debounce?.isActive ?? false) _debounce?.cancel();
-    _debounce = Timer(const Duration(milliseconds: 500), () {
+    _debounce = Timer(const Duration(milliseconds: 700), () {
       setState(() {
         _loadCharacters(query);
       });

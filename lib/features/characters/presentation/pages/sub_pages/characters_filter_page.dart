@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rick_and_morty/core/styles/app_colors.dart';
+import 'package:rick_and_morty/core/utils/sized_box_helper.dart';
 
 import 'package:rick_and_morty/features/characters/presentation/bloc/characters_bloc.dart';
+import 'package:rick_and_morty/shared/widgets/divider_line.dart';
 
 class CharactersFilterPage extends StatefulWidget {
   const CharactersFilterPage({
@@ -54,7 +57,12 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
           ),
           actions: [
             IconButton(
-              icon: const Icon(Icons.filter_alt_off),
+              icon: Icon(
+                Icons.filter_alt_off,
+                color: selectedStatus == "" && selectedGnder == ""
+                    ? AppColors.buttonDisabled
+                    : AppColors.statusDead,
+              ),
               onPressed: _resetFilters,
             ),
           ],
@@ -65,9 +73,45 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Статус',
-                style: Theme.of(context).textTheme.bodySmall,
+                'Сортировать',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodySmall
+                    ?.copyWith(color: AppColors.textGray),
               ),
+              addVerticalSpace(24),
+              Row(
+                children: [
+                  Text(
+                    'По алфавиту ',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  const Spacer(),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.sort_outlined),
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: Transform.flip(
+                      flipY: true,
+                      child: const Icon(
+                        Icons.sort_outlined,
+                        color: AppColors.buttonDisabled,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const DividerLine(),
+              Text(
+                'Статус',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodySmall
+                    ?.copyWith(color: AppColors.textGray),
+              ),
+              addVerticalSpace(24),
               RadioListTile<String>(
                 contentPadding: const EdgeInsets.all(0),
                 title: Text(
@@ -110,11 +154,15 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                   });
                 },
               ),
-              const SizedBox(height: 20),
+              const DividerLine(),
               Text(
                 'Пол',
-                style: Theme.of(context).textTheme.bodySmall,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodySmall
+                    ?.copyWith(color: AppColors.textGray),
               ),
+              addVerticalSpace(24),
               RadioListTile<String>(
                 contentPadding: const EdgeInsets.all(0),
                 title: Text(

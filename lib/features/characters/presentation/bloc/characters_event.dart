@@ -16,7 +16,6 @@ class FetchCharacters extends CharactersEvent {
   final int page;
   final String status;
   final String gender;
-
   @override
   List<Object> get props => [page];
 }

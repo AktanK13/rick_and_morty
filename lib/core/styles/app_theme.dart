@@ -79,6 +79,7 @@ class AppTheme {
         color: AppColors.textBlack,
       ),
     ),
+    dividerColor: AppColors.dividerColor,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       elevation: 10,
       backgroundColor: AppColors.navBarBackgroundWhite,
@@ -143,6 +144,7 @@ class AppTheme {
     dialogTheme: const DialogTheme().copyWith(
       backgroundColor: AppColors.navBarBackgroundBlack,
     ),
+    dividerColor: AppColors.searchBackgroundDark,
     textTheme: const TextTheme().copyWith(
       titleLarge: const TextStyle(
           color: AppColors.textWhite,
