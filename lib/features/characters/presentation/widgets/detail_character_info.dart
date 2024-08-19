@@ -61,21 +61,25 @@ class DetailCharacterInfo extends StatelessWidget {
           ),
           const DividerLine(),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "Эпизоды",
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium
-                    ?.copyWith(fontWeight: FontWeight.w500),
+              Flexible(
+                child: Text(
+                  "Эпизоды",
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium
+                      ?.copyWith(fontWeight: FontWeight.w500),
+                ),
               ),
-              const Spacer(),
-              Text(
-                "Все эпизоды",
-                style: Theme.of(context)
-                    .textTheme
-                    .labelSmall
-                    ?.copyWith(color: AppColors.textGray),
+              Flexible(
+                child: Text(
+                  "Все эпизоды",
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelSmall
+                      ?.copyWith(color: AppColors.textGray),
+                ),
               )
             ],
           ),

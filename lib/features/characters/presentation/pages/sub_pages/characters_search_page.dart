@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -47,15 +48,10 @@ class _CharactersSearchPageState extends State<CharactersSearchPage> {
   }
 
   void _loadCharacters(String query) {
-    if (query.isNotEmpty) {
-      isEmpty = false;
-      context.read<CharactersBloc>().add(SearchCharacters(
-            page: context.read<CharactersBloc>().searchCurrentPage,
-            name: query,
-          ));
-    } else {
-      isEmpty = true;
-    }
+    context.read<CharactersBloc>().add(SearchCharacters(
+          page: context.read<CharactersBloc>().searchCurrentPage,
+          name: query,
+        ));
   }
 
   @override
@@ -144,19 +140,19 @@ class _CharactersSearchPageState extends State<CharactersSearchPage> {
                   return const Center(child: CircularProgressIndicator());
                 }
                 if (state is SearchCharactersError) {
-                  return const NotFound();
+                  return state.message == "isEmpty"
+                      ? const SizedBox.shrink()
+                      : const NotFound();
                 }
                 if (state is SearchCharactersLoadSuccess) {
-                  return isEmpty
-                      ? const SizedBox.shrink()
-                      : Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: SearchListView(
-                            scrollController: _scrollController,
-                            characters: state.characters,
-                            isLoading: state.hasReachedMax,
-                          ),
-                        );
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: SearchListView(
+                      scrollController: _scrollController,
+                      characters: state.characters,
+                      isLoading: state.hasReachedMax,
+                    ),
+                  );
                 }
 
                 return const SizedBox.shrink();
