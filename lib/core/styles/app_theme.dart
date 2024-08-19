@@ -3,84 +3,9 @@ import 'package:rick_and_morty/core/styles/app_font_size.dart';
 
 import 'app_colors.dart';
 
-ThemeData getAppTheme(BuildContext context, isDarkTheme) {
-  return ThemeData(
-    fontFamily: 'Roboto',
-    scaffoldBackgroundColor:
-        isDarkTheme ? AppColors.backgroundDark : AppColors.backgroundWhite,
-    textTheme: const TextTheme().copyWith(
-      bodySmall: TextStyle(
-          color: isDarkTheme ? AppColors.textWhite : AppColors.textBlack),
-      bodyMedium: TextStyle(
-          color: isDarkTheme ? AppColors.textWhite : AppColors.textBlack),
-      bodyLarge: TextStyle(
-          color: isDarkTheme ? AppColors.textWhite : AppColors.textBlack),
-      labelSmall: TextStyle(
-          fontSize: AppFontSize.medium,
-          color: isDarkTheme ? AppColors.textWhite : AppColors.textBlack),
-      labelMedium: TextStyle(
-          fontSize: AppFontSize.large,
-          color: isDarkTheme ? AppColors.textWhite : AppColors.textBlack),
-      labelLarge: TextStyle(
-          fontSize: AppFontSize.xLarge,
-          color: isDarkTheme ? AppColors.textWhite : AppColors.textBlack),
-      displaySmall: TextStyle(
-          color: isDarkTheme ? AppColors.textWhite : AppColors.textBlack),
-      displayMedium: TextStyle(
-          color: isDarkTheme ? AppColors.textWhite : AppColors.textBlack),
-      displayLarge: TextStyle(
-          color: isDarkTheme ? AppColors.textWhite : AppColors.textBlack),
-    ),
-    searchBarTheme: SearchBarThemeData(
-      backgroundColor: WidgetStateProperty.all(
-        isDarkTheme
-            ? AppColors.searchBackgroundDark
-            : AppColors.searchBackgroundWhite,
-      ),
-    ),
-    switchTheme: SwitchThemeData(
-      thumbColor: WidgetStateProperty.all(
-        isDarkTheme ? AppColors.buttonActive : AppColors.buttonActive,
-      ),
-    ),
-    listTileTheme: ListTileThemeData(
-      iconColor: isDarkTheme ? AppColors.backgroundWhite : AppColors.textBlack,
-      leadingAndTrailingTextStyle: TextStyle(
-        color: isDarkTheme ? AppColors.backgroundWhite : AppColors.textBlack,
-      ),
-    ),
-    appBarTheme: AppBarTheme(
-      backgroundColor:
-          isDarkTheme ? AppColors.backgroundDark : AppColors.backgroundWhite,
-      titleTextStyle: TextStyle(
-        color: isDarkTheme ? AppColors.textWhite : AppColors.textBlack,
-      ),
-      iconTheme: IconThemeData(
-        color: isDarkTheme ? AppColors.textWhite : AppColors.textBlack,
-      ),
-    ),
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      elevation: 10,
-      backgroundColor: isDarkTheme
-          ? AppColors.navBarBackgroundBlack
-          : AppColors.navBarBackgroundWhite,
-      selectedItemColor:
-          isDarkTheme ? AppColors.statusAlive : AppColors.buttonActive,
-      unselectedItemColor:
-          isDarkTheme ? AppColors.darkGray : AppColors.buttonDisabled,
-      selectedLabelStyle: const TextStyle(fontSize: AppFontSize.xSmall),
-      unselectedLabelStyle: TextStyle(
-        color: isDarkTheme ? AppColors.darkGray : AppColors.buttonDisabled,
-        fontSize: AppFontSize.xSmall,
-      ),
-      type: BottomNavigationBarType.fixed,
-      showSelectedLabels: true,
-      showUnselectedLabels: true,
-    ),
-  );
-}
-
 class AppTheme {
+// Light Theme ---------------------------
+
   static ThemeData lightTheme = ThemeData(
     fontFamily: 'Roboto',
     primaryColorLight: AppColors.buttonActive,
@@ -99,7 +24,10 @@ class AppTheme {
           color: AppColors.textBlack,
           fontSize: 10,
           fontWeight: FontWeight.w500),
-      bodyMedium: const TextStyle(color: AppColors.textBlack),
+      bodyMedium: const TextStyle(
+          color: AppColors.textBlack,
+          fontSize: 14,
+          fontWeight: FontWeight.w500),
       bodyLarge: const TextStyle(
           color: AppColors.textBlack,
           fontSize: 16,
@@ -201,13 +129,20 @@ class AppTheme {
       ),
       contentPadding: const EdgeInsets.all(0),
     ),
+    dialogTheme: const DialogTheme().copyWith(
+      backgroundColor: AppColors.backgroundWhite,
+    ),
   );
 
+// Dark Theme ---------------------------
   static ThemeData darkTheme = ThemeData(
     fontFamily: 'Roboto',
     primaryColorDark: AppColors.statusAlive,
     colorSchemeSeed: AppColors.statusAlive,
     scaffoldBackgroundColor: AppColors.backgroundDark,
+    dialogTheme: const DialogTheme().copyWith(
+      backgroundColor: AppColors.navBarBackgroundBlack,
+    ),
     textTheme: const TextTheme().copyWith(
       titleLarge: const TextStyle(
           color: AppColors.textWhite,
@@ -217,7 +152,6 @@ class AppTheme {
         color: AppColors.textWhite,
         fontSize: 20,
         fontWeight: FontWeight.w500,
-        
       ),
       bodySmall: const TextStyle(
           color: AppColors.textWhite,

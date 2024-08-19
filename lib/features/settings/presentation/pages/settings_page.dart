@@ -1,4 +1,6 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:rick_and_morty/core/styles/app_colors.dart';
@@ -16,6 +18,9 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
+    var brightness =
+        SchedulerBinding.instance.platformDispatcher.platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -36,7 +41,8 @@ class _SettingsPageState extends State<SettingsPage> {
                       children: [
                         const CircleAvatar(
                           radius: 40,
-                          backgroundColor: Colors.amber,
+                          backgroundImage: NetworkImage(
+                              "https://s3-alpha-sig.figma.com/img/68d8/7089/d36f153442643543e91adfb999cbcc8f?Expires=1725235200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=EszimM~Zgwf9bs3iYuwAYXIHAd6AkVIwvaexF5zoo3o4ziVAGKPh-iMiB2M5DerUEmRElY-pzL4UOVB-aKOIeOotaW8SIq92OzbzLWEN9SuYcMnfumT0McfQylyiZDtR6xwAVdM-9bN3yMs4rg55LXFF5iSPKsD0wderUVc5MRssN5EGKEVmIhtjyg1LUaz1TnMwkNTBbDBdj8TkTFPk16SDRyIzzwYgO6zvfyl1hT5DSdUjYUjKshEy7pyeuMRpaKo-pxVwN0PLEzJ1FxOqbE8kH5qMGS4V5l53fteRqqqLV-O9bQBovggGoakP~FirEdwwECC~5RZ96VNSHmtmlg__"),
                         ),
                         addHorizontalSpace(16),
                         Expanded(
@@ -139,11 +145,11 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.switch_right),
-          onPressed: () {
-            BlocProvider.of<ThemeBloc>(context).add(ToggleTheme());
-          }),
+      // floatingActionButton: FloatingActionButton(
+      //     child: const Icon(Icons.switch_right),
+      //     onPressed: () {
+      //       BlocProvider.of<ThemeBloc>(context).add(ToggleTheme());
+      //     }),
     );
   }
 
@@ -151,64 +157,88 @@ class _SettingsPageState extends State<SettingsPage> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        final themeBloc = BlocProvider.of<ThemeBloc>(context);
+        final themeMode = themeBloc.state.themeMode;
         return AlertDialog(
-          backgroundColor:
-              Theme.of(context).bottomNavigationBarTheme.backgroundColor,
-          title: Text('Темная тема',
-              style: Theme.of(context).textTheme.titleLarge),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              RadioListTile<ThemeMode>(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 0),
-                title: Text('Выключенна',
-                    style: Theme.of(context).textTheme.titleLarge),
-                value: ThemeMode.light,
-                groupValue: ThemeMode.system,
-                onChanged: (ThemeMode? value) {
-                  //TODO logic theme
-                  Navigator.pop(context);
-                },
-              ),
-              RadioListTile<ThemeMode>(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 0),
-                title: Text('Включенна',
-                    style: Theme.of(context).textTheme.titleLarge),
-                value: ThemeMode.dark,
-                groupValue: ThemeMode.system,
-                onChanged: (ThemeMode? value) {
-                  // Логика выбора режима темы
-                  Navigator.pop(context);
-                },
-              ),
-              RadioListTile<ThemeMode>(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 0),
-                title: Text('Следовать настройкам системы',
-                    style: Theme.of(context).textTheme.titleLarge),
-                value: ThemeMode.system,
-                groupValue: ThemeMode.system,
-                onChanged: (ThemeMode? value) {
-                  // Логика выбора режима темы
-                  Navigator.pop(context);
-                },
-              ),
-              RadioListTile<ThemeMode>(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 0),
-                title: Text('В режиме энергосбережения',
-                    style: Theme.of(context).textTheme.titleLarge),
-                value: ThemeMode.system,
-                groupValue: ThemeMode.system,
-                onChanged: (ThemeMode? value) {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10))),
+          titlePadding: const EdgeInsets.all(20),
+          contentPadding: const EdgeInsets.all(0),
+          title: Text(
+            'Выберите тему',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                RadioListTile<ThemeMode>(
+                  title: Text(
+                    'Выключенна',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  value: ThemeMode.light,
+                  groupValue: themeMode,
+                  onChanged: (ThemeMode? value) {
+                    if (value != null) {
+                      themeBloc.add(ChangeThemeMode(value));
+                    }
+                    Navigator.pop(context);
+                  },
+                ),
+                RadioListTile<ThemeMode>(
+                  title: Text(
+                    'Включенна',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  value: ThemeMode.dark,
+                  groupValue: themeMode,
+                  onChanged: (ThemeMode? value) {
+                    if (value != null) {
+                      themeBloc.add(ChangeThemeMode(value));
+                    }
+                    Navigator.pop(context);
+                  },
+                ),
+                RadioListTile<ThemeMode>(
+                  title: Text(
+                    'Следовать настройкам системы',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  value: ThemeMode.system,
+                  groupValue: themeMode,
+                  onChanged: (ThemeMode? value) {
+                    if (value != null) {
+                      themeBloc.add(ChangeThemeMode(value));
+                    }
+                    Navigator.pop(context);
+                  },
+                ),
+                RadioListTile<ThemeMode>(
+                  title: Text(
+                    'В режиме энергосбережения',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  value: ThemeMode.system,
+                  groupValue: themeMode,
+                  onChanged: (ThemeMode? value) {
+                    if (value != null) {
+                      themeBloc.add(ChangeThemeMode(value));
+                    }
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('ОТМЕНА'),
+              child: Text(
+                'ОТМЕНА',
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.pop(context);
               },
             ),
           ],

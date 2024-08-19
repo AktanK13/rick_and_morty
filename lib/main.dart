@@ -8,15 +8,15 @@ import 'package:rick_and_morty/shared/app_theme_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final ThemeState initialThemeState = await ThemeBloc.getInitialTheme();
+  final ThemeState initialTheme = await ThemeBloc.getInitialTheme();
   setup();
-  runApp(MyApp(initialThemeState));
+  runApp(MyApp(initialTheme));
 }
 
 class MyApp extends StatelessWidget {
-  final ThemeState initialThemeState;
+  final ThemeState initialTheme;
 
-  const MyApp(this.initialThemeState, {super.key});
+  const MyApp(this.initialTheme, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<EpisodesBloc>(
           create: (context) => getIt<EpisodesBloc>(),
         ),
-        BlocProvider(create: (context) => ThemeBloc(initialThemeState))
+        BlocProvider(create: (_) => ThemeBloc(initialTheme))
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(
           builder: (BuildContext context, ThemeState themeState) {
