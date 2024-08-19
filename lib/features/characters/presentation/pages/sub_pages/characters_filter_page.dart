@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty/core/styles/app_colors.dart';
-import 'package:rick_and_morty/core/utils/sized_box_helper.dart';
 
 import 'package:rick_and_morty/features/characters/presentation/bloc/characters_bloc.dart';
 import 'package:rick_and_morty/shared/widgets/divider_line.dart';
@@ -67,145 +66,153 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
             ),
           ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Сортировать',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall
-                    ?.copyWith(color: AppColors.textGray),
-              ),
-              addVerticalSpace(24),
-              Row(
-                children: [
-                  Text(
-                    'По алфавиту ',
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  const Spacer(),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.sort_outlined),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: Transform.flip(
-                      flipY: true,
-                      child: const Icon(
-                        Icons.sort_outlined,
-                        color: AppColors.buttonDisabled,
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Сортировать',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall
+                      ?.copyWith(color: AppColors.textGray),
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      'По алфавиту ',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    const Spacer(),
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.sort_outlined),
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: Transform.flip(
+                        flipY: true,
+                        child: const Icon(
+                          Icons.sort_outlined,
+                          color: AppColors.buttonDisabled,
+                        ),
                       ),
                     ),
+                  ],
+                ),
+                const DividerLine(),
+                Text(
+                  'Статус',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall
+                      ?.copyWith(color: AppColors.textGray),
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                RadioListTile<String>(
+                  contentPadding: const EdgeInsets.all(0),
+                  title: Text(
+                    'Живой',
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
-                ],
-              ),
-              const DividerLine(),
-              Text(
-                'Статус',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall
-                    ?.copyWith(color: AppColors.textGray),
-              ),
-              addVerticalSpace(24),
-              RadioListTile<String>(
-                contentPadding: const EdgeInsets.all(0),
-                title: Text(
-                  'Живой',
-                  style: Theme.of(context).textTheme.titleLarge,
+                  value: 'alive',
+                  groupValue: selectedStatus,
+                  onChanged: (value) {
+                    setState(() {
+                      selectedStatus = value ?? 'alive';
+                    });
+                  },
                 ),
-                value: 'alive',
-                groupValue: selectedStatus,
-                onChanged: (value) {
-                  setState(() {
-                    selectedStatus = value ?? 'alive';
-                  });
-                },
-              ),
-              RadioListTile<String>(
-                contentPadding: const EdgeInsets.all(0),
-                title: Text(
-                  'Мёртвый',
-                  style: Theme.of(context).textTheme.titleLarge,
+                RadioListTile<String>(
+                  contentPadding: const EdgeInsets.all(0),
+                  title: Text(
+                    'Мёртвый',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  value: 'dead',
+                  groupValue: selectedStatus,
+                  onChanged: (value) {
+                    setState(() {
+                      selectedStatus = value ?? 'dead';
+                    });
+                  },
                 ),
-                value: 'dead',
-                groupValue: selectedStatus,
-                onChanged: (value) {
-                  setState(() {
-                    selectedStatus = value ?? 'dead';
-                  });
-                },
-              ),
-              RadioListTile<String>(
-                contentPadding: const EdgeInsets.all(0),
-                title: Text(
-                  'Неизвестно',
-                  style: Theme.of(context).textTheme.titleLarge,
+                RadioListTile<String>(
+                  contentPadding: const EdgeInsets.all(0),
+                  title: Text(
+                    'Неизвестно',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  value: '',
+                  groupValue: selectedStatus,
+                  onChanged: (value) {
+                    setState(() {
+                      selectedStatus = value ?? '';
+                    });
+                  },
                 ),
-                value: '',
-                groupValue: selectedStatus,
-                onChanged: (value) {
-                  setState(() {
-                    selectedStatus = value ?? '';
-                  });
-                },
-              ),
-              const DividerLine(),
-              Text(
-                'Пол',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall
-                    ?.copyWith(color: AppColors.textGray),
-              ),
-              addVerticalSpace(24),
-              RadioListTile<String>(
-                contentPadding: const EdgeInsets.all(0),
-                title: Text(
-                  'Мужской',
-                  style: Theme.of(context).textTheme.titleLarge,
+                const DividerLine(),
+                Text(
+                  'Пол',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall
+                      ?.copyWith(color: AppColors.textGray),
                 ),
-                value: 'male',
-                groupValue: selectedGnder,
-                onChanged: (value) {
-                  setState(() {
-                    selectedGnder = value ?? 'male';
-                  });
-                },
-              ),
-              RadioListTile<String>(
-                contentPadding: const EdgeInsets.all(0),
-                title: Text(
-                  'Женский',
-                  style: Theme.of(context).textTheme.titleLarge,
+                const SizedBox(
+                  height: 24,
                 ),
-                value: 'female',
-                groupValue: selectedGnder,
-                onChanged: (value) {
-                  setState(() {
-                    selectedGnder = value ?? 'female';
-                  });
-                },
-              ),
-              RadioListTile<String>(
-                contentPadding: const EdgeInsets.all(0),
-                title: Text(
-                  'Неизвестно',
-                  style: Theme.of(context).textTheme.titleLarge,
+                RadioListTile<String>(
+                  contentPadding: const EdgeInsets.all(0),
+                  title: Text(
+                    'Мужской',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  value: 'male',
+                  groupValue: selectedGnder,
+                  onChanged: (value) {
+                    setState(() {
+                      selectedGnder = value ?? 'male';
+                    });
+                  },
                 ),
-                value: '',
-                groupValue: selectedGnder,
-                onChanged: (value) {
-                  setState(() {
-                    selectedGnder = value ?? '';
-                  });
-                },
-              ),
-            ],
+                RadioListTile<String>(
+                  contentPadding: const EdgeInsets.all(0),
+                  title: Text(
+                    'Женский',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  value: 'female',
+                  groupValue: selectedGnder,
+                  onChanged: (value) {
+                    setState(() {
+                      selectedGnder = value ?? 'female';
+                    });
+                  },
+                ),
+                RadioListTile<String>(
+                  contentPadding: const EdgeInsets.all(0),
+                  title: Text(
+                    'Неизвестно',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  value: '',
+                  groupValue: selectedGnder,
+                  onChanged: (value) {
+                    setState(() {
+                      selectedGnder = value ?? '';
+                    });
+                  },
+                ),
+              ],
+            ),
           ),
         ),
         // floatingActionButton: FloatingActionButton(

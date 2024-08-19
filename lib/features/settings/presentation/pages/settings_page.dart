@@ -60,7 +60,9 @@ class _SettingsPageState extends State<SettingsPage> {
                         )
                       ],
                     ),
-                    addVerticalSpace(30),
+                    const SizedBox(
+                      height: 30,
+                    ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: ElevatedButton(
@@ -80,7 +82,9 @@ class _SettingsPageState extends State<SettingsPage> {
                               .bodySmall
                               ?.copyWith(color: AppColors.textGray),
                         ),
-                        addVerticalSpace(12),
+                        const SizedBox(
+                          height: 12,
+                        ),
                         ListTile(
                           contentPadding: const EdgeInsets.all(0),
                           leading: const Icon(
@@ -113,7 +117,9 @@ class _SettingsPageState extends State<SettingsPage> {
                               .bodySmall
                               ?.copyWith(color: AppColors.textGray),
                         ),
-                        addVerticalSpace(12),
+                        const SizedBox(
+                          height: 12,
+                        ),
                         Text(
                           'Зигерионцы помещают Джерри и Рика в симуляцию, чтобы узнать секрет изготовления концен-трирован- ной темной материи.',
                           style: Theme.of(context).textTheme.labelMedium,
@@ -126,7 +132,9 @@ class _SettingsPageState extends State<SettingsPage> {
                               .bodySmall
                               ?.copyWith(color: AppColors.textGray),
                         ),
-                        addVerticalSpace(12),
+                        const SizedBox(
+                          height: 12,
+                        ),
                         Text(
                           'Rick & Morty  v1.0.0',
                           style: Theme.of(context).textTheme.labelMedium,

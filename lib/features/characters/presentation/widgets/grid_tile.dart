@@ -5,7 +5,6 @@ import 'package:rick_and_morty/features/characters/presentation/widgets/detail_c
 
 import '../../../../core/router/app_router.dart';
 import '../../../../core/styles/app_colors.dart';
-import '../../../../core/utils/sized_box_helper.dart';
 
 class CustomGridTile extends StatelessWidget {
   const CustomGridTile({
@@ -27,7 +26,9 @@ class CustomGridTile extends StatelessWidget {
             radius: 60,
             imageurl: character.image,
           ),
-          addVerticalSpace(18),
+          const SizedBox(
+            height: 18,
+          ),
           Flexible(
             child: Text(
               character.status == 'Alive' ? 'Живой' : 'Мертвый',

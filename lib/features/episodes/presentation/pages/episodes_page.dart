@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rick_and_morty/core/router/app_router.dart';
 import 'package:rick_and_morty/core/styles/app_colors.dart';
-import 'package:rick_and_morty/core/utils/sized_box_helper.dart';
 import 'package:rick_and_morty/features/episodes/presentation/bloc/episodes_bloc.dart';
 import 'package:rick_and_morty/shared/pages/not_found.dart';
 
@@ -72,10 +71,12 @@ class _EpisodesPageState extends State<EpisodesPage> {
                       onRefresh: _refreshPage,
                       child: ListView.separated(
                         controller: _scrollController,
-                        itemCount:
-                            state.episodes.length + (state.hasReachedMax ? 0 : 1),
+                        itemCount: state.episodes.length +
+                            (state.hasReachedMax ? 0 : 1),
                         separatorBuilder: (context, index) {
-                          return addVerticalSpace(16);
+                          return const SizedBox(
+                            height: 16,
+                          );
                         },
                         itemBuilder: (context, index) {
                           if (index >= state.episodes.length) {
@@ -83,7 +84,7 @@ class _EpisodesPageState extends State<EpisodesPage> {
                               child: CircularProgressIndicator(),
                             );
                           }
-                  
+
                           final episode = state.episodes[index];
                           return ListTile(
                             contentPadding: const EdgeInsets.all(0),

@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rick_and_morty/core/router/app_router.dart';
 import 'package:rick_and_morty/core/styles/app_colors.dart';
-import 'package:rick_and_morty/core/utils/sized_box_helper.dart';
 import 'package:rick_and_morty/features/locations/presentation/bloc/locations_bloc.dart';
 import 'package:rick_and_morty/shared/pages/not_found.dart';
 
@@ -75,7 +74,9 @@ class _LocationsPageState extends State<LocationsPage> {
                         itemCount: state.locations.length +
                             (state.hasReachedMax ? 0 : 1),
                         separatorBuilder: (context, index) {
-                          return addVerticalSpace(16);
+                          return const SizedBox(
+                            height: 16,
+                          );
                         },
                         itemBuilder: (context, index) {
                           if (index >= state.locations.length) {

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:rick_and_morty/core/styles/app_colors.dart';
-import 'package:rick_and_morty/core/utils/sized_box_helper.dart';
 import 'package:rick_and_morty/features/characters/domain/entities/entities.dart';
 import 'package:rick_and_morty/features/characters/presentation/widgets/detail_character_list_tile.dart';
 import 'package:rick_and_morty/features/characters/presentation/widgets/detail_character_text.dart';
@@ -24,7 +23,9 @@ class DetailCharacterInfo extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.displaySmall),
           ),
-          addVerticalSpace(5),
+          const SizedBox(
+            height: 5,
+          ),
           Center(
             child: Text(
               character.status,
@@ -37,7 +38,9 @@ class DetailCharacterInfo extends StatelessWidget {
               ),
             ),
           ),
-          addVerticalSpace(30),
+          const SizedBox(
+            height: 30,
+          ),
           Row(
             children: [
               DetailCharacterText(
@@ -50,12 +53,16 @@ class DetailCharacterInfo extends StatelessWidget {
               )
             ],
           ),
-          addVerticalSpace(20),
+          const SizedBox(
+            height: 20,
+          ),
           DetailCharacterListTile(
             characterInfo: character.origin.name,
             title: "Место рождения",
           ),
-          addVerticalSpace(5),
+          const SizedBox(
+            height: 5,
+          ),
           DetailCharacterListTile(
             characterInfo: character.location.name,
             title: "Местоположение",
@@ -84,7 +91,9 @@ class DetailCharacterInfo extends StatelessWidget {
               )
             ],
           ),
-          addVerticalSpace(24),
+          const SizedBox(
+            height: 24,
+          ),
           const StaticEpisodesListTile()
         ],
       ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rick_and_morty/core/utils/sized_box_helper.dart';
 import 'package:rick_and_morty/features/characters/domain/entities/entities.dart';
 import 'package:rick_and_morty/features/characters/presentation/widgets/list_tile.dart';
 
@@ -23,7 +22,9 @@ class CharacterPagedListView extends StatelessWidget {
         controller: _scrollController,
         itemCount: _characters.length + (_hasReachedMax ? 0 : 1),
         separatorBuilder: (context, index) {
-          return addVerticalSpace(16);
+          return const SizedBox(
+            height: 16,
+          );
         },
         itemBuilder: (context, index) {
           if (index >= _characters.length) {
