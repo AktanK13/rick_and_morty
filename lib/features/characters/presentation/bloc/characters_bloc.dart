@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:rick_and_morty/features/characters/domain/entities/entities.dart';
@@ -61,37 +60,38 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
 
   void _onSearchCharacters(
       SearchCharacters event, Emitter<CharactersState> emit) async {
+    if (hasReachedMaxSearch && query == event.name) return;
     if (event.name == "") {
       emit(const SearchCharactersError("isEmpty"));
       allSearchCharacters.clear();
       searchCurrentPage = 1;
       query = '';
+      return;
     } else if (query != event.name) {
       emit(SearchCharactersLoading());
       allSearchCharacters.clear();
       searchCurrentPage = 1;
       query = event.name;
-      final result = await useCases.searchCharacters(searchCurrentPage, query);
-
-      result.fold(
-        (error) {
-          emit(SearchCharactersError(error));
-        },
-        (data) {
-          hasReachedMaxSearch = data.info.pages == searchCurrentPage;
-          if (searchCurrentPage <= data.info.pages) {
-            allSearchCharacters.addAll(data.charactersEntity);
-            searchCurrentPage++;
-            emit(
-              SearchCharactersLoadSuccess(
-                allSearchCharacters,
-                hasReachedMax: hasReachedMaxSearch,
-              ),
-            );
-          }
-        },
-      );
     }
-    if (hasReachedMaxSearch) return;
+    final result = await useCases.searchCharacters(searchCurrentPage, query);
+
+    result.fold(
+      (error) {
+        emit(SearchCharactersError(error));
+      },
+      (data) {
+        hasReachedMaxSearch = data.info.pages == searchCurrentPage;
+        if (searchCurrentPage <= data.info.pages) {
+          allSearchCharacters.addAll(data.charactersEntity);
+          searchCurrentPage++;
+          emit(
+            SearchCharactersLoadSuccess(
+              List.from(allSearchCharacters),
+              hasReachedMax: hasReachedMaxSearch,
+            ),
+          );
+        }
+      },
+    );
   }
 }

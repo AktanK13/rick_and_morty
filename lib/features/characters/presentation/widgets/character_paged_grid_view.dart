@@ -23,7 +23,7 @@ class CharacterPagedGridView extends StatelessWidget {
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           mainAxisSpacing: 24,
-          childAspectRatio: 0.78,
+          childAspectRatio: 0.85,
         ),
         itemBuilder: (context, index) {
           return CustomGridTile(character: _characters[index]);

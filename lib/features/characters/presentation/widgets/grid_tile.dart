@@ -28,7 +28,7 @@ class CustomGridTile extends StatelessWidget {
             imageurl: character.image,
           ),
           addVerticalSpace(18),
-          Expanded(
+          Flexible(
             child: Text(
               character.status == 'Alive' ? 'Живой' : 'Мертвый',
               textAlign: TextAlign.center,
@@ -36,11 +36,10 @@ class CustomGridTile extends StatelessWidget {
                     color: character.status == 'Alive'
                         ? AppColors.statusAlive
                         : AppColors.statusDead,
-                    height: 2.2,
                   ),
             ),
           ),
-          Expanded(
+          Flexible(
             child: Text(
               character.name,
               overflow: TextOverflow.ellipsis,
@@ -48,14 +47,13 @@ class CustomGridTile extends StatelessWidget {
               style: Theme.of(context).textTheme.labelLarge,
             ),
           ),
-          Expanded(
+          Flexible(
             child: Text(
               '${character.species}/${character.gender == 'Male' ? 'Мужской' : 'Женский'}',
               textAlign: TextAlign.center,
-              style: Theme.of(context)
-                  .textTheme
-                  .labelSmall
-                  ?.copyWith(color: AppColors.textGray),
+              style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                    color: AppColors.textGray,
+                  ),
             ),
           ),
         ],

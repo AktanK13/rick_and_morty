@@ -6,6 +6,7 @@ import 'package:rick_and_morty/features/characters/domain/entities/entities.dart
 import 'package:rick_and_morty/features/characters/presentation/widgets/detail_character_list_tile.dart';
 import 'package:rick_and_morty/features/characters/presentation/widgets/detail_character_text.dart';
 import 'package:rick_and_morty/shared/widgets/divider_line.dart';
+import 'package:rick_and_morty/shared/widgets/static_episodes_list_tile.dart';
 
 class DetailCharacterInfo extends StatelessWidget {
   const DetailCharacterInfo({super.key, required this.character});
@@ -84,6 +85,7 @@ class DetailCharacterInfo extends StatelessWidget {
             ],
           ),
           addVerticalSpace(24),
+          const StaticEpisodesListTile()
         ],
       ),
     );
