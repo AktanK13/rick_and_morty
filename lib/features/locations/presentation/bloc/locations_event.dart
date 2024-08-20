@@ -8,9 +8,8 @@ abstract class LocationsEvent extends Equatable {
 }
 
 class FetchLocations extends LocationsEvent {
-  const FetchLocations({required this.page});
-  final int page;
+  const FetchLocations();
 
   @override
-  List<Object> get props => [page];
+  List<Object> get props => [];
 }
