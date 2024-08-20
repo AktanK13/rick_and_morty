@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty/core/router/router.dart';
@@ -21,7 +20,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log('data-unique: initialTheme: ${initialTheme} ');
     return MultiBlocProvider(
       providers: [
         BlocProvider<CharactersBloc>(
