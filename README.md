@@ -26,7 +26,7 @@ The [The Rick and Morty API
 
 | Light                             | Dark                              |
 | --------------------------------- | --------------------------------- |
-| <img src="ss/1.png" width="300">  | <img src="ss/2.png" width="300">  |
+| <img src="https://github.com/user-attachments/assets/813f8d7a-bad2-493b-a2aa-de934a7a7786" width="300">  | <img src="ss/2.png" width="300">  |
 | <img src="ss/3.png" width="300">  | <img src="ss/4.png" width="300">  |
 | <img src="ss/5.png" width="300">  | <img src="ss/6.png" width="300">  |
 | <img src="ss/7.png" width="300">  | <img src="ss/8.png" width="300">  |
@@ -35,11 +35,12 @@ The [The Rick and Morty API
 | <img src="ss/13.png" width="300"> | <img src="ss/14.png" width="300"> |
 
 
+
 ## 🔌 Plugins
 
 | Name                                                                   | Usage                                         |
 | ---------------------------------------------------------------------- | --------------------------------------------- |
 | [**flutter_bloc**](https://pub.dev/packages/flutter_bloc)              | State Management                              |
-| [**shared_preferences**]([https://pub.dev/packages/sembast](https://pub.dev/packages/shared_preferences))                        | persistent storage for simple data |
-| [**go_router**](https://pub.dev/packages/go_router)                      | for navigating between different screens    |
+| [**shared_preferences**](https://pub.dev/packages/shared_preferences)  | persistent storage for simple data            |
+| [**go_router**](https://pub.dev/packages/go_router)                    | for navigating between different screens      |
 | [**DIO**](https://pub.dev/packages/dio)                                | Network calls and File Download               |
