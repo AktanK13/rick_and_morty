@@ -46,3 +46,4 @@ The [The Rick and Morty API
 | [**shared_preferences**](https://pub.dev/packages/shared_preferences)  | persistent storage for simple data            |
 | [**go_router**](https://pub.dev/packages/go_router)                    | for navigating between different screens      |
 | [**DIO**](https://pub.dev/packages/dio)                                | Network calls and File Download               |
+| [**get_it**](https://pub.dev/packages/get_it)                             |  Service Locator              |
