@@ -1,5 +1,5 @@
 
-# Rick & Morty (Flutter Rick & Morty App) 
+# Rick and Morty (Flutter Rick & Morty App) 
 
 The Rick and Morty is a mobile application where users can search and view information about characters, episodes and locations from the popular animated series Rick and Morty. The app allows you to filter characters by status and gender, as well as save your favorite characters.
 
