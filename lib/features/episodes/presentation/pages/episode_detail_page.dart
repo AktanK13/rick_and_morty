@@ -27,6 +27,9 @@ class EpisodeDetailPage extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               children: [
+                const SizedBox(
+                  height: 24,
+                ),
                 Row(
                   children: [
                     DetailCharacterText(
@@ -84,8 +87,8 @@ class EpisodeDetailPage extends StatelessWidget {
                 //     },
                 //     separatorBuilder: (BuildContext context, int index) {
                 //       return const SizedBox(
-                        //   height: 24,
-                        // );
+                //   height: 24,
+                // );
                 //     },
                 //     itemCount: character.episode.length,
                 //   ),

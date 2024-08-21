@@ -61,10 +61,10 @@ final router = GoRouter(
                 GoRoute(
                   path: 'filter',
                   builder: (BuildContext context, GoRouterState state) {
-                    final Map<String, String> status =
+                    final Map<String, String> extra =
                         GoRouterState.of(context).extra as Map<String, String>;
                     return CharactersFilterPage(
-                      extra: status,
+                      extra: extra,
                     );
                   },
                 ),
