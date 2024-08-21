@@ -24,6 +24,9 @@ class LocationDetailsPage extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               children: [
+                const SizedBox(
+                  height: 24,
+                ),
                 Row(
                   children: [
                     DetailCharacterText(
