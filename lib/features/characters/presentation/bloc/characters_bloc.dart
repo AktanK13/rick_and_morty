@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
@@ -40,7 +41,7 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
   void _onFetchCharacters(
       FetchCharacters event, Emitter<CharactersState> emit) async {
     if (hasReachedMax) return;
-    if (state is CharactersInitial) {
+    if (state is CharactersInitial || state is CharactersLoading) {
       emit(CharactersLoading());
     }
     if (selectedStatus != event.status || selectedGender != event.gender) {
@@ -107,11 +108,11 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
     );
   }
 
-  // @override
-  // void onTransition(Transition<CharactersEvent, CharactersState> transition) {
-  //   super.onTransition(transition);
-  //   log('data-unique: transition: ${transition} ');
-  // }
+  @override
+  void onTransition(Transition<CharactersEvent, CharactersState> transition) {
+    super.onTransition(transition);
+    log('data-unique: transition: ${transition} ');
+  }
 
   @override
   Future<void> close() {

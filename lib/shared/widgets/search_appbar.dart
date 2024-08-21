@@ -35,7 +35,11 @@ class SearchAppbar extends StatelessWidget implements PreferredSizeWidget {
             suffixIcon: IconButton(
               icon: const Icon(Icons.filter_list),
               onPressed: () async {
-                final result = await context.push(AppRouter.charactersFilter);
+                final result =
+                    await context.push(AppRouter.charactersFilter, extra: {
+                  'status': context.read<CharactersBloc>().selectedStatus,
+                  'gender': context.read<CharactersBloc>().selectedGender,
+                });
                 if (!context.mounted) return;
                 if (result != null && result is Map<String, String>) {
                   context.read<CharactersBloc>().add(
