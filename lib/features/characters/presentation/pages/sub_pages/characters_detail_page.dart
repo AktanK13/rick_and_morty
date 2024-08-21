@@ -2,15 +2,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rick_and_morty/core/styles/app_colors.dart';
 
 import 'package:rick_and_morty/features/characters/domain/entities/entities.dart';
 import 'package:rick_and_morty/features/characters/presentation/widgets/detail_character_info.dart';
-import 'package:rick_and_morty/features/characters/presentation/widgets/detail_character_list_tile.dart';
-import 'package:rick_and_morty/features/characters/presentation/widgets/detail_character_text.dart';
 import 'package:rick_and_morty/features/characters/presentation/widgets/interactive_avatar.dart';
-import 'package:rick_and_morty/shared/widgets/divider_line.dart';
-import 'package:rick_and_morty/shared/widgets/static_episodes_list_tile.dart';
 
 class CharactersDetailPage extends StatelessWidget {
   const CharactersDetailPage({super.key, required this.character});
@@ -18,7 +13,6 @@ class CharactersDetailPage extends StatelessWidget {
   final CharactersEntity character;
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).textTheme;
     return Scaffold(
       body: CustomScrollView(
         slivers: [
