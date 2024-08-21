@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -50,8 +49,6 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
       selectedStatus = event.status;
       selectedGender = event.gender;
     }
-    log('data-unique: selectedStatus: ${selectedStatus} ');
-    log('data-unique: selectedGender: ${selectedGender} ');
     final result = await useCases.getCharacters(
         currentPage, selectedStatus, selectedGender);
     result.fold(
