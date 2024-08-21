@@ -21,86 +21,83 @@ class _CharactersPageState extends State<CharactersPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const SearchAppbar(),
-      body: SafeArea(
-        top: false,
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: BlocBuilder<CharactersBloc, CharactersState>(
-                      buildWhen: (previous, current) =>
-                          current is CharactersLoadSuccess ||
-                          current is CharactersLoading ||
-                          current is CharactersError,
-                      builder: (context, state) {
-                        if (state is CharactersLoadSuccess) {
-                          return Text(
-                            'Всего персонажей: ${state.count}',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall
-                                ?.copyWith(color: AppColors.textGray),
-                          );
-                        }
-                        return const Text('');
-                      },
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      setState(() {
-                        _isGridView = !_isGridView;
-                      });
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: BlocBuilder<CharactersBloc, CharactersState>(
+                    buildWhen: (previous, current) =>
+                        current is CharactersLoadSuccess ||
+                        current is CharactersLoading ||
+                        current is CharactersError,
+                    builder: (context, state) {
+                      if (state is CharactersLoadSuccess) {
+                        return Text(
+                          'Всего персонажей: ${state.count}',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall
+                              ?.copyWith(color: AppColors.textGray),
+                        );
+                      }
+                      return const Text('');
                     },
-                    icon: _isGridView
-                        ? const Icon(Icons.list_rounded,
-                            size: 24, color: AppColors.textGray)
-                        : const Icon(Icons.grid_view_rounded,
-                            size: 24, color: AppColors.textGray),
                   ),
-                ],
-              ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    setState(() {
+                      _isGridView = !_isGridView;
+                    });
+                  },
+                  icon: _isGridView
+                      ? const Icon(Icons.list_rounded,
+                          size: 24, color: AppColors.textGray)
+                      : const Icon(Icons.grid_view_rounded,
+                          size: 24, color: AppColors.textGray),
+                ),
+              ],
             ),
-            Expanded(
-              child: BlocBuilder<CharactersBloc, CharactersState>(
-                buildWhen: (previous, current) =>
-                    current is CharactersLoadSuccess ||
-                    current is CharactersLoading ||
-                    current is CharactersError,
-                builder: (context, state) {
-                  final bloc = context.read<CharactersBloc>();
-                  if (state is CharactersLoading) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                  if (state is CharactersLoadSuccess) {
-                    return RefreshIndicator(
-                      onRefresh: () => bloc.refreshPage(),
-                      child: _isGridView
-                          ? CharacterPagedGridView(
-                              scrollController: bloc.scrollController,
-                              characters: state.characters,
-                              hasReachedMax: state.hasReachedMax,
-                            )
-                          : CharacterPagedListView(
-                              scrollController: bloc.scrollController,
-                              characters: state.characters,
-                              hasReachedMax: state.hasReachedMax,
-                            ),
-                    );
-                  }
-                  if (state is CharactersError) {
-                    return const NotFound();
-                  }
+          ),
+          Expanded(
+            child: BlocBuilder<CharactersBloc, CharactersState>(
+              buildWhen: (previous, current) =>
+                  current is CharactersLoadSuccess ||
+                  current is CharactersLoading ||
+                  current is CharactersError,
+              builder: (context, state) {
+                final bloc = context.read<CharactersBloc>();
+                if (state is CharactersLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                if (state is CharactersLoadSuccess) {
+                  return RefreshIndicator(
+                    onRefresh: () => bloc.refreshPage(),
+                    child: _isGridView
+                        ? CharacterPagedGridView(
+                            scrollController: bloc.scrollController,
+                            characters: state.characters,
+                            hasReachedMax: state.hasReachedMax,
+                          )
+                        : CharacterPagedListView(
+                            scrollController: bloc.scrollController,
+                            characters: state.characters,
+                            hasReachedMax: state.hasReachedMax,
+                          ),
+                  );
+                }
+                if (state is CharactersError) {
                   return const NotFound();
-                },
-              ),
+                }
+                return const NotFound();
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

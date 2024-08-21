@@ -28,6 +28,7 @@ class _CharactersSearchPageState extends State<CharactersSearchPage> {
   Widget build(BuildContext context) {
     InputDecorationTheme textfieldTheme =
         Theme.of(context).inputDecorationTheme;
+    final theme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -48,17 +49,14 @@ class _CharactersSearchPageState extends State<CharactersSearchPage> {
               });
             },
             autofocus: true,
-            style: Theme.of(context).textTheme.bodyMedium,
+            style: theme.bodyMedium,
             onTapOutside: (event) {
               FocusManager.instance.primaryFocus?.unfocus();
             },
             decoration: InputDecoration(
               fillColor: textfieldTheme.fillColor,
               hintText: 'Найти персонажа',
-              hintStyle: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.copyWith(color: AppColors.textGray),
+              hintStyle: theme.titleLarge?.copyWith(color: AppColors.textGray),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(0),
                 borderSide: BorderSide.none,
@@ -93,10 +91,7 @@ class _CharactersSearchPageState extends State<CharactersSearchPage> {
             padding: const EdgeInsets.all(16.0),
             child: Text(
               "Результаты поиска",
-              style: Theme.of(context)
-                  .textTheme
-                  .bodySmall
-                  ?.copyWith(color: AppColors.textGray),
+              style: theme.bodySmall?.copyWith(color: AppColors.textGray),
             ),
           ),
           Expanded(

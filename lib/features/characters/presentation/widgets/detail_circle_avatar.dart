@@ -10,10 +10,13 @@ class DetailCircleAvatar extends StatelessWidget {
   final String imageurl;
   @override
   Widget build(BuildContext context) {
-    return CircleAvatar(
-      radius: radius,
-      backgroundImage: NetworkImage(imageurl),
-      backgroundColor: AppColors.buttonDisabled,
+    return Hero(
+      tag: imageurl,
+      child: CircleAvatar(
+        radius: radius,
+        backgroundImage: NetworkImage(imageurl),
+        backgroundColor: AppColors.buttonDisabled,
+      ),
     );
   }
 }

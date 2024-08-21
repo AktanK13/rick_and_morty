@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rick_and_morty/core/styles/app_colors.dart';
 import 'package:rick_and_morty/features/characters/domain/entities/entities.dart';
-import 'package:rick_and_morty/features/characters/presentation/widgets/detail_circle_avatar.dart';
+import 'package:rick_and_morty/features/characters/presentation/widgets/interactive_avatar.dart';
 
 class DetailAppBar extends StatelessWidget {
   const DetailAppBar({super.key, required this.character});
@@ -17,7 +17,6 @@ class DetailAppBar extends StatelessWidget {
     return AppBar(
       toolbarHeight: 230,
       leading: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           IconButton(
             onPressed: () {
@@ -73,11 +72,11 @@ class DetailAppBar extends StatelessWidget {
               ),
               Positioned(
                 left: (MediaQuery.of(context).size.width / 2) - 83,
-                top: 117,
+                top: (MediaQuery.of(context).size.width / 3.5),
                 child: CircleAvatar(
                   radius: 83,
                   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                  child: DetailCircleAvatar(
+                  child: InteractiveAvatar(
                     radius: 73,
                     imageurl: character.image,
                   ),

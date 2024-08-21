@@ -14,18 +14,16 @@ class DetailCharacterInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+    final theme = Theme.of(context).textTheme;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
         children: [
           Center(
             child: Text(character.name,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.displaySmall),
+                textAlign: TextAlign.center, style: theme.displaySmall),
           ),
-          const SizedBox(
-            height: 5,
-          ),
+          const SizedBox(height: 5),
           Center(
             child: Text(
               character.status,
@@ -38,9 +36,7 @@ class DetailCharacterInfo extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(
-            height: 30,
-          ),
+          const SizedBox(height: 30),
           Row(
             children: [
               DetailCharacterText(
@@ -53,16 +49,12 @@ class DetailCharacterInfo extends StatelessWidget {
               )
             ],
           ),
-          const SizedBox(
-            height: 20,
-          ),
+          const SizedBox(height: 20),
           DetailCharacterListTile(
             characterInfo: character.origin.name,
             title: "Место рождения",
           ),
-          const SizedBox(
-            height: 5,
-          ),
+          const SizedBox(height: 5),
           DetailCharacterListTile(
             characterInfo: character.location.name,
             title: "Местоположение",
@@ -74,27 +66,20 @@ class DetailCharacterInfo extends StatelessWidget {
               Flexible(
                 child: Text(
                   "Эпизоды",
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium
-                      ?.copyWith(fontWeight: FontWeight.w500),
+                  style:
+                      theme.titleMedium?.copyWith(fontWeight: FontWeight.w500),
                 ),
               ),
               Flexible(
                 child: Text(
                   "Все эпизоды",
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelSmall
-                      ?.copyWith(color: AppColors.textGray),
+                  style: theme.labelSmall?.copyWith(color: AppColors.textGray),
                 ),
               )
             ],
           ),
-          const SizedBox(
-            height: 24,
-          ),
-          const StaticEpisodesListTile()
+          const SizedBox(height: 24),
+          const StaticEpisodesListTile(),
         ],
       ),
     );

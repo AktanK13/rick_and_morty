@@ -36,13 +36,14 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).textTheme;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).inputDecorationTheme.fillColor,
           title: Text(
             'Фильтры',
-            style: Theme.of(context).textTheme.titleMedium,
+            style: theme.titleMedium,
           ),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios),
@@ -83,7 +84,7 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                   children: [
                     Text(
                       'По алфавиту ',
-                      style: Theme.of(context).textTheme.titleLarge,
+                      style: theme.titleLarge,
                     ),
                     const Spacer(),
                     IconButton(
@@ -117,7 +118,7 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                   contentPadding: const EdgeInsets.all(0),
                   title: Text(
                     'Живой',
-                    style: Theme.of(context).textTheme.titleLarge,
+                    style: theme.titleLarge,
                   ),
                   value: 'alive',
                   groupValue: selectedStatus,
@@ -131,7 +132,7 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                   contentPadding: const EdgeInsets.all(0),
                   title: Text(
                     'Мёртвый',
-                    style: Theme.of(context).textTheme.titleLarge,
+                    style: theme.titleLarge,
                   ),
                   value: 'dead',
                   groupValue: selectedStatus,
@@ -145,7 +146,7 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                   contentPadding: const EdgeInsets.all(0),
                   title: Text(
                     'Неизвестно',
-                    style: Theme.of(context).textTheme.titleLarge,
+                    style: theme.titleLarge,
                   ),
                   value: '',
                   groupValue: selectedStatus,
@@ -170,7 +171,7 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                   contentPadding: const EdgeInsets.all(0),
                   title: Text(
                     'Мужской',
-                    style: Theme.of(context).textTheme.titleLarge,
+                    style: theme.titleLarge,
                   ),
                   value: 'male',
                   groupValue: selectedGender,
@@ -184,7 +185,7 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                   contentPadding: const EdgeInsets.all(0),
                   title: Text(
                     'Женский',
-                    style: Theme.of(context).textTheme.titleLarge,
+                    style: theme.titleLarge,
                   ),
                   value: 'female',
                   groupValue: selectedGender,
@@ -198,7 +199,7 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                   contentPadding: const EdgeInsets.all(0),
                   title: Text(
                     'Неизвестно',
-                    style: Theme.of(context).textTheme.titleLarge,
+                    style: theme.titleLarge,
                   ),
                   value: '',
                   groupValue: selectedGender,

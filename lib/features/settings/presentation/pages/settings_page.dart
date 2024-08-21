@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:rick_and_morty/core/styles/app_colors.dart';
-import 'package:rick_and_morty/core/utils/sized_box_helper.dart';
 import 'package:rick_and_morty/shared/app_theme_bloc.dart';
 import 'package:rick_and_morty/shared/widgets/divider_line.dart';
 
@@ -39,7 +38,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           backgroundImage: NetworkImage(
                               "https://s3-alpha-sig.figma.com/img/68d8/7089/d36f153442643543e91adfb999cbcc8f?Expires=1725235200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=EszimM~Zgwf9bs3iYuwAYXIHAd6AkVIwvaexF5zoo3o4ziVAGKPh-iMiB2M5DerUEmRElY-pzL4UOVB-aKOIeOotaW8SIq92OzbzLWEN9SuYcMnfumT0McfQylyiZDtR6xwAVdM-9bN3yMs4rg55LXFF5iSPKsD0wderUVc5MRssN5EGKEVmIhtjyg1LUaz1TnMwkNTBbDBdj8TkTFPk16SDRyIzzwYgO6zvfyl1hT5DSdUjYUjKshEy7pyeuMRpaKo-pxVwN0PLEzJ1FxOqbE8kH5qMGS4V5l53fteRqqqLV-O9bQBovggGoakP~FirEdwwECC~5RZ96VNSHmtmlg__"),
                         ),
-                        addHorizontalSpace(16),
+                        const SizedBox(height: 16),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

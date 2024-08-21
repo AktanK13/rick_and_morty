@@ -15,6 +15,7 @@ class CustomGridTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).textTheme;
     return GestureDetector(
       onTap: () {
         context.go(AppRouter.charactersDetails, extra: character);
@@ -33,11 +34,11 @@ class CustomGridTile extends StatelessWidget {
             child: Text(
               character.status == 'Alive' ? 'Живой' : 'Мертвый',
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: character.status == 'Alive'
-                        ? AppColors.statusAlive
-                        : AppColors.statusDead,
-                  ),
+              style: theme.bodySmall?.copyWith(
+                color: character.status == 'Alive'
+                    ? AppColors.statusAlive
+                    : AppColors.statusDead,
+              ),
             ),
           ),
           Flexible(
@@ -45,16 +46,16 @@ class CustomGridTile extends StatelessWidget {
               character.name,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.labelLarge,
+              style: theme.labelLarge,
             ),
           ),
           Flexible(
             child: Text(
               '${character.species}/${character.gender == 'Male' ? 'Мужской' : 'Женский'}',
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                    color: AppColors.textGray,
-                  ),
+              style: theme.labelSmall?.copyWith(
+                color: AppColors.textGray,
+              ),
             ),
           ),
         ],
