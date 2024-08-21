@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rick_and_morty/core/styles/app_colors.dart';
-import 'package:rick_and_morty/features/characters/presentation/bloc/characters_bloc.dart';
 
 import 'package:rick_and_morty/shared/widgets/divider_line.dart';
 
 class CharactersFilterPage extends StatefulWidget {
   const CharactersFilterPage({
     super.key,
+    required this.extra,
   });
+
+  final Map<String, String> extra;
 
   @override
   State<CharactersFilterPage> createState() => _CharactersFilterPageState();
@@ -22,8 +23,8 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
   @override
   void initState() {
     super.initState();
-    selectedStatus = context.read<CharactersBloc>().selectedStatus;
-    selectedGender = context.read<CharactersBloc>().selectedGender;
+    selectedStatus = widget.extra["status"] ?? '';
+    selectedGender = widget.extra["gender"] ?? '';
   }
 
   void _resetFilters() {
@@ -42,6 +43,12 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
           title: Text(
             'Фильтры',
             style: Theme.of(context).textTheme.titleMedium,
+          ),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios),
+            onPressed: () {
+              context.pop();
+            },
           ),
           centerTitle: false,
           actions: [
@@ -207,8 +214,6 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            context.read<CharactersBloc>().add(FetchCharacters(
-                status: selectedStatus, gender: selectedGender));
             context.pop({
               'status': selectedStatus,
               'gender': selectedGender,

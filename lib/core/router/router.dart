@@ -61,9 +61,10 @@ final router = GoRouter(
                 GoRoute(
                   path: 'filter',
                   builder: (BuildContext context, GoRouterState state) {
-                    return BlocProvider(
-                      create: (context) => getIt<CharactersBloc>(),
-                      child: const CharactersFilterPage(),
+                    final Map<String, String> status =
+                        GoRouterState.of(context).extra as Map<String, String>;
+                    return CharactersFilterPage(
+                      extra: status,
                     );
                   },
                 ),
