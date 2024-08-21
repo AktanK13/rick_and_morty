@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:rick_and_morty/core/styles/app_colors.dart';
-
 import 'package:rick_and_morty/features/characters/presentation/bloc/characters_bloc.dart';
+
 import 'package:rick_and_morty/shared/widgets/divider_line.dart';
 
 class CharactersFilterPage extends StatefulWidget {
@@ -16,19 +17,19 @@ class CharactersFilterPage extends StatefulWidget {
 
 class _CharactersFilterPageState extends State<CharactersFilterPage> {
   String selectedStatus = '';
-  String selectedGnder = '';
+  String selectedGender = '';
 
   @override
   void initState() {
     super.initState();
     selectedStatus = context.read<CharactersBloc>().selectedStatus;
-    selectedGnder = context.read<CharactersBloc>().selectedGnder;
+    selectedGender = context.read<CharactersBloc>().selectedGender;
   }
 
   void _resetFilters() {
     setState(() {
       selectedStatus = '';
-      selectedGnder = '';
+      selectedGender = '';
     });
   }
 
@@ -43,22 +44,11 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
             style: Theme.of(context).textTheme.titleMedium,
           ),
           centerTitle: false,
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios,
-              color: Theme.of(context).appBarTheme.iconTheme?.color,
-            ),
-            onPressed: () {
-              context.read<CharactersBloc>().add(FetchCharacters(
-                  page: 1, status: selectedStatus, gender: selectedGnder));
-              Navigator.of(context).pop();
-            },
-          ),
           actions: [
             IconButton(
               icon: Icon(
                 Icons.filter_alt_off,
-                color: selectedStatus == "" && selectedGnder == ""
+                color: selectedStatus == "" && selectedGender == ""
                     ? AppColors.buttonDisabled
                     : AppColors.statusDead,
               ),
@@ -68,7 +58,7 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -80,7 +70,7 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                       ?.copyWith(color: AppColors.textGray),
                 ),
                 const SizedBox(
-                  height: 24,
+                  height: 8,
                 ),
                 Row(
                   children: [
@@ -114,7 +104,7 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                       ?.copyWith(color: AppColors.textGray),
                 ),
                 const SizedBox(
-                  height: 24,
+                  height: 8,
                 ),
                 RadioListTile<String>(
                   contentPadding: const EdgeInsets.all(0),
@@ -167,7 +157,7 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                       ?.copyWith(color: AppColors.textGray),
                 ),
                 const SizedBox(
-                  height: 24,
+                  height: 8,
                 ),
                 RadioListTile<String>(
                   contentPadding: const EdgeInsets.all(0),
@@ -176,10 +166,10 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   value: 'male',
-                  groupValue: selectedGnder,
+                  groupValue: selectedGender,
                   onChanged: (value) {
                     setState(() {
-                      selectedGnder = value ?? 'male';
+                      selectedGender = value ?? 'male';
                     });
                   },
                 ),
@@ -190,10 +180,10 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   value: 'female',
-                  groupValue: selectedGnder,
+                  groupValue: selectedGender,
                   onChanged: (value) {
                     setState(() {
-                      selectedGnder = value ?? 'female';
+                      selectedGender = value ?? 'female';
                     });
                   },
                 ),
@@ -204,10 +194,10 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   value: '',
-                  groupValue: selectedGnder,
+                  groupValue: selectedGender,
                   onChanged: (value) {
                     setState(() {
-                      selectedGnder = value ?? '';
+                      selectedGender = value ?? '';
                     });
                   },
                 ),
@@ -215,18 +205,17 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
             ),
           ),
         ),
-        // floatingActionButton: FloatingActionButton(
-        //   onPressed: () {
-        //     // context.read<CharactersBloc>().add(FetchCharacters(
-        //     //       page: 1,
-        //     //       status: selectedStatus,
-        //     //       gender: selectedGnder,
-        //     //       isLoadMore: null,
-        //     //     ));
-        //     Navigator.pop(context);
-        //   },
-        //   child: const Icon(Icons.check),
-        // ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            context.read<CharactersBloc>().add(FetchCharacters(
+                status: selectedStatus, gender: selectedGender));
+            context.pop({
+              'status': selectedStatus,
+              'gender': selectedGender,
+            });
+          },
+          child: const Icon(Icons.check),
+        ),
       ),
     );
   }

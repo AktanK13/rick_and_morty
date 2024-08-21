@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:rick_and_morty/core/utils/injections.dart';
 import 'package:rick_and_morty/features/characters/domain/entities/entities.dart';
+import 'package:rick_and_morty/features/characters/presentation/bloc/characters_bloc.dart';
 import 'package:rick_and_morty/features/characters/presentation/pages/sub_pages/characters_detail_page.dart';
 import 'package:rick_and_morty/features/characters/presentation/pages/sub_pages/characters_filter_page.dart';
 import 'package:rick_and_morty/features/characters/presentation/pages/characters_page.dart';
@@ -30,7 +33,11 @@ final router = GoRouter(
           routes: [
             GoRoute(
               path: '/characters',
-              builder: (context, state) => const CharactersPage(),
+              builder: (context, state) => BlocProvider(
+                create: (context) => getIt<CharactersBloc>()
+                  ..add(const FetchCharacters(status: '', gender: '')),
+                child: const CharactersPage(),
+              ),
               routes: [
                 GoRoute(
                   path: 'details',
@@ -45,13 +52,19 @@ final router = GoRouter(
                 GoRoute(
                   path: 'search',
                   builder: (BuildContext context, GoRouterState state) {
-                    return const CharactersSearchPage();
+                    return BlocProvider(
+                      create: (context) => getIt<CharactersBloc>(),
+                      child: const CharactersSearchPage(),
+                    );
                   },
                 ),
                 GoRoute(
                   path: 'filter',
                   builder: (BuildContext context, GoRouterState state) {
-                    return const CharactersFilterPage();
+                    return BlocProvider(
+                      create: (context) => getIt<CharactersBloc>(),
+                      child: const CharactersFilterPage(),
+                    );
                   },
                 ),
               ],

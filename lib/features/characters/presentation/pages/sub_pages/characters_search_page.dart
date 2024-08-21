@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -16,47 +15,12 @@ class CharactersSearchPage extends StatefulWidget {
 }
 
 class _CharactersSearchPageState extends State<CharactersSearchPage> {
-  final TextEditingController _searchController = TextEditingController();
-  final ScrollController _scrollController = ScrollController();
-
   Timer? _debounce;
   bool isEmpty = false;
 
   @override
-  void initState() {
-    super.initState();
-    _scrollController.addListener(_onScroll);
-    _loadCharacters(_searchController.text);
-  }
-
-  void _onSearchChanged(String query) {
-    if (_debounce?.isActive ?? false) _debounce?.cancel();
-    _debounce = Timer(const Duration(milliseconds: 700), () {
-      setState(() {
-        _loadCharacters(query);
-      });
-    });
-  }
-
-  void _onScroll() {
-    if (_scrollController.position.pixels ==
-            _scrollController.position.maxScrollExtent &&
-        !context.read<CharactersBloc>().hasReachedMax) {
-      _loadCharacters(_searchController.text);
-    }
-  }
-
-  void _loadCharacters(String query) {
-    context.read<CharactersBloc>().add(SearchCharacters(
-          page: context.read<CharactersBloc>().searchCurrentPage,
-          name: query,
-        ));
-  }
-
-  @override
   void dispose() {
-    _searchController.dispose();
-    _scrollController.dispose();
+    _debounce?.cancel();
     super.dispose();
   }
 
@@ -74,8 +38,15 @@ class _CharactersSearchPageState extends State<CharactersSearchPage> {
         title: Hero(
           tag: 'searchField',
           child: TextField(
-            onChanged: _onSearchChanged,
-            controller: _searchController,
+            controller: context.read<CharactersBloc>().textFieldController,
+            onChanged: (String query) {
+              if (_debounce?.isActive ?? false) _debounce?.cancel();
+              _debounce = Timer(const Duration(milliseconds: 500), () {
+                context
+                    .read<CharactersBloc>()
+                    .add(SearchCharacters(name: query));
+              });
+            },
             autofocus: true,
             style: Theme.of(context).textTheme.bodyMedium,
             onTapOutside: (event) {
@@ -100,10 +71,10 @@ class _CharactersSearchPageState extends State<CharactersSearchPage> {
               ),
               suffixIcon: GestureDetector(
                 onTap: () {
-                  setState(() {
-                    _searchController.clear();
-                    _onSearchChanged('');
-                  });
+                  context.read<CharactersBloc>().textFieldController.clear();
+                  context
+                      .read<CharactersBloc>()
+                      .add(const SearchCharacters(name: ""));
                 },
                 child: const Icon(Icons.close),
               ),
@@ -135,6 +106,7 @@ class _CharactersSearchPageState extends State<CharactersSearchPage> {
                   current is SearchCharactersLoading ||
                   current is SearchCharactersError,
               builder: (context, state) {
+                final bloc = context.read<CharactersBloc>();
                 if (state is SearchCharactersLoading) {
                   return const Center(child: CircularProgressIndicator());
                 }
@@ -147,7 +119,7 @@ class _CharactersSearchPageState extends State<CharactersSearchPage> {
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: SearchListView(
-                      scrollController: _scrollController,
+                      scrollController: bloc.searchScrollController,
                       characters: state.characters,
                       isLoading: state.hasReachedMax,
                     ),

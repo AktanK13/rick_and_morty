@@ -15,40 +15,7 @@ class CharactersPage extends StatefulWidget {
 }
 
 class _CharactersPageState extends State<CharactersPage> {
-  final ScrollController _scrollController = ScrollController();
   bool _isGridView = false;
-
-  @override
-  void initState() {
-    super.initState();
-    context
-        .read<CharactersBloc>()
-        .add(const FetchCharacters(page: 1, status: '', gender: ''));
-    _scrollController.addListener(_onScroll);
-  }
-
-  void _onScroll() {
-    if (_scrollController.position.pixels ==
-            _scrollController.position.maxScrollExtent &&
-        !context.read<CharactersBloc>().hasReachedMax) {
-      context.read<CharactersBloc>().add(FetchCharacters(
-          page: context.read<CharactersBloc>().currentPage,
-          status: context.read<CharactersBloc>().selectedStatus,
-          gender: context.read<CharactersBloc>().selectedGnder));
-    }
-  }
-
-  Future<void> _refreshPage() async {
-    context
-        .read<CharactersBloc>()
-        .add(const FetchCharacters(page: 1, status: '', gender: ''));
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,20 +72,21 @@ class _CharactersPageState extends State<CharactersPage> {
                     current is CharactersLoading ||
                     current is CharactersError,
                 builder: (context, state) {
+                  final bloc = context.read<CharactersBloc>();
                   if (state is CharactersLoading) {
                     return const Center(child: CircularProgressIndicator());
                   }
                   if (state is CharactersLoadSuccess) {
                     return RefreshIndicator(
-                      onRefresh: _refreshPage,
+                      onRefresh: () => bloc.refreshPage(),
                       child: _isGridView
                           ? CharacterPagedGridView(
-                              scrollController: _scrollController,
+                              scrollController: bloc.scrollController,
                               characters: state.characters,
                               hasReachedMax: state.hasReachedMax,
                             )
                           : CharacterPagedListView(
-                              scrollController: _scrollController,
+                              scrollController: bloc.scrollController,
                               characters: state.characters,
                               hasReachedMax: state.hasReachedMax,
                             ),

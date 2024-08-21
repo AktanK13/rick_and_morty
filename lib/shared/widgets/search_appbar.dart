@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rick_and_morty/core/router/app_router.dart';
 import 'package:rick_and_morty/core/styles/app_colors.dart';
+import 'package:rick_and_morty/features/characters/presentation/bloc/characters_bloc.dart';
 
 class SearchAppbar extends StatelessWidget implements PreferredSizeWidget {
   const SearchAppbar({
@@ -17,7 +19,7 @@ class SearchAppbar extends StatelessWidget implements PreferredSizeWidget {
         tag: 'searchField',
         child: TextField(
           onTap: () {
-            context.go(AppRouter.charactersSearch);
+            context.push(AppRouter.charactersSearch);
           },
           readOnly: true,
           style: Theme.of(context).textTheme.bodyMedium,
@@ -32,8 +34,17 @@ class SearchAppbar extends StatelessWidget implements PreferredSizeWidget {
             prefixIcon: const Icon(Icons.search),
             suffixIcon: IconButton(
               icon: const Icon(Icons.filter_list),
-              onPressed: () {
-                context.push(AppRouter.charactersFilter);
+              onPressed: () async {
+                final result = await context.push(AppRouter.charactersFilter);
+                if (!context.mounted) return;
+                if (result != null && result is Map<String, String>) {
+                  context.read<CharactersBloc>().add(
+                        FetchCharacters(
+                          status: result['status'] ?? '',
+                          gender: result['gender'] ?? '',
+                        ),
+                      );
+                }
               },
             ),
             iconColor: textfieldTheme.iconColor,

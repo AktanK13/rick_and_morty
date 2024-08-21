@@ -9,6 +9,8 @@ abstract class CharactersState extends Equatable {
 
 class CharactersInitial extends CharactersState {}
 
+
+
 class CharactersLoading extends CharactersState {}
 
 class CharactersLoadSuccess extends CharactersState {
@@ -33,6 +35,8 @@ class CharactersError extends CharactersState {
   @override
   List<Object> get props => [message];
 }
+
+
 
 class SearchCharactersLoading extends CharactersState {}
 
