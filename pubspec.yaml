@@ -43,8 +43,11 @@ dependencies:
   get_it: ^7.7.0
   dartz: ^0.10.1
   shared_preferences: ^2.3.1
+  injectable: ^2.4.4
 
 dev_dependencies:
+  injectable_generator: ^2.6.2
+  build_runner: ^2.4.11
   flutter_test:
     sdk: flutter
 

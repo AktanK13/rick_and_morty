@@ -7,7 +7,7 @@ import 'package:rick_and_morty/shared/app_theme_bloc.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final ThemeState initialTheme = await ThemeBloc.getInitialTheme();
-  setup();
+  configureDependencies();
   runApp(MyApp(initialTheme));
 }
 

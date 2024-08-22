@@ -59,9 +59,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         )
                       ],
                     ),
-                    const SizedBox(
-                      height: 30,
-                    ),
+                    const SizedBox(height: 30),
                     SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: ElevatedButton(
@@ -81,9 +79,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               .bodySmall
                               ?.copyWith(color: AppColors.textGray),
                         ),
-                        const SizedBox(
-                          height: 12,
-                        ),
+                        const SizedBox(height: 12),
                         ListTile(
                           contentPadding: const EdgeInsets.all(0),
                           leading: const Icon(
@@ -103,8 +99,6 @@ class _SettingsPageState extends State<SettingsPage> {
                           ),
                           trailing: const Icon(Icons.arrow_forward_ios),
                           onTap: () {
-                            // BlocProvider.of<ThemeBloc>(context)
-                            //     .add(ToggleTheme());
                             _showThemeDialog(context);
                           },
                         ),
@@ -116,9 +110,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               .bodySmall
                               ?.copyWith(color: AppColors.textGray),
                         ),
-                        const SizedBox(
-                          height: 12,
-                        ),
+                        const SizedBox(height: 12),
                         Text(
                           'Зигерионцы помещают Джерри и Рика в симуляцию, чтобы узнать секрет изготовления концен-трирован- ной темной материи.',
                           style: Theme.of(context).textTheme.labelMedium,
