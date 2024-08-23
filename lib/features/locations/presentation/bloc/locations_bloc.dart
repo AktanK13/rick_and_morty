@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -34,8 +33,9 @@ class LocationsBloc extends Bloc<LocationsEvent, LocationsState> {
       (error) => emit(_LocationsErrorState(error)),
       (data) {
         hasReachedMax = data.info.pages == currentPage;
+        final locationsEntity = data.mapToEntity();
         if (currentPage <= data.info.pages) {
-          allLocation.addAll(data.locationsEntity);
+          allLocation.addAll(locationsEntity);
           currentPage++;
           emit(_LocationsLoadedSuccess(
               hasReachedMax: hasReachedMax, locations: List.from(allLocation)));
