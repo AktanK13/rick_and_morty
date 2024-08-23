@@ -1,51 +1,109 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rick_and_morty/features/characters/domain/entities/entities.dart';
 
-class CharactersModel extends CharactersEntity {
-  const CharactersModel(
-      {required super.id,
-      required super.name,
-      required super.status,
-      required super.species,
-      required super.type,
-      required super.gender,
-      required super.origin,
-      required super.location,
-      required super.image,
-      required super.episode,
-      required super.url,
-      required super.created});
+part 'characters_model.freezed.dart';
+part 'characters_model.g.dart';
 
-  factory CharactersModel.fromJson(Map<String, dynamic> json) {
-    return CharactersModel(
-      id: json['id'],
-      name: json['name'],
-      status: json['status'],
-      species: json['species'],
-      type: json['type'],
-      gender: json['gender'],
-      origin: Origin.fromJson(json['origin']),
-      location: Location.fromJson(json['location']),
-      image: json['image'],
-      episode: List<String>.from(json['episode']),
-      url: json['url'],
-      created: json['created'],
+@freezed
+class CharactersModel with _$CharactersModel {
+  const CharactersModel._();
+  const factory CharactersModel({
+    required Info info,
+    required List<Results> results,
+  }) = _CharactersModel;
+
+  factory CharactersModel.fromJson(Map<String, dynamic> json) =>
+      _$CharactersModelFromJson(json);
+
+  List<CharactersEntity> mapToEntity() {
+    return results.map((result) => result.mapToEntity()).toList();
+  }
+}
+
+@freezed
+class Info with _$Info {
+  const factory Info({
+    required int count,
+    required int pages,
+    String? next,
+    String? prev,
+  }) = _Info;
+
+  factory Info.fromJson(Map<String, dynamic> json) => _$InfoFromJson(json);
+}
+
+@freezed
+class Results with _$Results {
+  const Results._();
+  const factory Results({
+    required int id,
+    required String name,
+    required String status,
+    String? species,
+    String? type,
+    String? gender,
+    Origin? origin,
+    Location? location,
+    String? image,
+    List<String>? episode,
+    required String url,
+    required String created,
+  }) = _Results;
+
+  factory Results.fromJson(Map<String, dynamic> json) =>
+      _$ResultsFromJson(json);
+
+  CharactersEntity mapToEntity() {
+    return CharactersEntity(
+      id: id,
+      name: name,
+      status: status,
+      species: species ?? '',
+      type: type ?? '',
+      gender: gender ?? '',
+      origin: origin!.mapToEntity(),
+      location: location!.mapToEntity(),
+      image: image ?? '',
+      episode: episode ?? [],
+      url: url,
+      created: created,
     );
   }
+}
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['name'] = name;
-    data['status'] = status;
-    data['species'] = species;
-    data['type'] = type;
-    data['gender'] = gender;
-    data['origin'] = origin.toJson();
-    data['location'] = location.toJson();
-    data['image'] = image;
-    data['episode'] = episode;
-    data['url'] = url;
-    data['created'] = created;
-    return data;
+@freezed
+class Origin with _$Origin {
+  const Origin._();
+  const factory Origin({
+    String? name,
+    String? url,
+  }) = _Origin;
+
+  factory Origin.fromJson(Map<String, dynamic> json) => _$OriginFromJson(json);
+
+  OriginEntity mapToEntity() {
+    return OriginEntity(
+      name: name ?? '',
+      url: url ?? '',
+    );
+  }
+}
+
+@freezed
+class Location with _$Location {
+  const Location._();
+  const factory Location({
+    String? name,
+    String? url,
+  }) = _Location;
+
+  factory Location.fromJson(Map<String, dynamic> json) =>
+      _$LocationFromJson(json);
+
+  LocationEntity mapToEntity() {
+    return LocationEntity(
+      name: name ?? '',
+      url: url ?? '',
+    );
   }
 }

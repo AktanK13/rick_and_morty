@@ -7,8 +7,8 @@ class CharactersEntity extends Equatable {
   final String species;
   final String type;
   final String gender;
-  final Origin origin;
-  final Location location;
+  final OriginEntity origin;
+  final LocationEntity location;
   final String image;
   final List<String> episode;
   final String url;
@@ -45,44 +45,16 @@ class CharactersEntity extends Equatable {
       ];
 }
 
-class Origin {
+class OriginEntity {
   final String name;
   final String url;
 
-  Origin({required this.name, required this.url});
-
-  factory Origin.fromJson(Map<String, dynamic> json) {
-    return Origin(
-      name: json['name'],
-      url: json['url'],
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'name': name,
-      'url': url,
-    };
-  }
+  OriginEntity({required this.name, required this.url});
 }
 
-class Location {
+class LocationEntity {
   final String name;
   final String url;
 
-  Location({required this.name, required this.url});
-
-  factory Location.fromJson(Map<String, dynamic> json) {
-    return Location(
-      name: json['name'],
-      url: json['url'],
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'name': name,
-      'url': url,
-    };
-  }
+  LocationEntity({required this.name, required this.url});
 }

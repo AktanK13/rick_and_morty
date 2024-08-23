@@ -32,7 +32,8 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
   List<CharactersEntity> allCharacters = [];
   List<CharactersEntity> allSearchCharacters = [];
 
-  CharactersBloc({required this.useCases}) : super(const CharactersState.initial()) {
+  CharactersBloc({required this.useCases})
+      : super(const CharactersState.initial()) {
     _scrollController.addListener(_onScroll);
     _searchScrollController.addListener(_onScrollSearch);
     on<FetchCharacters>(_onFetchCharacters);
@@ -57,8 +58,9 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
       (error) => emit(_CharactersError(error)),
       (data) {
         hasReachedMax = data.info.pages == currentPage;
+        final characterEntity = data.mapToEntity();
         if (currentPage <= data.info.pages) {
-          allCharacters.addAll(data.charactersEntity);
+          allCharacters.addAll(characterEntity);
           currentPage++;
           emit(
             _CharactersLoadSuccess(
@@ -95,8 +97,10 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
       },
       (data) {
         hasReachedMaxSearch = data.info.pages == searchCurrentPage;
+        final characterEntity = data.mapToEntity();
+
         if (searchCurrentPage <= data.info.pages) {
-          allSearchCharacters.addAll(data.charactersEntity);
+          allSearchCharacters.addAll(characterEntity);
           searchCurrentPage++;
           emit(
             _SearchCharactersLoadSuccess(

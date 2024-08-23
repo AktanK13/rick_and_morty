@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -28,12 +29,15 @@ class EpisodesBloc extends Bloc<EpisodesEvent, EpisodesState> {
       emit(const _EpisodesLoadingState());
     }
     final result = await usecase.getEpisodes(currentPage);
+    log('data-unique: result: ${result} ');
     result.fold(
       (error) => emit(_EpisodesErrorState(error)),
       (data) {
         hasReachedMax = data.info.pages == currentPage;
+        final episodesEntity = data.mapToEntity();
+
         if (currentPage <= data.info.pages) {
-          allEpisode.addAll(data.episodeentity);
+          allEpisode.addAll(episodesEntity);
           currentPage++;
           emit(_EpisodesLoadedSuccess(
               episodes: List.from(allEpisode), hasReachedMax: hasReachedMax));
