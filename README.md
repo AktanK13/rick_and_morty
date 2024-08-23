@@ -22,8 +22,6 @@ The [The Rick and Morty API
 
 ## 📸 ScreenShots
 
-<!-- <img src="ss/mockup.png"/> -->
-
 | Light                             | Dark                              |
 | --------------------------------- | --------------------------------- |
 | <img src="https://github.com/user-attachments/assets/b634cc95-a748-411d-8f22-e6184cabb6c7" width="300">  | <img src="https://github.com/user-attachments/assets/3ca28daa-45ab-49f8-920f-0718e0556346" width="300">  |
@@ -46,4 +44,5 @@ The [The Rick and Morty API
 | [**shared_preferences**](https://pub.dev/packages/shared_preferences)  | persistent storage for simple data            |
 | [**go_router**](https://pub.dev/packages/go_router)                    | for navigating between different screens      |
 | [**DIO**](https://pub.dev/packages/dio)                                | Network calls and File Download               |
-| [**get_it**](https://pub.dev/packages/get_it)                             |  Service Locator              |
+| [**get_it**](https://pub.dev/packages/get_it)                          |  Service Locator                              |
+| [**get_it**](https://pub.dev/packages/injectable)                      |  Injectable is a code generator for get_it.   |
