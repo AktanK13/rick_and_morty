@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -29,63 +30,64 @@ class LocationsPage extends StatelessWidget {
                 child: BlocBuilder<LocationsBloc, LocationsState>(
                   builder: (context, state) {
                     final bloc = context.read<LocationsBloc>();
-                    if (state is LocationsLoading) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                    if (state is LocationsLoadedSuccess) {
-                      return RefreshIndicator(
-                        onRefresh: () => bloc.refreshPage(),
-                        child: ListView.separated(
-                          controller: bloc.scrollController,
-                          itemCount: state.locations.length +
-                              (state.hasReachedMax ? 0 : 1),
-                          separatorBuilder: (context, index) {
-                            return const SizedBox(
-                              height: 16,
-                            );
-                          },
-                          itemBuilder: (context, index) {
-                            if (index >= state.locations.length) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            }
+                    return state.when(
+                      initial: () => const SizedBox.shrink(),
+                      loading: () =>
+                          const Center(child: CircularProgressIndicator()),
+                      error: (error) => const NotFound(),
+                      loaded: (locations, hasReachedMax) {
+                        log('data-unique: locations:----------------- $locations ');
+                        return RefreshIndicator(
+                          onRefresh: () => bloc.refreshPage(),
+                          child: ListView.separated(
+                            controller: bloc.scrollController,
+                            itemCount:
+                                locations.length + (hasReachedMax ? 0 : 1),
+                            separatorBuilder: (context, index) {
+                              return const SizedBox(height: 16);
+                            },
+                            itemBuilder: (context, index) {
+                              if (index >= locations.length) {
+                                return const Center(
+                                  child: CircularProgressIndicator()
+                                );
+                              }
 
-                            final location = state.locations[index];
-                            return ListTile(
-                              contentPadding: const EdgeInsets.all(0),
-                              onTap: () {
-                                context.go(AppRouter.locationsDetails,
-                                    extra: location);
-                              },
-                              title: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    location.type,
-                                    style:
-                                        Theme.of(context).textTheme.bodySmall,
-                                  ),
-                                  Text(
-                                    location.name,
-                                    style:
-                                        Theme.of(context).textTheme.bodyLarge,
-                                  ),
-                                ],
-                              ),
-                              subtitle: Text(
-                                location.dimension,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelSmall
-                                    ?.copyWith(color: AppColors.textGray),
-                              ),
-                            );
-                          },
-                        ),
-                      );
-                    }
-                    return const NotFound();
+                              final location = locations[index];
+                              return ListTile(
+                                contentPadding: const EdgeInsets.all(0),
+                                onTap: () {
+                                  context.go(AppRouter.locationsDetails,
+                                      extra: location);
+                                },
+                                title: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      location.type,
+                                      style:
+                                          Theme.of(context).textTheme.bodySmall,
+                                    ),
+                                    Text(
+                                      location.name,
+                                      style:
+                                          Theme.of(context).textTheme.bodyLarge,
+                                    ),
+                                  ],
+                                ),
+                                subtitle: Text(
+                                  location.dimension,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelSmall
+                                      ?.copyWith(color: AppColors.textGray),
+                                ),
+                              );
+                            },
+                          ),
+                        );
+                      },
+                    );
                   },
                 ),
               ),

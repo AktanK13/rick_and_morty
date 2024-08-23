@@ -1,61 +1,19 @@
 part of 'characters_bloc.dart';
 
-abstract class CharactersState extends Equatable {
-  const CharactersState();
+@freezed
+class CharactersState with _$CharactersState {
+  const factory CharactersState.initial() = _CharactersInitial;
 
-  @override
-  List<Object> get props => [];
-}
+  const factory CharactersState.loading() = _CharactersLoading;
+  const factory CharactersState.error(String message) = _CharactersError;
+  const factory CharactersState.loaded(
+      {required List<CharactersEntity> characters,
+      @Default(false) bool hasReachedMax,
+      @Default(0) int count}) = _CharactersLoadSuccess;
 
-class CharactersInitial extends CharactersState {}
-
-
-
-class CharactersLoading extends CharactersState {}
-
-class CharactersLoadSuccess extends CharactersState {
-  final List<CharactersEntity> characters;
-  final bool hasReachedMax;
-  final int count;
-
-  const CharactersLoadSuccess(
-    this.characters, {
-    this.hasReachedMax = false,
-    required this.count,
-  });
-  @override
-  List<Object> get props => [characters, hasReachedMax];
-}
-
-class CharactersError extends CharactersState {
-  final String message;
-
-  const CharactersError(this.message);
-
-  @override
-  List<Object> get props => [message];
-}
-
-
-
-class SearchCharactersLoading extends CharactersState {}
-
-class SearchCharactersLoadSuccess extends CharactersState {
-  final List<CharactersEntity> characters;
-  final bool hasReachedMax;
-
-  const SearchCharactersLoadSuccess(this.characters,
-      {this.hasReachedMax = false});
-
-  @override
-  List<Object> get props => [characters, hasReachedMax];
-}
-
-class SearchCharactersError extends CharactersState {
-  final String message;
-
-  const SearchCharactersError(this.message);
-
-  @override
-  List<Object> get props => [message];
+  const factory CharactersState.searchLoading() = _SearchCharactersLoading;
+  const factory CharactersState.searchError(String message) = _SearchCharactersError;
+  const factory CharactersState.searchLoaded(
+      {required List<CharactersEntity> characters,
+      @Default(false) bool hasReachedMax,}) = _SearchCharactersLoadSuccess;
 }

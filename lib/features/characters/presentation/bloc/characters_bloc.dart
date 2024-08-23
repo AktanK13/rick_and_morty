@@ -1,12 +1,13 @@
 import 'dart:developer';
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rick_and_morty/features/characters/domain/entities/entities.dart';
 import 'package:rick_and_morty/features/characters/domain/usecases/use_cases.dart';
 
+part 'characters_bloc.freezed.dart';
 part 'characters_event.dart';
 part 'characters_state.dart';
 
@@ -31,7 +32,7 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
   List<CharactersEntity> allCharacters = [];
   List<CharactersEntity> allSearchCharacters = [];
 
-  CharactersBloc({required this.useCases}) : super(CharactersInitial()) {
+  CharactersBloc({required this.useCases}) : super(const CharactersState.initial()) {
     _scrollController.addListener(_onScroll);
     _searchScrollController.addListener(_onScrollSearch);
     on<FetchCharacters>(_onFetchCharacters);
@@ -41,8 +42,8 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
   void _onFetchCharacters(
       FetchCharacters event, Emitter<CharactersState> emit) async {
     if (hasReachedMax) return;
-    if (state is CharactersInitial || state is CharactersLoading) {
-      emit(CharactersLoading());
+    if (state is _CharactersInitial || state is _CharactersLoading) {
+      emit(const _CharactersLoading());
     }
     if (selectedStatus != event.status || selectedGender != event.gender) {
       allCharacters.clear();
@@ -53,15 +54,15 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
     final result = await useCases.getCharacters(
         currentPage, selectedStatus, selectedGender);
     result.fold(
-      (error) => emit(CharactersError(error)),
+      (error) => emit(_CharactersError(error)),
       (data) {
         hasReachedMax = data.info.pages == currentPage;
         if (currentPage <= data.info.pages) {
           allCharacters.addAll(data.charactersEntity);
           currentPage++;
           emit(
-            CharactersLoadSuccess(
-              List.from(allCharacters),
+            _CharactersLoadSuccess(
+              characters: List.from(allCharacters),
               count: data.info.count,
               hasReachedMax: hasReachedMax,
             ),
@@ -75,13 +76,13 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
       SearchCharacters event, Emitter<CharactersState> emit) async {
     if (hasReachedMaxSearch && query == event.name) return;
     if (event.name == "") {
-      emit(const SearchCharactersError("isEmpty"));
+      emit(const _SearchCharactersError("isEmpty"));
       allSearchCharacters.clear();
       searchCurrentPage = 1;
       query = '';
       return;
     } else if (query != event.name) {
-      emit(SearchCharactersLoading());
+      emit(const _SearchCharactersLoading());
       allSearchCharacters.clear();
       searchCurrentPage = 1;
       query = event.name;
@@ -90,7 +91,7 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
 
     result.fold(
       (error) {
-        emit(SearchCharactersError(error));
+        emit(_SearchCharactersError(error));
       },
       (data) {
         hasReachedMaxSearch = data.info.pages == searchCurrentPage;
@@ -98,8 +99,8 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
           allSearchCharacters.addAll(data.charactersEntity);
           searchCurrentPage++;
           emit(
-            SearchCharactersLoadSuccess(
-              List.from(allSearchCharacters),
+            _SearchCharactersLoadSuccess(
+              characters: List.from(allSearchCharacters),
               hasReachedMax: hasReachedMaxSearch,
             ),
           );
@@ -111,7 +112,7 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
   @override
   void onTransition(Transition<CharactersEvent, CharactersState> transition) {
     super.onTransition(transition);
-    log('data-unique: transition: ${transition} ');
+    log('data-unique: transition: $transition ');
   }
 
   @override

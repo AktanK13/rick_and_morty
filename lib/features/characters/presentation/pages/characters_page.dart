@@ -19,6 +19,7 @@ class _CharactersPageState extends State<CharactersPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: const SearchAppbar(),
       body: Column(
@@ -30,21 +31,25 @@ class _CharactersPageState extends State<CharactersPage> {
               children: [
                 Expanded(
                   child: BlocBuilder<CharactersBloc, CharactersState>(
-                    buildWhen: (previous, current) =>
-                        current is CharactersLoadSuccess ||
-                        current is CharactersLoading ||
-                        current is CharactersError,
                     builder: (context, state) {
-                      if (state is CharactersLoadSuccess) {
-                        return Text(
-                          'Всего персонажей: ${state.count}',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall
+                      return state.maybeWhen(
+                        loading: () => Text(
+                          'Всего персонажей:',
+                          style: theme.bodySmall
                               ?.copyWith(color: AppColors.textGray),
-                        );
-                      }
-                      return const Text('');
+                        ),
+                        error: (_) => Text(
+                          'Всего персонажей: ',
+                          style: theme.bodySmall
+                              ?.copyWith(color: AppColors.textGray),
+                        ),
+                        loaded: (characters, hasReachMax, count) => Text(
+                          'Всего персонажей: $count',
+                          style: theme.bodySmall
+                              ?.copyWith(color: AppColors.textGray),
+                        ),
+                        orElse: () => const SizedBox.shrink(),
+                      );
                     },
                   ),
                 ),
@@ -65,35 +70,31 @@ class _CharactersPageState extends State<CharactersPage> {
           ),
           Expanded(
             child: BlocBuilder<CharactersBloc, CharactersState>(
-              buildWhen: (previous, current) =>
-                  current is CharactersLoadSuccess ||
-                  current is CharactersLoading ||
-                  current is CharactersError,
               builder: (context, state) {
                 final bloc = context.read<CharactersBloc>();
-                if (state is CharactersLoading) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-                if (state is CharactersLoadSuccess) {
-                  return RefreshIndicator(
-                    onRefresh: () => bloc.refreshPage(),
-                    child: _isGridView
-                        ? CharacterPagedGridView(
-                            scrollController: bloc.scrollController,
-                            characters: state.characters,
-                            hasReachedMax: state.hasReachedMax,
-                          )
-                        : CharacterPagedListView(
-                            scrollController: bloc.scrollController,
-                            characters: state.characters,
-                            hasReachedMax: state.hasReachedMax,
-                          ),
-                  );
-                }
-                if (state is CharactersError) {
-                  return const NotFound();
-                }
-                return const NotFound();
+                return state.maybeWhen(
+                  initial: () => const SizedBox.shrink(),
+                  loading: () =>
+                      const Center(child: CircularProgressIndicator()),
+                  error: (error) => const NotFound(),
+                  loaded: (characters, hasReachedMax, count) {
+                    return RefreshIndicator(
+                      onRefresh: () => bloc.refreshPage(),
+                      child: _isGridView
+                          ? CharacterPagedGridView(
+                              scrollController: bloc.scrollController,
+                              characters: characters,
+                              hasReachedMax: hasReachedMax,
+                            )
+                          : CharacterPagedListView(
+                              scrollController: bloc.scrollController,
+                              characters: characters,
+                              hasReachedMax: hasReachedMax,
+                            ),
+                    );
+                  },
+                  orElse: () => const SizedBox.shrink(),
+                );
               },
             ),
           ),

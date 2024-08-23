@@ -1,30 +1,9 @@
 part of 'locations_bloc.dart';
 
-abstract class LocationsState extends Equatable {
-  const LocationsState();
-
-  @override
-  List<Object> get props => [];
-}
-
-class LocationsInitial extends LocationsState {}
-
-class LocationsLoading extends LocationsState {}
-
-class LocationsLoadedSuccess extends LocationsState {
-  final List<LocationsEntity> locations;
-  final bool hasReachedMax;
-  const LocationsLoadedSuccess(this.locations, this.hasReachedMax);
-    @override
-  List<Object> get props => [locations, hasReachedMax];
-}
-
-class LocationsError extends LocationsState {
-  const LocationsError(this.message);
-  
-  final String message;
-
-  @override
-  List<Object> get props => [message];
-
+@freezed
+class LocationsState with _$LocationsState {
+  const factory LocationsState.initial() = _LocationsInitialState;
+  const factory LocationsState.loading() = _LocationsLoadingState;
+  const factory LocationsState.error(String message) = _LocationsErrorState;
+  const factory LocationsState.loaded({required List<LocationsEntity> locations, @Default(false) bool hasReachedMax}) = _LocationsLoadedSuccess;
 }

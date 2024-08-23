@@ -29,63 +29,66 @@ class EpisodesPage extends StatelessWidget {
                 child: BlocBuilder<EpisodesBloc, EpisodesState>(
                   builder: (context, state) {
                     final bloc = context.read<EpisodesBloc>();
-                    if (state is EpisodesLoading) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                    if (state is EpisodesLoadSuccess) {
-                      return RefreshIndicator(
-                        onRefresh: () => bloc.refreshPage(),
-                        child: ListView.separated(
-                          controller: bloc.scrollController,
-                          itemCount: state.episodes.length +
-                              (state.hasReachedMax ? 0 : 1),
-                          separatorBuilder: (context, index) {
-                            return const SizedBox(
-                              height: 16,
-                            );
-                          },
-                          itemBuilder: (context, index) {
-                            if (index >= state.episodes.length) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
+                    return state.when(
+                      initial: () =>
+                          const Center(child: CircularProgressIndicator()),
+                      loading: () =>
+                          const Center(child: CircularProgressIndicator()),
+                      error: (error) => const NotFound(),
+                      loaded: (episodes, hasReachedMax) {
+                        return RefreshIndicator(
+                          onRefresh: () => bloc.refreshPage(),
+                          child: ListView.separated(
+                            controller: bloc.scrollController,
+                            itemCount:
+                                episodes.length + (hasReachedMax ? 0 : 1),
+                            separatorBuilder: (context, index) {
+                              return const SizedBox(
+                                height: 16,
                               );
-                            }
+                            },
+                            itemBuilder: (context, index) {
+                              if (index >= episodes.length) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
 
-                            final episode = state.episodes[index];
-                            return ListTile(
-                              contentPadding: const EdgeInsets.all(0),
-                              onTap: () {
-                                context.go(AppRouter.episodesDetails,
-                                    extra: episode);
-                              },
-                              title: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    episode.episode,
-                                    style:
-                                        Theme.of(context).textTheme.bodySmall,
-                                  ),
-                                  Text(
-                                    episode.name,
-                                    style:
-                                        Theme.of(context).textTheme.bodyLarge,
-                                  ),
-                                ],
-                              ),
-                              subtitle: Text(
-                                episode.airDate,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelSmall
-                                    ?.copyWith(color: AppColors.textGray),
-                              ),
-                            );
-                          },
-                        ),
-                      );
-                    }
-                    return const NotFound();
+                              final episode = episodes[index];
+                              return ListTile(
+                                contentPadding: const EdgeInsets.all(0),
+                                onTap: () {
+                                  context.go(AppRouter.episodesDetails,
+                                      extra: episode);
+                                },
+                                title: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      episode.episode,
+                                      style:
+                                          Theme.of(context).textTheme.bodySmall,
+                                    ),
+                                    Text(
+                                      episode.name,
+                                      style:
+                                          Theme.of(context).textTheme.bodyLarge,
+                                    ),
+                                  ],
+                                ),
+                                subtitle: Text(
+                                  episode.airDate,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelSmall
+                                      ?.copyWith(color: AppColors.textGray),
+                                ),
+                              );
+                            },
+                          ),
+                        );
+                      },
+                    );
                   },
                 ),
               ),

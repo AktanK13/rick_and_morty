@@ -96,32 +96,29 @@ class _CharactersSearchPageState extends State<CharactersSearchPage> {
           ),
           Expanded(
             child: BlocBuilder<CharactersBloc, CharactersState>(
-              buildWhen: (previous, current) =>
-                  current is SearchCharactersLoadSuccess ||
-                  current is SearchCharactersLoading ||
-                  current is SearchCharactersError,
               builder: (context, state) {
                 final bloc = context.read<CharactersBloc>();
-                if (state is SearchCharactersLoading) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-                if (state is SearchCharactersError) {
-                  return state.message == "isEmpty"
-                      ? const SizedBox.shrink()
-                      : const NotFound();
-                }
-                if (state is SearchCharactersLoadSuccess) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: SearchListView(
-                      scrollController: bloc.searchScrollController,
-                      characters: state.characters,
-                      isLoading: state.hasReachedMax,
-                    ),
-                  );
-                }
-
-                return const SizedBox.shrink();
+                return state.maybeWhen(
+                  initial: () => const SizedBox.shrink(),
+                  searchLoading: () =>
+                      const Center(child: CircularProgressIndicator()),
+                  searchError: (message) {
+                    return message == "isEmpty"
+                        ? const SizedBox.shrink()
+                        : const NotFound();
+                  },
+                  searchLoaded: (characters, hasReachedMax) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: SearchListView(
+                        scrollController: bloc.searchScrollController,
+                        characters: characters,
+                        isLoading: hasReachedMax,
+                      ),
+                    );
+                  },
+                  orElse: () => const SizedBox.shrink(),
+                );
               },
             ),
           ),
