@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rick_and_morty/core/images/images_consts.dart';
 import 'package:rick_and_morty/core/styles/app_colors.dart';
+import 'package:rick_and_morty/generated/locale_keys.g.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
@@ -50,7 +52,7 @@ class HomePage extends StatelessWidget {
               BlendMode.srcIn,
             ),
           ),
-          label: 'Персонажи',
+          label: LocaleKeys.characters.tr(),
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
@@ -67,7 +69,7 @@ class HomePage extends StatelessWidget {
               BlendMode.srcIn,
             ),
           ),
-          label: 'Локациии',
+          label: LocaleKeys.locations.tr(),
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
@@ -84,7 +86,7 @@ class HomePage extends StatelessWidget {
               BlendMode.srcIn,
             ),
           ),
-          label: 'Эпизоды ',
+          label: LocaleKeys.episodes.tr(),
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
@@ -101,7 +103,7 @@ class HomePage extends StatelessWidget {
               BlendMode.srcIn,
             ),
           ),
-          label: 'Настройки',
+          label: LocaleKeys.settings.tr(),
         )
       ];
 }
