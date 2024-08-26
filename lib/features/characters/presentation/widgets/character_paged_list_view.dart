@@ -22,9 +22,7 @@ class CharacterPagedListView extends StatelessWidget {
         controller: _scrollController,
         itemCount: _characters.length + (_hasReachedMax ? 0 : 1),
         separatorBuilder: (context, index) {
-          return const SizedBox(
-            height: 16,
-          );
+          return const SizedBox(height: 16);
         },
         itemBuilder: (context, index) {
           if (index >= _characters.length) {

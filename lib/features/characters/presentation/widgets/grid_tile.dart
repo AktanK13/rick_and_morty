@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rick_and_morty/features/characters/domain/entities/entities.dart';
 import 'package:rick_and_morty/features/characters/presentation/widgets/detail_circle_avatar.dart';
+import 'package:rick_and_morty/generated/locale_keys.g.dart';
 
 import '../../../../core/router/app_router.dart';
 import '../../../../core/styles/app_colors.dart';
@@ -32,7 +34,9 @@ class CustomGridTile extends StatelessWidget {
           ),
           Flexible(
             child: Text(
-              character.status == 'Alive' ? 'Живой' : 'Мертвый',
+              character.status == 'Alive'
+                  ? LocaleKeys.alive.tr()
+                  : LocaleKeys.dead.tr(),
               textAlign: TextAlign.center,
               style: theme.bodySmall?.copyWith(
                 color: character.status == 'Alive'
@@ -51,7 +55,7 @@ class CustomGridTile extends StatelessWidget {
           ),
           Flexible(
             child: Text(
-              '${character.species}/${character.gender == 'Male' ? 'Мужской' : 'Женский'}',
+              '${character.species}/${character.gender == 'Male' ? LocaleKeys.male_g.tr() : LocaleKeys.female_g.tr()}',
               textAlign: TextAlign.center,
               style: theme.labelSmall?.copyWith(
                 color: AppColors.textGray,

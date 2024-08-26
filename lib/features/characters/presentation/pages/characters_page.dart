@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty/core/styles/app_colors.dart';
 import 'package:rick_and_morty/features/characters/presentation/bloc/characters_bloc.dart';
 import 'package:rick_and_morty/features/characters/presentation/widgets/character_paged_grid_view.dart';
 import 'package:rick_and_morty/features/characters/presentation/widgets/character_paged_list_view.dart';
+import 'package:rick_and_morty/generated/locale_keys.g.dart';
 import 'package:rick_and_morty/shared/pages/not_found.dart';
 import 'package:rick_and_morty/shared/widgets/search_appbar.dart';
 
@@ -34,17 +36,17 @@ class _CharactersPageState extends State<CharactersPage> {
                     builder: (context, state) {
                       return state.maybeWhen(
                         loading: () => Text(
-                          'Всего персонажей:',
+                          LocaleKeys.total_characters.tr(),
                           style: theme.bodySmall
                               ?.copyWith(color: AppColors.textGray),
                         ),
                         error: (_) => Text(
-                          'Всего персонажей: ',
+                          LocaleKeys.total_characters.tr(),
                           style: theme.bodySmall
                               ?.copyWith(color: AppColors.textGray),
                         ),
                         loaded: (characters, hasReachMax, count) => Text(
-                          'Всего персонажей: $count',
+                          '${LocaleKeys.total_characters.tr()}$count',
                           style: theme.bodySmall
                               ?.copyWith(color: AppColors.textGray),
                         ),

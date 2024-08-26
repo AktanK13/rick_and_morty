@@ -1,9 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rick_and_morty/core/router/app_router.dart';
 import 'package:rick_and_morty/core/styles/app_colors.dart';
 import 'package:rick_and_morty/features/characters/presentation/bloc/characters_bloc.dart';
+
+import '../../generated/locale_keys.g.dart';
 
 class SearchAppbar extends StatelessWidget implements PreferredSizeWidget {
   const SearchAppbar({
@@ -26,7 +29,7 @@ class SearchAppbar extends StatelessWidget implements PreferredSizeWidget {
           decoration: InputDecoration(
             fillColor: textfieldTheme.fillColor,
             border: textfieldTheme.border,
-            hintText: 'Найти персонажа',
+            hintText: LocaleKeys.search_character.tr(),
             hintStyle: Theme.of(context)
                 .textTheme
                 .titleLarge

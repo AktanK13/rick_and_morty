@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rick_and_morty/core/styles/app_colors.dart';
+import 'package:rick_and_morty/generated/locale_keys.g.dart';
 
 import 'package:rick_and_morty/shared/widgets/divider_line.dart';
 
@@ -42,7 +44,7 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
         appBar: AppBar(
           backgroundColor: Theme.of(context).inputDecorationTheme.fillColor,
           title: Text(
-            'Фильтры',
+            LocaleKeys.filter.tr(),
             style: theme.titleMedium,
           ),
           leading: IconButton(
@@ -71,22 +73,21 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Сортировать',
+                  LocaleKeys.sorting.tr(),
                   style: Theme.of(context)
                       .textTheme
                       .bodySmall
                       ?.copyWith(color: AppColors.textGray),
                 ),
-                const SizedBox(
-                  height: 8,
-                ),
+                const SizedBox(height: 8),
                 Row(
                   children: [
-                    Text(
-                      'По алфавиту ',
-                      style: theme.titleLarge,
+                    Expanded(
+                      child: Text(
+                        LocaleKeys.abc.tr(),
+                        style: theme.titleLarge,
+                      ),
                     ),
-                    const Spacer(),
                     IconButton(
                       onPressed: () {},
                       icon: const Icon(Icons.sort_outlined),
@@ -105,19 +106,17 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                 ),
                 const DividerLine(),
                 Text(
-                  'Статус',
+                  LocaleKeys.status.tr(),
                   style: Theme.of(context)
                       .textTheme
                       .bodySmall
                       ?.copyWith(color: AppColors.textGray),
                 ),
-                const SizedBox(
-                  height: 8,
-                ),
+                const SizedBox(height: 8),
                 RadioListTile<String>(
                   contentPadding: const EdgeInsets.all(0),
                   title: Text(
-                    'Живой',
+                    LocaleKeys.alive.tr(),
                     style: theme.titleLarge,
                   ),
                   value: 'alive',
@@ -131,7 +130,7 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                 RadioListTile<String>(
                   contentPadding: const EdgeInsets.all(0),
                   title: Text(
-                    'Мёртвый',
+                    LocaleKeys.dead.tr(),
                     style: theme.titleLarge,
                   ),
                   value: 'dead',
@@ -145,7 +144,7 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                 RadioListTile<String>(
                   contentPadding: const EdgeInsets.all(0),
                   title: Text(
-                    'Неизвестно',
+                    LocaleKeys.unknow.tr(),
                     style: theme.titleLarge,
                   ),
                   value: '',
@@ -170,7 +169,7 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                 RadioListTile<String>(
                   contentPadding: const EdgeInsets.all(0),
                   title: Text(
-                    'Мужской',
+                    LocaleKeys.male_g.tr(),
                     style: theme.titleLarge,
                   ),
                   value: 'male',
@@ -184,7 +183,7 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                 RadioListTile<String>(
                   contentPadding: const EdgeInsets.all(0),
                   title: Text(
-                    'Женский',
+                    LocaleKeys.female_g.tr(),
                     style: theme.titleLarge,
                   ),
                   value: 'female',
@@ -198,7 +197,7 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                 RadioListTile<String>(
                   contentPadding: const EdgeInsets.all(0),
                   title: Text(
-                    'Неизвестно',
+                    LocaleKeys.unknow.tr(),
                     style: theme.titleLarge,
                   ),
                   value: '',

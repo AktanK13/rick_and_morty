@@ -382,7 +382,9 @@ Results _$ResultsFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Results {
   int get id => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
+  String get name =>
+      throw _privateConstructorUsedError; // ignore: invalid_annotation_target
+  @JsonKey(name: "air_date")
   String? get airDate => throw _privateConstructorUsedError;
   String? get episode => throw _privateConstructorUsedError;
   List<String>? get characters => throw _privateConstructorUsedError;
@@ -402,7 +404,7 @@ abstract class $ResultsCopyWith<$Res> {
   $Res call(
       {int id,
       String name,
-      String? airDate,
+      @JsonKey(name: "air_date") String? airDate,
       String? episode,
       List<String>? characters,
       String url,
@@ -473,7 +475,7 @@ abstract class _$$ResultsImplCopyWith<$Res> implements $ResultsCopyWith<$Res> {
   $Res call(
       {int id,
       String name,
-      String? airDate,
+      @JsonKey(name: "air_date") String? airDate,
       String? episode,
       List<String>? characters,
       String url,
@@ -538,7 +540,7 @@ class _$ResultsImpl extends _Results {
   const _$ResultsImpl(
       {required this.id,
       required this.name,
-      this.airDate,
+      @JsonKey(name: "air_date") this.airDate,
       this.episode,
       final List<String>? characters,
       required this.url,
@@ -553,7 +555,9 @@ class _$ResultsImpl extends _Results {
   final int id;
   @override
   final String name;
+// ignore: invalid_annotation_target
   @override
+  @JsonKey(name: "air_date")
   final String? airDate;
   @override
   final String? episode;
@@ -615,7 +619,7 @@ abstract class _Results extends Results {
   const factory _Results(
       {required final int id,
       required final String name,
-      final String? airDate,
+      @JsonKey(name: "air_date") final String? airDate,
       final String? episode,
       final List<String>? characters,
       required final String url,
@@ -628,7 +632,8 @@ abstract class _Results extends Results {
   int get id;
   @override
   String get name;
-  @override
+  @override // ignore: invalid_annotation_target
+  @JsonKey(name: "air_date")
   String? get airDate;
   @override
   String? get episode;

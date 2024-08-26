@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import 'package:rick_and_morty/core/styles/app_colors.dart';
 import 'package:rick_and_morty/features/characters/presentation/widgets/detail_character_text.dart';
 import 'package:rick_and_morty/features/locations/domain/entities/location_entity.dart';
+import 'package:rick_and_morty/generated/locale_keys.g.dart';
 import 'package:rick_and_morty/shared/widgets/divider_line.dart';
 
 class LocationDetailsPage extends StatelessWidget {
@@ -24,17 +26,15 @@ class LocationDetailsPage extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               children: [
-                const SizedBox(
-                  height: 24,
-                ),
+                const SizedBox(height: 24),
                 Row(
                   children: [
                     DetailCharacterText(
-                      title: "Тип",
+                      title: LocaleKeys.type.tr(),
                       characterInfo: location.type,
                     ),
                     DetailCharacterText(
-                      title: "Dimension",
+                      title: LocaleKeys.dimension.tr(),
                       characterInfo: location.dimension,
                     )
                   ],
@@ -45,7 +45,7 @@ class LocationDetailsPage extends StatelessWidget {
                   children: [
                     Flexible(
                       child: Text(
-                        "Residents",
+                        LocaleKeys.residents.tr(),
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium
@@ -54,7 +54,7 @@ class LocationDetailsPage extends StatelessWidget {
                     ),
                     Flexible(
                       child: Text(
-                        "Все residents",
+                        LocaleKeys.all_residents.tr(),
                         style: Theme.of(context)
                             .textTheme
                             .labelSmall
@@ -63,9 +63,7 @@ class LocationDetailsPage extends StatelessWidget {
                     )
                   ],
                 ),
-                const SizedBox(
-                  height: 24,
-                ),
+                const SizedBox(height: 24),
               ],
             ),
           ),

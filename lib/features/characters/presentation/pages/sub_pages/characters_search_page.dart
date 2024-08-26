@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rick_and_morty/core/styles/app_colors.dart';
 import 'package:rick_and_morty/features/characters/presentation/bloc/characters_bloc.dart';
 import 'package:rick_and_morty/features/characters/presentation/widgets/search_list_view.dart';
+import 'package:rick_and_morty/generated/locale_keys.g.dart';
 import 'package:rick_and_morty/shared/pages/not_found.dart';
 
 class CharactersSearchPage extends StatefulWidget {
@@ -55,7 +57,7 @@ class _CharactersSearchPageState extends State<CharactersSearchPage> {
             },
             decoration: InputDecoration(
               fillColor: textfieldTheme.fillColor,
-              hintText: 'Найти персонажа',
+              hintText: LocaleKeys.search_character.tr(),
               hintStyle: theme.titleLarge?.copyWith(color: AppColors.textGray),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(0),
@@ -90,7 +92,7 @@ class _CharactersSearchPageState extends State<CharactersSearchPage> {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(
-              "Результаты поиска",
+              LocaleKeys.search_result.tr(),
               style: theme.bodySmall?.copyWith(color: AppColors.textGray),
             ),
           ),

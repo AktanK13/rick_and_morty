@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -5,6 +6,7 @@ import 'package:rick_and_morty/core/router/app_router.dart';
 import 'package:rick_and_morty/core/styles/app_colors.dart';
 import 'package:rick_and_morty/core/utils/injections.dart';
 import 'package:rick_and_morty/features/episodes/presentation/bloc/episodes_bloc.dart';
+import 'package:rick_and_morty/generated/locale_keys.g.dart';
 import 'package:rick_and_morty/shared/pages/not_found.dart';
 
 class EpisodesPage extends StatelessWidget {
@@ -17,7 +19,7 @@ class EpisodesPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            "Эпизоды",
+            LocaleKeys.episodes.tr(),
             style: Theme.of(context).textTheme.titleLarge,
           ),
         ),

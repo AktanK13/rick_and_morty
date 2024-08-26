@@ -38,7 +38,7 @@ class Results with _$Results {
   const factory Results({
     required int id,
     required String name,
-    String? airDate,
+    @JsonKey(name: "air_date") String? airDate,
     String? episode,
     List<String>? characters,
     required String url,

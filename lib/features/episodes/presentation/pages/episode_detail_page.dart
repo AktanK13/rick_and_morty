@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import 'package:rick_and_morty/core/styles/app_colors.dart';
 import 'package:rick_and_morty/features/characters/presentation/widgets/detail_character_text.dart';
 import 'package:rick_and_morty/features/episodes/domain/entities/episodes_entity.dart';
+import 'package:rick_and_morty/generated/locale_keys.g.dart';
 import 'package:rick_and_morty/shared/widgets/divider_line.dart';
 
 class EpisodeDetailPage extends StatelessWidget {
@@ -27,17 +29,15 @@ class EpisodeDetailPage extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               children: [
-                const SizedBox(
-                  height: 24,
-                ),
+                const SizedBox(height: 24),
                 Row(
                   children: [
                     DetailCharacterText(
-                      title: "Date",
+                      title: LocaleKeys.date.tr(),
                       characterInfo: episode.airDate,
                     ),
                     DetailCharacterText(
-                      title: "Episode",
+                      title: LocaleKeys.episode_number.tr(),
                       characterInfo: episode.episode,
                     )
                   ],
@@ -46,7 +46,7 @@ class EpisodeDetailPage extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      "Characters",
+                      LocaleKeys.characters.tr(),
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium
@@ -54,7 +54,7 @@ class EpisodeDetailPage extends StatelessWidget {
                     ),
                     const Spacer(),
                     Text(
-                      "Все characters",
+                      LocaleKeys.all_characters.tr(),
                       style: Theme.of(context)
                           .textTheme
                           .labelSmall
@@ -62,9 +62,7 @@ class EpisodeDetailPage extends StatelessWidget {
                     )
                   ],
                 ),
-                const SizedBox(
-                  height: 24,
-                ),
+                const SizedBox(height: 24),
                 // TODO: parse dataile episode
                 // Expanded(
                 //   child: ListView.separated(
