@@ -19,6 +19,7 @@ The [The Rick and Morty API
 - [x] List of locations.
 - [x] List of episode.
 - [x] Dark Mode
+- [x] (English,Russian) localization
 
 ## 📸 ScreenShots
 
@@ -47,3 +48,4 @@ The [The Rick and Morty API
 | [**get_it**](https://pub.dev/packages/get_it)                          | Service Locator                               |
 | [**freezed**](https://pub.dev/packages/freezed)                        | code generator for data classes.              |
 | [**injectable**](https://pub.dev/packages/injectable)                  | code generator for data classes.              |
+| [**easy_localization**](https://pub.dev/packages/easy_localization)    | Easy translations for many languages          |
