@@ -19,6 +19,7 @@ The [The Rick and Morty API
 - [x] List of locations.
 - [x] List of episode.
 - [x] Dark Mode
+- [x] (English,Russian) localization
 
 ## 📸 ScreenShots
 
@@ -33,16 +34,20 @@ The [The Rick and Morty API
 | <img src="https://github.com/user-attachments/assets/0e3caea4-36b4-4794-8732-7bf450035b29" width="300"> | <img src="https://github.com/user-attachments/assets/a4bb4a92-29e2-48f4-b485-96464fa5da36" width="300"> |
 | <img src="https://github.com/user-attachments/assets/54f7c514-7d35-4520-95d2-417c415216f9" width="300"> | <img src="https://github.com/user-attachments/assets/d8512b2b-43f3-4aa2-a207-c7e2f7e5999a" width="300"> |
 | <img src="https://github.com/user-attachments/assets/f5e45571-4969-4bb9-91b3-7d81ab814fbb" width="300"> | <img src="https://github.com/user-attachments/assets/52684ecf-0d2e-4c11-9cd9-9f8b512e9c5d" width="300"> |
+| <img src="https://github.com/user-attachments/assets/8fc215f6-a7d1-41ff-895c-f3b7e7d1cdf2" width="300"> | <img src="https://github.com/user-attachments/assets/f351c219-70eb-4a2f-b047-01cd6a228c9d" width="300"> |
 
 
 
-## 🔌 Plugins
+## 🔌 Plugins!
+
 
 | Name                                                                   | Usage                                         |
 | ---------------------------------------------------------------------- | --------------------------------------------- |
 | [**flutter_bloc**](https://pub.dev/packages/flutter_bloc)              | State Management                              |
 | [**shared_preferences**](https://pub.dev/packages/shared_preferences)  | persistent storage for simple data            |
 | [**go_router**](https://pub.dev/packages/go_router)                    | for navigating between different screens      |
-| [**DIO**](https://pub.dev/packages/dio)                                | Network calls and File Download               |
-| [**get_it**](https://pub.dev/packages/get_it)                          |  Service Locator                              |
-| [**get_it**](https://pub.dev/packages/injectable)                      |  Injectable is a code generator for get_it.   |
+| [**Dio**](https://pub.dev/packages/dio)                                | Network calls and File Download               |
+| [**get_it**](https://pub.dev/packages/get_it)                          | Service Locator                               |
+| [**freezed**](https://pub.dev/packages/freezed)                        | code generator for data classes.              |
+| [**injectable**](https://pub.dev/packages/injectable)                  | code generator for data classes.              |
+| [**easy_localization**](https://pub.dev/packages/easy_localization)    | Easy translations for many languages          |

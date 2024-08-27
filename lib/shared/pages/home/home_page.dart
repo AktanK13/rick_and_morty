@@ -19,8 +19,10 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: navigationShell,
-      bottomNavigationBar: currentRoute.startsWith('/characters/search') ||
+      bottomNavigationBar: 
+              currentRoute.startsWith('/characters/search') ||
               currentRoute.startsWith('/characters/details') ||
+              currentRoute.startsWith('/characters/filter') ||
               currentRoute.startsWith('/locations/details') ||
               currentRoute.startsWith('/episodes/details')
           ? null
