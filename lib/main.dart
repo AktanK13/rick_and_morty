@@ -15,9 +15,8 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final ThemeState initialTheme;
-
   const MyApp(this.initialTheme, {super.key});
+  final ThemeState initialTheme;
 
   @override
   Widget build(BuildContext context) {
