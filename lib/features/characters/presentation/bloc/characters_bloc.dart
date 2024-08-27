@@ -52,7 +52,6 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
       selectedStatus = event.status;
       selectedGender = event.gender;
     _scrollController.jumpTo(0);
-
     }
     final result = await useCases.getCharacters(
         currentPage, selectedStatus, selectedGender);
