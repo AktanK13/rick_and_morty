@@ -1,18 +1,13 @@
-import 'package:equatable/equatable.dart';
-import 'package:rick_and_morty/features/characters/domain/entities/info_entity.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:rick_and_morty/features/episodes/data/models/episodes_model.dart';
 import 'package:rick_and_morty/features/episodes/domain/entities/episodes_entity.dart';
 
-class MainEntity extends Equatable {
-  const MainEntity({
-    required this.info,
-    required this.episodeentity,
-  });
-  final InfoEntity info;
-  final List<EpisodesEntity> episodeentity;
+part 'main_entity.freezed.dart';
 
-  @override
-  List<Object?> get props => [
-        info,
-        episodeentity,
-      ];
+@freezed
+class MainEntity with _$MainEntity {
+  const factory MainEntity({
+    required Info info,
+    required List<EpisodesEntity> episodeEntity,
+  }) = _MainEntity;
 }

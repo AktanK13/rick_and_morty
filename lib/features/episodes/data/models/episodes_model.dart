@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rick_and_morty/features/episodes/domain/entities/episodes_entity.dart';
+import 'package:rick_and_morty/features/episodes/domain/entities/main_entity.dart';
 
 part 'episodes_model.freezed.dart';
 part 'episodes_model.g.dart';
@@ -9,14 +10,17 @@ class EpisodesModel with _$EpisodesModel {
   const EpisodesModel._();
   const factory EpisodesModel({
     required Info info,
-    required List<Results> results,
+    @JsonKey(name: "results") required List<ResultsEpisodes> episodeResults,
   }) = _EpisodesModel;
 
   factory EpisodesModel.fromJson(Map<String, dynamic> json) =>
       _$EpisodesModelFromJson(json);
 
-  List<EpisodesEntity> mapToEntity() {
-    return results.map((result) => result.toEntity()).toList();
+  MainEntity mapToEntity() {
+    return MainEntity(
+      info: info,
+      episodeEntity: episodeResults.map((result) => result.toEntity()).toList(),
+    );
   }
 }
 
@@ -33,9 +37,9 @@ class Info with _$Info {
 }
 
 @freezed
-class Results with _$Results {
-  const Results._();
-  const factory Results({
+class ResultsEpisodes with _$ResultsEpisodes {
+  const ResultsEpisodes._();
+  const factory ResultsEpisodes({
     required int id,
     required String name,
     @JsonKey(name: "air_date") String? airDate,
@@ -43,10 +47,10 @@ class Results with _$Results {
     List<String>? characters,
     required String url,
     required String created,
-  }) = _Results;
+  }) = _ResultsEpisodes;
 
-  factory Results.fromJson(Map<String, dynamic> json) =>
-      _$ResultsFromJson(json);
+  factory ResultsEpisodes.fromJson(Map<String, dynamic> json) =>
+      _$ResultsEpisodesFromJson(json);
 
   EpisodesEntity toEntity() {
     return EpisodesEntity(

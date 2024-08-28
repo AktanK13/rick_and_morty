@@ -9,15 +9,15 @@ part of 'episodes_model.dart';
 _$EpisodesModelImpl _$$EpisodesModelImplFromJson(Map<String, dynamic> json) =>
     _$EpisodesModelImpl(
       info: Info.fromJson(json['info'] as Map<String, dynamic>),
-      results: (json['results'] as List<dynamic>)
-          .map((e) => Results.fromJson(e as Map<String, dynamic>))
+      episodeResults: (json['results'] as List<dynamic>)
+          .map((e) => ResultsEpisodes.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
 Map<String, dynamic> _$$EpisodesModelImplToJson(_$EpisodesModelImpl instance) =>
     <String, dynamic>{
       'info': instance.info,
-      'results': instance.results,
+      'results': instance.episodeResults,
     };
 
 _$InfoImpl _$$InfoImplFromJson(Map<String, dynamic> json) => _$InfoImpl(
@@ -35,8 +35,9 @@ Map<String, dynamic> _$$InfoImplToJson(_$InfoImpl instance) =>
       'prev': instance.prev,
     };
 
-_$ResultsImpl _$$ResultsImplFromJson(Map<String, dynamic> json) =>
-    _$ResultsImpl(
+_$ResultsEpisodesImpl _$$ResultsEpisodesImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ResultsEpisodesImpl(
       id: (json['id'] as num).toInt(),
       name: json['name'] as String,
       airDate: json['air_date'] as String?,
@@ -48,7 +49,8 @@ _$ResultsImpl _$$ResultsImplFromJson(Map<String, dynamic> json) =>
       created: json['created'] as String,
     );
 
-Map<String, dynamic> _$$ResultsImplToJson(_$ResultsImpl instance) =>
+Map<String, dynamic> _$$ResultsEpisodesImplToJson(
+        _$ResultsEpisodesImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,

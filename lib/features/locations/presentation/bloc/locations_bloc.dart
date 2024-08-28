@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -20,20 +22,21 @@ class LocationsBloc extends Bloc<LocationsEvent, LocationsState> {
   final LocationsUseCases usecase;
   int currentPage = 1;
   bool hasReachedMax = false;
-  List<LocationsEntity> allLocation = [];
+  List<LocationEntity> allLocation = [];
 
   void _onFetchLocations(
       FetchLocations event, Emitter<LocationsState> emit) async {
     if (hasReachedMax) return;
-    emit(const LocationsState.loading());
+    if (state is _LocationsInitialState) {
+      emit(const LocationsState.loading());
+    }
     final result = await usecase.getLocations(currentPage);
     result.fold(
       (error) => emit(LocationsState.error(error)),
       (data) {
         hasReachedMax = data.info.pages == currentPage;
-        final locationsEntity = data.mapToEntity();
         if (currentPage <= data.info.pages) {
-          allLocation.addAll(locationsEntity);
+          allLocation.addAll(data.locationEntity);
           currentPage++;
           emit(
             LocationsState.loaded(
@@ -46,11 +49,11 @@ class LocationsBloc extends Bloc<LocationsEvent, LocationsState> {
     );
   }
 
-  // @override
-  // void onTransition(Transition<LocationsEvent, LocationsState> transition) {
-  //   super.onTransition(transition);
-  //   log('data-unique: transition: $transition ');
-  // }
+  @override
+  void onTransition(Transition<LocationsEvent, LocationsState> transition) {
+    super.onTransition(transition);
+    log('data-unique: transition: $transition ');
+  }
 
   @override
   Future<void> close() {

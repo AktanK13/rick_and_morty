@@ -66,6 +66,9 @@ class _$LocationsEventCopyWithImpl<$Res, $Val extends LocationsEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of LocationsEvent
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -82,6 +85,9 @@ class __$$FetchLocationsImplCopyWithImpl<$Res>
   __$$FetchLocationsImplCopyWithImpl(
       _$FetchLocationsImpl _value, $Res Function(_$FetchLocationsImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of LocationsEvent
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -172,7 +178,7 @@ mixin _$LocationsState {
     required TResult Function() loading,
     required TResult Function(String message) error,
     required TResult Function(
-            List<LocationsEntity> locations, bool hasReachedMax)
+            List<LocationEntity> locations, bool hasReachedMax)
         loaded,
   }) =>
       throw _privateConstructorUsedError;
@@ -181,7 +187,7 @@ mixin _$LocationsState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(List<LocationsEntity> locations, bool hasReachedMax)?
+    TResult? Function(List<LocationEntity> locations, bool hasReachedMax)?
         loaded,
   }) =>
       throw _privateConstructorUsedError;
@@ -190,7 +196,7 @@ mixin _$LocationsState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(List<LocationsEntity> locations, bool hasReachedMax)?
+    TResult Function(List<LocationEntity> locations, bool hasReachedMax)?
         loaded,
     required TResult orElse(),
   }) =>
@@ -238,6 +244,9 @@ class _$LocationsStateCopyWithImpl<$Res, $Val extends LocationsState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of LocationsState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -255,6 +264,9 @@ class __$$LocationsInitialStateImplCopyWithImpl<$Res>
   __$$LocationsInitialStateImplCopyWithImpl(_$LocationsInitialStateImpl _value,
       $Res Function(_$LocationsInitialStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of LocationsState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -284,7 +296,7 @@ class _$LocationsInitialStateImpl implements _LocationsInitialState {
     required TResult Function() loading,
     required TResult Function(String message) error,
     required TResult Function(
-            List<LocationsEntity> locations, bool hasReachedMax)
+            List<LocationEntity> locations, bool hasReachedMax)
         loaded,
   }) {
     return initial();
@@ -296,7 +308,7 @@ class _$LocationsInitialStateImpl implements _LocationsInitialState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(List<LocationsEntity> locations, bool hasReachedMax)?
+    TResult? Function(List<LocationEntity> locations, bool hasReachedMax)?
         loaded,
   }) {
     return initial?.call();
@@ -308,7 +320,7 @@ class _$LocationsInitialStateImpl implements _LocationsInitialState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(List<LocationsEntity> locations, bool hasReachedMax)?
+    TResult Function(List<LocationEntity> locations, bool hasReachedMax)?
         loaded,
     required TResult orElse(),
   }) {
@@ -375,6 +387,9 @@ class __$$LocationsLoadingStateImplCopyWithImpl<$Res>
   __$$LocationsLoadingStateImplCopyWithImpl(_$LocationsLoadingStateImpl _value,
       $Res Function(_$LocationsLoadingStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of LocationsState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -404,7 +419,7 @@ class _$LocationsLoadingStateImpl implements _LocationsLoadingState {
     required TResult Function() loading,
     required TResult Function(String message) error,
     required TResult Function(
-            List<LocationsEntity> locations, bool hasReachedMax)
+            List<LocationEntity> locations, bool hasReachedMax)
         loaded,
   }) {
     return loading();
@@ -416,7 +431,7 @@ class _$LocationsLoadingStateImpl implements _LocationsLoadingState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(List<LocationsEntity> locations, bool hasReachedMax)?
+    TResult? Function(List<LocationEntity> locations, bool hasReachedMax)?
         loaded,
   }) {
     return loading?.call();
@@ -428,7 +443,7 @@ class _$LocationsLoadingStateImpl implements _LocationsLoadingState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(List<LocationsEntity> locations, bool hasReachedMax)?
+    TResult Function(List<LocationEntity> locations, bool hasReachedMax)?
         loaded,
     required TResult orElse(),
   }) {
@@ -497,6 +512,8 @@ class __$$LocationsErrorStateImplCopyWithImpl<$Res>
       $Res Function(_$LocationsErrorStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of LocationsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -535,7 +552,9 @@ class _$LocationsErrorStateImpl implements _LocationsErrorState {
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of LocationsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LocationsErrorStateImplCopyWith<_$LocationsErrorStateImpl> get copyWith =>
@@ -549,7 +568,7 @@ class _$LocationsErrorStateImpl implements _LocationsErrorState {
     required TResult Function() loading,
     required TResult Function(String message) error,
     required TResult Function(
-            List<LocationsEntity> locations, bool hasReachedMax)
+            List<LocationEntity> locations, bool hasReachedMax)
         loaded,
   }) {
     return error(message);
@@ -561,7 +580,7 @@ class _$LocationsErrorStateImpl implements _LocationsErrorState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(List<LocationsEntity> locations, bool hasReachedMax)?
+    TResult? Function(List<LocationEntity> locations, bool hasReachedMax)?
         loaded,
   }) {
     return error?.call(message);
@@ -573,7 +592,7 @@ class _$LocationsErrorStateImpl implements _LocationsErrorState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(List<LocationsEntity> locations, bool hasReachedMax)?
+    TResult Function(List<LocationEntity> locations, bool hasReachedMax)?
         loaded,
     required TResult orElse(),
   }) {
@@ -626,7 +645,10 @@ abstract class _LocationsErrorState implements LocationsState {
       _$LocationsErrorStateImpl;
 
   String get message;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of LocationsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LocationsErrorStateImplCopyWith<_$LocationsErrorStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -638,7 +660,7 @@ abstract class _$$LocationsLoadedSuccessImplCopyWith<$Res> {
           $Res Function(_$LocationsLoadedSuccessImpl) then) =
       __$$LocationsLoadedSuccessImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<LocationsEntity> locations, bool hasReachedMax});
+  $Res call({List<LocationEntity> locations, bool hasReachedMax});
 }
 
 /// @nodoc
@@ -650,6 +672,8 @@ class __$$LocationsLoadedSuccessImplCopyWithImpl<$Res>
       $Res Function(_$LocationsLoadedSuccessImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of LocationsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -660,7 +684,7 @@ class __$$LocationsLoadedSuccessImplCopyWithImpl<$Res>
       locations: null == locations
           ? _value._locations
           : locations // ignore: cast_nullable_to_non_nullable
-              as List<LocationsEntity>,
+              as List<LocationEntity>,
       hasReachedMax: null == hasReachedMax
           ? _value.hasReachedMax
           : hasReachedMax // ignore: cast_nullable_to_non_nullable
@@ -673,13 +697,13 @@ class __$$LocationsLoadedSuccessImplCopyWithImpl<$Res>
 
 class _$LocationsLoadedSuccessImpl implements _LocationsLoadedSuccess {
   const _$LocationsLoadedSuccessImpl(
-      {required final List<LocationsEntity> locations,
+      {required final List<LocationEntity> locations,
       this.hasReachedMax = false})
       : _locations = locations;
 
-  final List<LocationsEntity> _locations;
+  final List<LocationEntity> _locations;
   @override
-  List<LocationsEntity> get locations {
+  List<LocationEntity> get locations {
     if (_locations is EqualUnmodifiableListView) return _locations;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_locations);
@@ -709,7 +733,9 @@ class _$LocationsLoadedSuccessImpl implements _LocationsLoadedSuccess {
   int get hashCode => Object.hash(runtimeType,
       const DeepCollectionEquality().hash(_locations), hasReachedMax);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of LocationsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LocationsLoadedSuccessImplCopyWith<_$LocationsLoadedSuccessImpl>
@@ -723,7 +749,7 @@ class _$LocationsLoadedSuccessImpl implements _LocationsLoadedSuccess {
     required TResult Function() loading,
     required TResult Function(String message) error,
     required TResult Function(
-            List<LocationsEntity> locations, bool hasReachedMax)
+            List<LocationEntity> locations, bool hasReachedMax)
         loaded,
   }) {
     return loaded(locations, hasReachedMax);
@@ -735,7 +761,7 @@ class _$LocationsLoadedSuccessImpl implements _LocationsLoadedSuccess {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(List<LocationsEntity> locations, bool hasReachedMax)?
+    TResult? Function(List<LocationEntity> locations, bool hasReachedMax)?
         loaded,
   }) {
     return loaded?.call(locations, hasReachedMax);
@@ -747,7 +773,7 @@ class _$LocationsLoadedSuccessImpl implements _LocationsLoadedSuccess {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(List<LocationsEntity> locations, bool hasReachedMax)?
+    TResult Function(List<LocationEntity> locations, bool hasReachedMax)?
         loaded,
     required TResult orElse(),
   }) {
@@ -797,12 +823,15 @@ class _$LocationsLoadedSuccessImpl implements _LocationsLoadedSuccess {
 
 abstract class _LocationsLoadedSuccess implements LocationsState {
   const factory _LocationsLoadedSuccess(
-      {required final List<LocationsEntity> locations,
+      {required final List<LocationEntity> locations,
       final bool hasReachedMax}) = _$LocationsLoadedSuccessImpl;
 
-  List<LocationsEntity> get locations;
+  List<LocationEntity> get locations;
   bool get hasReachedMax;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of LocationsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LocationsLoadedSuccessImplCopyWith<_$LocationsLoadedSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

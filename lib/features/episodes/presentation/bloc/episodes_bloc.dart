@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -24,17 +26,16 @@ class EpisodesBloc extends Bloc<EpisodesEvent, EpisodesState> {
   void _onFetchEpisodes(
       FetchEpisodes event, Emitter<EpisodesState> emit) async {
     if (hasReachedMax) return;
-    emit(const EpisodesState.loading());
+    if (state is _EpisodesInitialState) {
+      emit(const EpisodesState.loading());
+    }
     final result = await usecase.getEpisodes(currentPage);
     result.fold(
       (error) => emit(EpisodesState.error(error)),
       (data) {
         hasReachedMax = data.info.pages == currentPage;
-        //TODO: remove toentity to data and use entity
-        final episodesEntity = data.mapToEntity();
-
         if (currentPage <= data.info.pages) {
-          allEpisode.addAll(episodesEntity);
+          allEpisode.addAll(data.episodeEntity);
           currentPage++;
           emit(
             EpisodesState.loaded(
@@ -47,11 +48,11 @@ class EpisodesBloc extends Bloc<EpisodesEvent, EpisodesState> {
     );
   }
 
-  // @override
-  // void onTransition(Transition<LocationsEvent, LocationsState> transition) {
-  //   super.onTransition(transition);
-  //   log('data-unique: transition: ${transition} ');
-  // }
+  @override
+  void onTransition(Transition<EpisodesEvent, EpisodesState> transition) {
+    super.onTransition(transition);
+    log('data-unique: transition: $transition ');
+  }
 
   @override
   Future<void> close() {

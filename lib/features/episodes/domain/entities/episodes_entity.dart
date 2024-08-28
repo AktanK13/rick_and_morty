@@ -1,24 +1,16 @@
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class EpisodesEntity extends Equatable {
-  final int id;
-  final String name;
-  final String airDate;
-  final String episode;
-  final List<String> characters;
-  final String url;
-  final String created;
+part 'episodes_entity.freezed.dart';
 
-  const EpisodesEntity({
-    required this.id,
-    required this.name,
-    required this.airDate,
-    required this.episode,
-    required this.characters,
-    required this.url,
-    required this.created,
-  });
-
-  @override
-  List<Object?> get props => [id, name, airDate, episode, characters, url, created];
+@freezed
+class EpisodesEntity with _$EpisodesEntity {
+  const factory EpisodesEntity({
+    required int id,
+    required String name,
+    required String airDate,
+    required String episode,
+    required List<String> characters,
+    required String url,
+    required String created,
+  }) = _EpisodesEntity;
 }

@@ -66,6 +66,9 @@ class _$EpisodesEventCopyWithImpl<$Res, $Val extends EpisodesEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of EpisodesEvent
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -82,6 +85,9 @@ class __$$FetchEpisodesImplCopyWithImpl<$Res>
   __$$FetchEpisodesImplCopyWithImpl(
       _$FetchEpisodesImpl _value, $Res Function(_$FetchEpisodesImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of EpisodesEvent
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -236,6 +242,9 @@ class _$EpisodesStateCopyWithImpl<$Res, $Val extends EpisodesState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of EpisodesState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -252,6 +261,9 @@ class __$$EpisodesInitialStateImplCopyWithImpl<$Res>
   __$$EpisodesInitialStateImplCopyWithImpl(_$EpisodesInitialStateImpl _value,
       $Res Function(_$EpisodesInitialStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of EpisodesState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -369,6 +381,9 @@ class __$$EpisodesLoadingStateImplCopyWithImpl<$Res>
   __$$EpisodesLoadingStateImplCopyWithImpl(_$EpisodesLoadingStateImpl _value,
       $Res Function(_$EpisodesLoadingStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of EpisodesState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -489,6 +504,8 @@ class __$$EpisodesErrorStateImplCopyWithImpl<$Res>
       $Res Function(_$EpisodesErrorStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of EpisodesState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -527,7 +544,9 @@ class _$EpisodesErrorStateImpl implements _EpisodesErrorState {
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of EpisodesState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$EpisodesErrorStateImplCopyWith<_$EpisodesErrorStateImpl> get copyWith =>
@@ -616,7 +635,10 @@ abstract class _EpisodesErrorState implements EpisodesState {
       _$EpisodesErrorStateImpl;
 
   String get message;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of EpisodesState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$EpisodesErrorStateImplCopyWith<_$EpisodesErrorStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -639,6 +661,8 @@ class __$$EpisodesLoadedSuccessImplCopyWithImpl<$Res>
       $Res Function(_$EpisodesLoadedSuccessImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of EpisodesState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -697,7 +721,9 @@ class _$EpisodesLoadedSuccessImpl implements _EpisodesLoadedSuccess {
   int get hashCode => Object.hash(runtimeType,
       const DeepCollectionEquality().hash(_episodes), hasReachedMax);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of EpisodesState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$EpisodesLoadedSuccessImplCopyWith<_$EpisodesLoadedSuccessImpl>
@@ -788,7 +814,10 @@ abstract class _EpisodesLoadedSuccess implements EpisodesState {
 
   List<EpisodesEntity> get episodes;
   bool get hasReachedMax;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of EpisodesState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$EpisodesLoadedSuccessImplCopyWith<_$EpisodesLoadedSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
