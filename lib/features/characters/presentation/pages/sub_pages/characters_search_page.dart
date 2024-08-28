@@ -17,6 +17,7 @@ class CharactersSearchPage extends StatefulWidget {
 }
 
 class _CharactersSearchPageState extends State<CharactersSearchPage> {
+  //TODO: remove Timer and switch to stateless
   Timer? _debounce;
   bool isEmpty = false;
 
@@ -64,9 +65,7 @@ class _CharactersSearchPageState extends State<CharactersSearchPage> {
                 borderSide: BorderSide.none,
               ),
               prefixIcon: GestureDetector(
-                onTap: () {
-                  context.pop();
-                },
+                onTap: context.pop,
                 child: const Icon(Icons.arrow_back_ios),
               ),
               suffixIcon: GestureDetector(
@@ -101,11 +100,14 @@ class _CharactersSearchPageState extends State<CharactersSearchPage> {
               builder: (context, state) {
                 final bloc = context.read<CharactersBloc>();
                 return state.maybeWhen(
+                  //TODO: remove unuseless state
                   initial: () => const SizedBox.shrink(),
-                  searchLoading: () =>
-                      const Center(child: CircularProgressIndicator()),
+                  searchLoading: () => const Center(
+                    child: CircularProgressIndicator(),
+                  ),
                   searchError: (message) {
-                    return message == "isEmpty"
+                    //TODO: remove string
+                    return message.isEmpty
                         ? const SizedBox.shrink()
                         : const NotFound();
                   },

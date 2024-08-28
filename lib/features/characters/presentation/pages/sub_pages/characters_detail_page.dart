@@ -22,11 +22,13 @@ class CharactersDetailPage extends StatelessWidget {
           ),
           SliverList(
             delegate: SliverChildListDelegate(
-                [DetailCharacterInfo(character: character)]),
+              [
+                DetailCharacterInfo(character: character),
+              ],
+            ),
           ),
         ],
       ),
     );
   }
 }
-

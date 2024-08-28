@@ -29,7 +29,6 @@ class EpisodesBloc extends Bloc<EpisodesEvent, EpisodesState> {
       emit(const _EpisodesLoadingState());
     }
     final result = await usecase.getEpisodes(currentPage);
-    log('data-unique: result: ${result} ');
     result.fold(
       (error) => emit(_EpisodesErrorState(error)),
       (data) {

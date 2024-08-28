@@ -57,6 +57,7 @@ class _CharactersPageState extends State<CharactersPage> {
                 ),
                 IconButton(
                   onPressed: () {
+                    //TODO: remove setState
                     setState(() {
                       _isGridView = !_isGridView;
                     });

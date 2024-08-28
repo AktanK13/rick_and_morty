@@ -12,6 +12,14 @@ part 'characters_event.dart';
 part 'characters_state.dart';
 
 class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
+  CharactersBloc({required this.useCases})
+      : super(const CharactersState.initial()) {
+    _scrollController.addListener(_onScroll);
+    _searchScrollController.addListener(_onScrollSearch);
+    on<FetchCharacters>(_onFetchCharacters);
+    on<SearchCharacters>(_onSearchCharacters);
+  }
+
   final ScrollController _scrollController = ScrollController();
   final ScrollController _searchScrollController = ScrollController();
   final TextEditingController _textFieldController = TextEditingController();
@@ -32,14 +40,6 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
   List<CharactersEntity> allCharacters = [];
   List<CharactersEntity> allSearchCharacters = [];
 
-  CharactersBloc({required this.useCases})
-      : super(const CharactersState.initial()) {
-    _scrollController.addListener(_onScroll);
-    _searchScrollController.addListener(_onScrollSearch);
-    on<FetchCharacters>(_onFetchCharacters);
-    on<SearchCharacters>(_onSearchCharacters);
-  }
-
   void _onFetchCharacters(
       FetchCharacters event, Emitter<CharactersState> emit) async {
     if (hasReachedMax) return;
@@ -51,7 +51,7 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
       currentPage = 1;
       selectedStatus = event.status;
       selectedGender = event.gender;
-    _scrollController.jumpTo(0);
+      _scrollController.jumpTo(0);
     }
     final result = await useCases.getCharacters(
         currentPage, selectedStatus, selectedGender);
