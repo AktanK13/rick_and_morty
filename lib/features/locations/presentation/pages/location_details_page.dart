@@ -13,7 +13,7 @@ class LocationDetailsPage extends StatelessWidget {
     required this.location,
   });
 
-  final LocationsEntity location;
+  final LocationEntity location;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

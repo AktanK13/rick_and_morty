@@ -6,6 +6,8 @@ import 'package:rick_and_morty/generated/locale_keys.g.dart';
 
 import 'package:rick_and_morty/shared/widgets/divider_line.dart';
 
+import '../../constants/enum_filter.dart';
+
 class CharactersFilterPage extends StatefulWidget {
   const CharactersFilterPage({
     super.key,
@@ -30,6 +32,7 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
   }
 
   void _resetFilters() {
+    //TODO: add bloc or cubit to filter and remove setState
     setState(() {
       selectedStatus = '';
       selectedGender = '';
@@ -48,17 +51,14 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
             style: theme.titleMedium,
           ),
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
-            onPressed: () {
-              context.pop();
-            },
-          ),
+              icon: const Icon(Icons.arrow_back_ios), onPressed: context.pop),
           centerTitle: false,
           actions: [
             IconButton(
               icon: Icon(
                 Icons.filter_alt_off,
-                color: selectedStatus == "" && selectedGender == ""
+                color: selectedStatus == Status.unknown.toString() &&
+                        selectedGender == Gender.unknown.toString()
                     ? AppColors.buttonDisabled
                     : AppColors.statusDead,
               ),
@@ -73,39 +73,6 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  LocaleKeys.sorting.tr(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodySmall
-                      ?.copyWith(color: AppColors.textGray),
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        LocaleKeys.abc.tr(),
-                        style: theme.titleLarge,
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.sort_outlined),
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: Transform.flip(
-                        flipY: true,
-                        child: const Icon(
-                          Icons.sort_outlined,
-                          color: AppColors.buttonDisabled,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const DividerLine(),
-                Text(
                   LocaleKeys.status.tr(),
                   style: Theme.of(context)
                       .textTheme
@@ -119,11 +86,11 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                     LocaleKeys.alive.tr(),
                     style: theme.titleLarge,
                   ),
-                  value: 'alive',
+                  value: Status.alive.toString(),
                   groupValue: selectedStatus,
                   onChanged: (value) {
                     setState(() {
-                      selectedStatus = value ?? 'alive';
+                      selectedStatus = value ?? Status.alive.toString();
                     });
                   },
                 ),
@@ -133,11 +100,11 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                     LocaleKeys.dead.tr(),
                     style: theme.titleLarge,
                   ),
-                  value: 'dead',
+                  value: Status.dead.toString(),
                   groupValue: selectedStatus,
                   onChanged: (value) {
                     setState(() {
-                      selectedStatus = value ?? 'dead';
+                      selectedStatus = value ?? Status.dead.toString();
                     });
                   },
                 ),
@@ -157,7 +124,7 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                 ),
                 const DividerLine(),
                 Text(
-                  'Пол',
+                  LocaleKeys.gender.tr(),
                   style: Theme.of(context)
                       .textTheme
                       .bodySmall
@@ -172,11 +139,12 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                     LocaleKeys.male_g.tr(),
                     style: theme.titleLarge,
                   ),
-                  value: 'male',
+                  //TODO: add enum
+                  value: Gender.male.toString(),
                   groupValue: selectedGender,
                   onChanged: (value) {
                     setState(() {
-                      selectedGender = value ?? 'male';
+                      selectedGender = value ?? Gender.male.toString();
                     });
                   },
                 ),
@@ -186,11 +154,11 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                     LocaleKeys.female_g.tr(),
                     style: theme.titleLarge,
                   ),
-                  value: 'female',
+                  value: Gender.female.toString(),
                   groupValue: selectedGender,
                   onChanged: (value) {
                     setState(() {
-                      selectedGender = value ?? 'female';
+                      selectedGender = value ?? Gender.female.toString();
                     });
                   },
                 ),

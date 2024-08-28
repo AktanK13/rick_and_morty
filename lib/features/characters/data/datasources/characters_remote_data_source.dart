@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:rick_and_morty/core/constants/constants.dart';
+import 'package:rick_and_morty/core/utils/injections.dart';
 import 'package:rick_and_morty/features/characters/data/models/characters_model.dart';
 
 class CharactersRemoteDataSource {
-  final Dio client;
-  CharactersRemoteDataSource({required this.client});
-
+  CharactersRemoteDataSource();
+  final client = getIt<Dio>();
   Future<CharactersModel> fetchCharacters(
       int page, String? status, String? gender) async {
     try {
@@ -17,12 +17,7 @@ class CharactersRemoteDataSource {
           'gender': gender,
         },
       );
-
-      if (response.statusCode == 200) {
-        return CharactersModel.fromJson(response.data);
-      } else {
-        throw Exception('Failed to load characters');
-      }
+      return CharactersModel.fromJson(response.data);
     } catch (e) {
       throw Exception('Failed to fetch characters: $e');
     }
@@ -37,12 +32,7 @@ class CharactersRemoteDataSource {
           'name': name,
         },
       );
-
-      if (response.statusCode == 200) {
-        return CharactersModel.fromJson(response.data);
-      } else {
-        throw Exception('Failed to load characters');
-      }
+      return CharactersModel.fromJson(response.data);
     } catch (e) {
       throw Exception('Failed to fetch characters: $e');
     }

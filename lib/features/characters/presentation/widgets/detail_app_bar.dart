@@ -19,9 +19,7 @@ class DetailAppBar extends StatelessWidget {
       leading: Column(
         children: [
           IconButton(
-            onPressed: () {
-              context.pop();
-            },
+            onPressed: context.pop,
             icon: const Icon(
               Icons.arrow_back_ios,
               color: AppColors.textWhite,

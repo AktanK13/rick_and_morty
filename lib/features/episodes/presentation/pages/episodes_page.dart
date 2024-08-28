@@ -32,10 +32,12 @@ class EpisodesPage extends StatelessWidget {
                   builder: (context, state) {
                     final bloc = context.read<EpisodesBloc>();
                     return state.when(
-                      initial: () =>
-                          const Center(child: CircularProgressIndicator()),
-                      loading: () =>
-                          const Center(child: CircularProgressIndicator()),
+                      initial: () => const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                      loading: () => const Center(
+                        child: CircularProgressIndicator(),
+                      ),
                       error: (error) => const NotFound(),
                       loaded: (episodes, hasReachedMax) {
                         return RefreshIndicator(

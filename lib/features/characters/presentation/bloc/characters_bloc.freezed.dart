@@ -72,6 +72,9 @@ class _$CharactersEventCopyWithImpl<$Res, $Val extends CharactersEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of CharactersEvent
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -91,6 +94,8 @@ class __$$FetchCharactersImplCopyWithImpl<$Res>
       _$FetchCharactersImpl _value, $Res Function(_$FetchCharactersImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CharactersEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -137,7 +142,9 @@ class _$FetchCharactersImpl implements FetchCharacters {
   @override
   int get hashCode => Object.hash(runtimeType, status, gender);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CharactersEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FetchCharactersImplCopyWith<_$FetchCharactersImpl> get copyWith =>
@@ -214,7 +221,10 @@ abstract class FetchCharacters implements CharactersEvent {
 
   String get status;
   String get gender;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CharactersEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FetchCharactersImplCopyWith<_$FetchCharactersImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -236,6 +246,8 @@ class __$$SearchCharactersImplCopyWithImpl<$Res>
       $Res Function(_$SearchCharactersImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CharactersEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -274,7 +286,9 @@ class _$SearchCharactersImpl implements SearchCharacters {
   @override
   int get hashCode => Object.hash(runtimeType, name);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CharactersEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SearchCharactersImplCopyWith<_$SearchCharactersImpl> get copyWith =>
@@ -349,7 +363,10 @@ abstract class SearchCharacters implements CharactersEvent {
       _$SearchCharactersImpl;
 
   String get name;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CharactersEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SearchCharactersImplCopyWith<_$SearchCharactersImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -452,6 +469,9 @@ class _$CharactersStateCopyWithImpl<$Res, $Val extends CharactersState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of CharactersState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -468,6 +488,9 @@ class __$$CharactersInitialImplCopyWithImpl<$Res>
   __$$CharactersInitialImplCopyWithImpl(_$CharactersInitialImpl _value,
       $Res Function(_$CharactersInitialImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of CharactersState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -610,6 +633,9 @@ class __$$CharactersLoadingImplCopyWithImpl<$Res>
   __$$CharactersLoadingImplCopyWithImpl(_$CharactersLoadingImpl _value,
       $Res Function(_$CharactersLoadingImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of CharactersState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -755,6 +781,8 @@ class __$$CharactersErrorImplCopyWithImpl<$Res>
       _$CharactersErrorImpl _value, $Res Function(_$CharactersErrorImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CharactersState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -793,7 +821,9 @@ class _$CharactersErrorImpl implements _CharactersError {
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CharactersState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CharactersErrorImplCopyWith<_$CharactersErrorImpl> get copyWith =>
@@ -907,7 +937,10 @@ abstract class _CharactersError implements CharactersState {
   const factory _CharactersError(final String message) = _$CharactersErrorImpl;
 
   String get message;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CharactersState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CharactersErrorImplCopyWith<_$CharactersErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -930,6 +963,8 @@ class __$$CharactersLoadSuccessImplCopyWithImpl<$Res>
       $Res Function(_$CharactersLoadSuccessImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CharactersState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -999,7 +1034,9 @@ class _$CharactersLoadSuccessImpl implements _CharactersLoadSuccess {
   int get hashCode => Object.hash(runtimeType,
       const DeepCollectionEquality().hash(_characters), hasReachedMax, count);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CharactersState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CharactersLoadSuccessImplCopyWith<_$CharactersLoadSuccessImpl>
@@ -1118,7 +1155,10 @@ abstract class _CharactersLoadSuccess implements CharactersState {
   List<CharactersEntity> get characters;
   bool get hasReachedMax;
   int get count;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CharactersState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CharactersLoadSuccessImplCopyWith<_$CharactersLoadSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -1139,6 +1179,9 @@ class __$$SearchCharactersLoadingImplCopyWithImpl<$Res>
       _$SearchCharactersLoadingImpl _value,
       $Res Function(_$SearchCharactersLoadingImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of CharactersState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -1286,6 +1329,8 @@ class __$$SearchCharactersErrorImplCopyWithImpl<$Res>
       $Res Function(_$SearchCharactersErrorImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CharactersState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1324,7 +1369,9 @@ class _$SearchCharactersErrorImpl implements _SearchCharactersError {
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CharactersState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SearchCharactersErrorImplCopyWith<_$SearchCharactersErrorImpl>
@@ -1439,7 +1486,10 @@ abstract class _SearchCharactersError implements CharactersState {
       _$SearchCharactersErrorImpl;
 
   String get message;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CharactersState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SearchCharactersErrorImplCopyWith<_$SearchCharactersErrorImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -1464,6 +1514,8 @@ class __$$SearchCharactersLoadSuccessImplCopyWithImpl<$Res>
       $Res Function(_$SearchCharactersLoadSuccessImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CharactersState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1524,7 +1576,9 @@ class _$SearchCharactersLoadSuccessImpl
   int get hashCode => Object.hash(runtimeType,
       const DeepCollectionEquality().hash(_characters), hasReachedMax);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CharactersState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SearchCharactersLoadSuccessImplCopyWith<_$SearchCharactersLoadSuccessImpl>
@@ -1641,7 +1695,10 @@ abstract class _SearchCharactersLoadSuccess implements CharactersState {
 
   List<CharactersEntity> get characters;
   bool get hasReachedMax;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CharactersState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SearchCharactersLoadSuccessImplCopyWith<_$SearchCharactersLoadSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

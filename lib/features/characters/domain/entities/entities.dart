@@ -8,7 +8,7 @@ class CharactersEntity extends Equatable {
   final String type;
   final String gender;
   final OriginEntity origin;
-  final LocationEntity location;
+  final CharacterLocationEntity location;
   final String image;
   final List<String> episode;
   final String url;
@@ -52,9 +52,9 @@ class OriginEntity {
   OriginEntity({required this.name, required this.url});
 }
 
-class LocationEntity {
+class CharacterLocationEntity {
   final String name;
   final String url;
 
-  LocationEntity({required this.name, required this.url});
+  CharacterLocationEntity({required this.name, required this.url});
 }

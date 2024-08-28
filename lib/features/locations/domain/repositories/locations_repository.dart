@@ -1,8 +1,8 @@
 
 
 import 'package:dartz/dartz.dart';
-import 'package:rick_and_morty/features/locations/data/models/locations_model.dart';
+import 'package:rick_and_morty/features/locations/domain/entities/main.entity.dart';
 
 abstract class LocationsRepository {
-  Future<Either<String, LocationsModel>> getLocations(int page);
+  Future<Either<String, MainEntity>> getLocations(int page);
 }

@@ -100,8 +100,8 @@ class Location with _$Location {
   factory Location.fromJson(Map<String, dynamic> json) =>
       _$LocationFromJson(json);
 
-  LocationEntity mapToEntity() {
-    return LocationEntity(
+  CharacterLocationEntity mapToEntity() {
+    return CharacterLocationEntity(
       name: name ?? '',
       url: url ?? '',
     );

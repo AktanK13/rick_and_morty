@@ -27,15 +27,15 @@ abstract class RegisterModule {
   // Регистрация remote data sources
   @lazySingleton
   CharactersRemoteDataSource get charactersRemoteDataSource =>
-      CharactersRemoteDataSource(client: dio);
+      CharactersRemoteDataSource();
 
   @lazySingleton
   LocationsRemoteDataSource get locationsRemoteDataSource =>
-      LocationsRemoteDataSource(client: dio);
+      LocationsRemoteDataSource();
 
   @lazySingleton
   EpisodesRemoteDataSource get episodesRemoteDataSource =>
-      EpisodesRemoteDataSource(client: dio);
+      EpisodesRemoteDataSource();
 
   // Регистрация репозиториев
   @lazySingleton

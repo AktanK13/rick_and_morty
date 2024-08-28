@@ -65,9 +65,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
               ),
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back_ios),
-                onPressed: () {
-                  context.pop();
-                },
+                onPressed: context.pop,
               ),
               elevation: 0.0,
             ),

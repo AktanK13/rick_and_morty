@@ -9,8 +9,8 @@ part of 'locations_model.dart';
 _$LocationsModelImpl _$$LocationsModelImplFromJson(Map<String, dynamic> json) =>
     _$LocationsModelImpl(
       info: Info.fromJson(json['info'] as Map<String, dynamic>),
-      results: (json['results'] as List<dynamic>)
-          .map((e) => Results.fromJson(e as Map<String, dynamic>))
+      locationResults: (json['results'] as List<dynamic>)
+          .map((e) => ResultsLocations.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -18,7 +18,7 @@ Map<String, dynamic> _$$LocationsModelImplToJson(
         _$LocationsModelImpl instance) =>
     <String, dynamic>{
       'info': instance.info,
-      'results': instance.results,
+      'results': instance.locationResults,
     };
 
 _$InfoImpl _$$InfoImplFromJson(Map<String, dynamic> json) => _$InfoImpl(
