@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -11,35 +10,38 @@ part 'episodes_event.dart';
 part 'episodes_state.dart';
 
 class EpisodesBloc extends Bloc<EpisodesEvent, EpisodesState> {
+  EpisodesBloc({required this.usecase}) : super(const EpisodesState.initial()) {
+    _scrollController.addListener(_onScroll);
+    on<FetchEpisodes>(_onFetchEpisodes);
+  }
+
   final ScrollController _scrollController = ScrollController();
   final EpisodesUsecase usecase;
   int currentPage = 1;
   bool hasReachedMax = false;
   List<EpisodesEntity> allEpisode = [];
 
-  EpisodesBloc({required this.usecase}) : super(const EpisodesState.initial()) {
-    _scrollController.addListener(_onScroll);
-    on<FetchEpisodes>(_onFetchEpisodes);
-  }
-
   void _onFetchEpisodes(
       FetchEpisodes event, Emitter<EpisodesState> emit) async {
     if (hasReachedMax) return;
-    if (state is _EpisodesInitialState) {
-      emit(const _EpisodesLoadingState());
-    }
+    emit(const EpisodesState.loading());
     final result = await usecase.getEpisodes(currentPage);
     result.fold(
-      (error) => emit(_EpisodesErrorState(error)),
+      (error) => emit(EpisodesState.error(error)),
       (data) {
         hasReachedMax = data.info.pages == currentPage;
+        //TODO: remove toentity to data and use entity
         final episodesEntity = data.mapToEntity();
 
         if (currentPage <= data.info.pages) {
           allEpisode.addAll(episodesEntity);
           currentPage++;
-          emit(_EpisodesLoadedSuccess(
-              episodes: List.from(allEpisode), hasReachedMax: hasReachedMax));
+          emit(
+            EpisodesState.loaded(
+              episodes: List.from(allEpisode),
+              hasReachedMax: hasReachedMax,
+            ),
+          );
         }
       },
     );

@@ -10,35 +10,37 @@ part 'locations_event.dart';
 part 'locations_state.dart';
 
 class LocationsBloc extends Bloc<LocationsEvent, LocationsState> {
-  final ScrollController _scrollController = ScrollController();
-  final LocationsUseCases usecase;
-  int currentPage = 1;
-  bool hasReachedMax = false;
-  List<LocationsEntity> allLocation = [];
-
   LocationsBloc({required this.usecase})
       : super(const LocationsState.initial()) {
     _scrollController.addListener(_onScroll);
     on<FetchLocations>(_onFetchLocations);
   }
 
+  final ScrollController _scrollController = ScrollController();
+  final LocationsUseCases usecase;
+  int currentPage = 1;
+  bool hasReachedMax = false;
+  List<LocationsEntity> allLocation = [];
+
   void _onFetchLocations(
       FetchLocations event, Emitter<LocationsState> emit) async {
     if (hasReachedMax) return;
-    if (state is _LocationsInitialState) {
-      emit(const _LocationsLoadingState());
-    }
+    emit(const LocationsState.loading());
     final result = await usecase.getLocations(currentPage);
     result.fold(
-      (error) => emit(_LocationsErrorState(error)),
+      (error) => emit(LocationsState.error(error)),
       (data) {
         hasReachedMax = data.info.pages == currentPage;
         final locationsEntity = data.mapToEntity();
         if (currentPage <= data.info.pages) {
           allLocation.addAll(locationsEntity);
           currentPage++;
-          emit(_LocationsLoadedSuccess(
-              hasReachedMax: hasReachedMax, locations: List.from(allLocation)));
+          emit(
+            LocationsState.loaded(
+              hasReachedMax: hasReachedMax,
+              locations: List.from(allLocation),
+            ),
+          );
         }
       },
     );

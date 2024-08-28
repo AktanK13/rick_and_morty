@@ -103,6 +103,8 @@ class AppTheme {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
+        disabledForegroundColor: Colors.grey.withOpacity(0.38),
+        disabledBackgroundColor: Colors.grey.withOpacity(0.12),
         backgroundColor: AppColors.backgroundWhite,
         foregroundColor: AppColors.buttonActive,
         elevation: 0,
@@ -230,6 +232,8 @@ class AppTheme {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
+        disabledForegroundColor: Colors.grey.withOpacity(0.38),
+        disabledBackgroundColor: Colors.grey.withOpacity(0.12),
         backgroundColor: AppColors.backgroundDark,
         foregroundColor: AppColors.buttonActive,
         elevation: 0,
