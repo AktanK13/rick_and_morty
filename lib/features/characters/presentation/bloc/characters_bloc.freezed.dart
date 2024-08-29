@@ -20,18 +20,21 @@ mixin _$CharactersEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String status, String gender) fetch,
     required TResult Function(String name) search,
+    required TResult Function() toggleGridView,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String status, String gender)? fetch,
     TResult? Function(String name)? search,
+    TResult? Function()? toggleGridView,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String status, String gender)? fetch,
     TResult Function(String name)? search,
+    TResult Function()? toggleGridView,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,21 @@ mixin _$CharactersEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(FetchCharacters value) fetch,
     required TResult Function(SearchCharacters value) search,
+    required TResult Function(ToggleGridView value) toggleGridView,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(FetchCharacters value)? fetch,
     TResult? Function(SearchCharacters value)? search,
+    TResult? Function(ToggleGridView value)? toggleGridView,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(FetchCharacters value)? fetch,
     TResult Function(SearchCharacters value)? search,
+    TResult Function(ToggleGridView value)? toggleGridView,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -156,6 +162,7 @@ class _$FetchCharactersImpl implements FetchCharacters {
   TResult when<TResult extends Object?>({
     required TResult Function(String status, String gender) fetch,
     required TResult Function(String name) search,
+    required TResult Function() toggleGridView,
   }) {
     return fetch(status, gender);
   }
@@ -165,6 +172,7 @@ class _$FetchCharactersImpl implements FetchCharacters {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String status, String gender)? fetch,
     TResult? Function(String name)? search,
+    TResult? Function()? toggleGridView,
   }) {
     return fetch?.call(status, gender);
   }
@@ -174,6 +182,7 @@ class _$FetchCharactersImpl implements FetchCharacters {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String status, String gender)? fetch,
     TResult Function(String name)? search,
+    TResult Function()? toggleGridView,
     required TResult orElse(),
   }) {
     if (fetch != null) {
@@ -187,6 +196,7 @@ class _$FetchCharactersImpl implements FetchCharacters {
   TResult map<TResult extends Object?>({
     required TResult Function(FetchCharacters value) fetch,
     required TResult Function(SearchCharacters value) search,
+    required TResult Function(ToggleGridView value) toggleGridView,
   }) {
     return fetch(this);
   }
@@ -196,6 +206,7 @@ class _$FetchCharactersImpl implements FetchCharacters {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(FetchCharacters value)? fetch,
     TResult? Function(SearchCharacters value)? search,
+    TResult? Function(ToggleGridView value)? toggleGridView,
   }) {
     return fetch?.call(this);
   }
@@ -205,6 +216,7 @@ class _$FetchCharactersImpl implements FetchCharacters {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(FetchCharacters value)? fetch,
     TResult Function(SearchCharacters value)? search,
+    TResult Function(ToggleGridView value)? toggleGridView,
     required TResult orElse(),
   }) {
     if (fetch != null) {
@@ -300,6 +312,7 @@ class _$SearchCharactersImpl implements SearchCharacters {
   TResult when<TResult extends Object?>({
     required TResult Function(String status, String gender) fetch,
     required TResult Function(String name) search,
+    required TResult Function() toggleGridView,
   }) {
     return search(name);
   }
@@ -309,6 +322,7 @@ class _$SearchCharactersImpl implements SearchCharacters {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String status, String gender)? fetch,
     TResult? Function(String name)? search,
+    TResult? Function()? toggleGridView,
   }) {
     return search?.call(name);
   }
@@ -318,6 +332,7 @@ class _$SearchCharactersImpl implements SearchCharacters {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String status, String gender)? fetch,
     TResult Function(String name)? search,
+    TResult Function()? toggleGridView,
     required TResult orElse(),
   }) {
     if (search != null) {
@@ -331,6 +346,7 @@ class _$SearchCharactersImpl implements SearchCharacters {
   TResult map<TResult extends Object?>({
     required TResult Function(FetchCharacters value) fetch,
     required TResult Function(SearchCharacters value) search,
+    required TResult Function(ToggleGridView value) toggleGridView,
   }) {
     return search(this);
   }
@@ -340,6 +356,7 @@ class _$SearchCharactersImpl implements SearchCharacters {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(FetchCharacters value)? fetch,
     TResult? Function(SearchCharacters value)? search,
+    TResult? Function(ToggleGridView value)? toggleGridView,
   }) {
     return search?.call(this);
   }
@@ -349,6 +366,7 @@ class _$SearchCharactersImpl implements SearchCharacters {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(FetchCharacters value)? fetch,
     TResult Function(SearchCharacters value)? search,
+    TResult Function(ToggleGridView value)? toggleGridView,
     required TResult orElse(),
   }) {
     if (search != null) {
@@ -372,14 +390,125 @@ abstract class SearchCharacters implements CharactersEvent {
 }
 
 /// @nodoc
+abstract class _$$ToggleGridViewImplCopyWith<$Res> {
+  factory _$$ToggleGridViewImplCopyWith(_$ToggleGridViewImpl value,
+          $Res Function(_$ToggleGridViewImpl) then) =
+      __$$ToggleGridViewImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ToggleGridViewImplCopyWithImpl<$Res>
+    extends _$CharactersEventCopyWithImpl<$Res, _$ToggleGridViewImpl>
+    implements _$$ToggleGridViewImplCopyWith<$Res> {
+  __$$ToggleGridViewImplCopyWithImpl(
+      _$ToggleGridViewImpl _value, $Res Function(_$ToggleGridViewImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CharactersEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$ToggleGridViewImpl implements ToggleGridView {
+  const _$ToggleGridViewImpl();
+
+  @override
+  String toString() {
+    return 'CharactersEvent.toggleGridView()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ToggleGridViewImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String status, String gender) fetch,
+    required TResult Function(String name) search,
+    required TResult Function() toggleGridView,
+  }) {
+    return toggleGridView();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String status, String gender)? fetch,
+    TResult? Function(String name)? search,
+    TResult? Function()? toggleGridView,
+  }) {
+    return toggleGridView?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String status, String gender)? fetch,
+    TResult Function(String name)? search,
+    TResult Function()? toggleGridView,
+    required TResult orElse(),
+  }) {
+    if (toggleGridView != null) {
+      return toggleGridView();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(FetchCharacters value) fetch,
+    required TResult Function(SearchCharacters value) search,
+    required TResult Function(ToggleGridView value) toggleGridView,
+  }) {
+    return toggleGridView(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(FetchCharacters value)? fetch,
+    TResult? Function(SearchCharacters value)? search,
+    TResult? Function(ToggleGridView value)? toggleGridView,
+  }) {
+    return toggleGridView?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(FetchCharacters value)? fetch,
+    TResult Function(SearchCharacters value)? search,
+    TResult Function(ToggleGridView value)? toggleGridView,
+    required TResult orElse(),
+  }) {
+    if (toggleGridView != null) {
+      return toggleGridView(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ToggleGridView implements CharactersEvent {
+  const factory ToggleGridView() = _$ToggleGridViewImpl;
+}
+
+/// @nodoc
 mixin _$CharactersState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(
-            List<CharactersEntity> characters, bool hasReachedMax, int count)
+    required TResult Function(List<CharactersEntity> characters,
+            bool hasReachedMax, int count, bool isGridView)
         loaded,
     required TResult Function() searchLoading,
     required TResult Function(String message) searchError,
@@ -393,8 +522,8 @@ mixin _$CharactersState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(
-            List<CharactersEntity> characters, bool hasReachedMax, int count)?
+    TResult? Function(List<CharactersEntity> characters, bool hasReachedMax,
+            int count, bool isGridView)?
         loaded,
     TResult? Function()? searchLoading,
     TResult? Function(String message)? searchError,
@@ -407,8 +536,8 @@ mixin _$CharactersState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(
-            List<CharactersEntity> characters, bool hasReachedMax, int count)?
+    TResult Function(List<CharactersEntity> characters, bool hasReachedMax,
+            int count, bool isGridView)?
         loaded,
     TResult Function()? searchLoading,
     TResult Function(String message)? searchError,
@@ -518,8 +647,8 @@ class _$CharactersInitialImpl implements _CharactersInitial {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(
-            List<CharactersEntity> characters, bool hasReachedMax, int count)
+    required TResult Function(List<CharactersEntity> characters,
+            bool hasReachedMax, int count, bool isGridView)
         loaded,
     required TResult Function() searchLoading,
     required TResult Function(String message) searchError,
@@ -536,8 +665,8 @@ class _$CharactersInitialImpl implements _CharactersInitial {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(
-            List<CharactersEntity> characters, bool hasReachedMax, int count)?
+    TResult? Function(List<CharactersEntity> characters, bool hasReachedMax,
+            int count, bool isGridView)?
         loaded,
     TResult? Function()? searchLoading,
     TResult? Function(String message)? searchError,
@@ -553,8 +682,8 @@ class _$CharactersInitialImpl implements _CharactersInitial {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(
-            List<CharactersEntity> characters, bool hasReachedMax, int count)?
+    TResult Function(List<CharactersEntity> characters, bool hasReachedMax,
+            int count, bool isGridView)?
         loaded,
     TResult Function()? searchLoading,
     TResult Function(String message)? searchError,
@@ -663,8 +792,8 @@ class _$CharactersLoadingImpl implements _CharactersLoading {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(
-            List<CharactersEntity> characters, bool hasReachedMax, int count)
+    required TResult Function(List<CharactersEntity> characters,
+            bool hasReachedMax, int count, bool isGridView)
         loaded,
     required TResult Function() searchLoading,
     required TResult Function(String message) searchError,
@@ -681,8 +810,8 @@ class _$CharactersLoadingImpl implements _CharactersLoading {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(
-            List<CharactersEntity> characters, bool hasReachedMax, int count)?
+    TResult? Function(List<CharactersEntity> characters, bool hasReachedMax,
+            int count, bool isGridView)?
         loaded,
     TResult? Function()? searchLoading,
     TResult? Function(String message)? searchError,
@@ -698,8 +827,8 @@ class _$CharactersLoadingImpl implements _CharactersLoading {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(
-            List<CharactersEntity> characters, bool hasReachedMax, int count)?
+    TResult Function(List<CharactersEntity> characters, bool hasReachedMax,
+            int count, bool isGridView)?
         loaded,
     TResult Function()? searchLoading,
     TResult Function(String message)? searchError,
@@ -836,8 +965,8 @@ class _$CharactersErrorImpl implements _CharactersError {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(
-            List<CharactersEntity> characters, bool hasReachedMax, int count)
+    required TResult Function(List<CharactersEntity> characters,
+            bool hasReachedMax, int count, bool isGridView)
         loaded,
     required TResult Function() searchLoading,
     required TResult Function(String message) searchError,
@@ -854,8 +983,8 @@ class _$CharactersErrorImpl implements _CharactersError {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(
-            List<CharactersEntity> characters, bool hasReachedMax, int count)?
+    TResult? Function(List<CharactersEntity> characters, bool hasReachedMax,
+            int count, bool isGridView)?
         loaded,
     TResult? Function()? searchLoading,
     TResult? Function(String message)? searchError,
@@ -871,8 +1000,8 @@ class _$CharactersErrorImpl implements _CharactersError {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(
-            List<CharactersEntity> characters, bool hasReachedMax, int count)?
+    TResult Function(List<CharactersEntity> characters, bool hasReachedMax,
+            int count, bool isGridView)?
         loaded,
     TResult Function()? searchLoading,
     TResult Function(String message)? searchError,
@@ -952,7 +1081,11 @@ abstract class _$$CharactersLoadSuccessImplCopyWith<$Res> {
           $Res Function(_$CharactersLoadSuccessImpl) then) =
       __$$CharactersLoadSuccessImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<CharactersEntity> characters, bool hasReachedMax, int count});
+  $Res call(
+      {List<CharactersEntity> characters,
+      bool hasReachedMax,
+      int count,
+      bool isGridView});
 }
 
 /// @nodoc
@@ -971,6 +1104,7 @@ class __$$CharactersLoadSuccessImplCopyWithImpl<$Res>
     Object? characters = null,
     Object? hasReachedMax = null,
     Object? count = null,
+    Object? isGridView = null,
   }) {
     return _then(_$CharactersLoadSuccessImpl(
       characters: null == characters
@@ -985,6 +1119,10 @@ class __$$CharactersLoadSuccessImplCopyWithImpl<$Res>
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
+      isGridView: null == isGridView
+          ? _value.isGridView
+          : isGridView // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -995,7 +1133,8 @@ class _$CharactersLoadSuccessImpl implements _CharactersLoadSuccess {
   const _$CharactersLoadSuccessImpl(
       {required final List<CharactersEntity> characters,
       this.hasReachedMax = false,
-      this.count = 0})
+      this.count = 0,
+      this.isGridView = false})
       : _characters = characters;
 
   final List<CharactersEntity> _characters;
@@ -1012,10 +1151,13 @@ class _$CharactersLoadSuccessImpl implements _CharactersLoadSuccess {
   @override
   @JsonKey()
   final int count;
+  @override
+  @JsonKey()
+  final bool isGridView;
 
   @override
   String toString() {
-    return 'CharactersState.loaded(characters: $characters, hasReachedMax: $hasReachedMax, count: $count)';
+    return 'CharactersState.loaded(characters: $characters, hasReachedMax: $hasReachedMax, count: $count, isGridView: $isGridView)';
   }
 
   @override
@@ -1027,12 +1169,18 @@ class _$CharactersLoadSuccessImpl implements _CharactersLoadSuccess {
                 .equals(other._characters, _characters) &&
             (identical(other.hasReachedMax, hasReachedMax) ||
                 other.hasReachedMax == hasReachedMax) &&
-            (identical(other.count, count) || other.count == count));
+            (identical(other.count, count) || other.count == count) &&
+            (identical(other.isGridView, isGridView) ||
+                other.isGridView == isGridView));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_characters), hasReachedMax, count);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_characters),
+      hasReachedMax,
+      count,
+      isGridView);
 
   /// Create a copy of CharactersState
   /// with the given fields replaced by the non-null parameter values.
@@ -1049,8 +1197,8 @@ class _$CharactersLoadSuccessImpl implements _CharactersLoadSuccess {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(
-            List<CharactersEntity> characters, bool hasReachedMax, int count)
+    required TResult Function(List<CharactersEntity> characters,
+            bool hasReachedMax, int count, bool isGridView)
         loaded,
     required TResult Function() searchLoading,
     required TResult Function(String message) searchError,
@@ -1058,7 +1206,7 @@ class _$CharactersLoadSuccessImpl implements _CharactersLoadSuccess {
             List<CharactersEntity> characters, bool hasReachedMax)
         searchLoaded,
   }) {
-    return loaded(characters, hasReachedMax, count);
+    return loaded(characters, hasReachedMax, count, isGridView);
   }
 
   @override
@@ -1067,15 +1215,15 @@ class _$CharactersLoadSuccessImpl implements _CharactersLoadSuccess {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(
-            List<CharactersEntity> characters, bool hasReachedMax, int count)?
+    TResult? Function(List<CharactersEntity> characters, bool hasReachedMax,
+            int count, bool isGridView)?
         loaded,
     TResult? Function()? searchLoading,
     TResult? Function(String message)? searchError,
     TResult? Function(List<CharactersEntity> characters, bool hasReachedMax)?
         searchLoaded,
   }) {
-    return loaded?.call(characters, hasReachedMax, count);
+    return loaded?.call(characters, hasReachedMax, count, isGridView);
   }
 
   @override
@@ -1084,8 +1232,8 @@ class _$CharactersLoadSuccessImpl implements _CharactersLoadSuccess {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(
-            List<CharactersEntity> characters, bool hasReachedMax, int count)?
+    TResult Function(List<CharactersEntity> characters, bool hasReachedMax,
+            int count, bool isGridView)?
         loaded,
     TResult Function()? searchLoading,
     TResult Function(String message)? searchError,
@@ -1094,7 +1242,7 @@ class _$CharactersLoadSuccessImpl implements _CharactersLoadSuccess {
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(characters, hasReachedMax, count);
+      return loaded(characters, hasReachedMax, count, isGridView);
     }
     return orElse();
   }
@@ -1150,11 +1298,13 @@ abstract class _CharactersLoadSuccess implements CharactersState {
   const factory _CharactersLoadSuccess(
       {required final List<CharactersEntity> characters,
       final bool hasReachedMax,
-      final int count}) = _$CharactersLoadSuccessImpl;
+      final int count,
+      final bool isGridView}) = _$CharactersLoadSuccessImpl;
 
   List<CharactersEntity> get characters;
   bool get hasReachedMax;
   int get count;
+  bool get isGridView;
 
   /// Create a copy of CharactersState
   /// with the given fields replaced by the non-null parameter values.
@@ -1210,8 +1360,8 @@ class _$SearchCharactersLoadingImpl implements _SearchCharactersLoading {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(
-            List<CharactersEntity> characters, bool hasReachedMax, int count)
+    required TResult Function(List<CharactersEntity> characters,
+            bool hasReachedMax, int count, bool isGridView)
         loaded,
     required TResult Function() searchLoading,
     required TResult Function(String message) searchError,
@@ -1228,8 +1378,8 @@ class _$SearchCharactersLoadingImpl implements _SearchCharactersLoading {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(
-            List<CharactersEntity> characters, bool hasReachedMax, int count)?
+    TResult? Function(List<CharactersEntity> characters, bool hasReachedMax,
+            int count, bool isGridView)?
         loaded,
     TResult? Function()? searchLoading,
     TResult? Function(String message)? searchError,
@@ -1245,8 +1395,8 @@ class _$SearchCharactersLoadingImpl implements _SearchCharactersLoading {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(
-            List<CharactersEntity> characters, bool hasReachedMax, int count)?
+    TResult Function(List<CharactersEntity> characters, bool hasReachedMax,
+            int count, bool isGridView)?
         loaded,
     TResult Function()? searchLoading,
     TResult Function(String message)? searchError,
@@ -1384,8 +1534,8 @@ class _$SearchCharactersErrorImpl implements _SearchCharactersError {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(
-            List<CharactersEntity> characters, bool hasReachedMax, int count)
+    required TResult Function(List<CharactersEntity> characters,
+            bool hasReachedMax, int count, bool isGridView)
         loaded,
     required TResult Function() searchLoading,
     required TResult Function(String message) searchError,
@@ -1402,8 +1552,8 @@ class _$SearchCharactersErrorImpl implements _SearchCharactersError {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(
-            List<CharactersEntity> characters, bool hasReachedMax, int count)?
+    TResult? Function(List<CharactersEntity> characters, bool hasReachedMax,
+            int count, bool isGridView)?
         loaded,
     TResult? Function()? searchLoading,
     TResult? Function(String message)? searchError,
@@ -1419,8 +1569,8 @@ class _$SearchCharactersErrorImpl implements _SearchCharactersError {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(
-            List<CharactersEntity> characters, bool hasReachedMax, int count)?
+    TResult Function(List<CharactersEntity> characters, bool hasReachedMax,
+            int count, bool isGridView)?
         loaded,
     TResult Function()? searchLoading,
     TResult Function(String message)? searchError,
@@ -1591,8 +1741,8 @@ class _$SearchCharactersLoadSuccessImpl
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(
-            List<CharactersEntity> characters, bool hasReachedMax, int count)
+    required TResult Function(List<CharactersEntity> characters,
+            bool hasReachedMax, int count, bool isGridView)
         loaded,
     required TResult Function() searchLoading,
     required TResult Function(String message) searchError,
@@ -1609,8 +1759,8 @@ class _$SearchCharactersLoadSuccessImpl
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(
-            List<CharactersEntity> characters, bool hasReachedMax, int count)?
+    TResult? Function(List<CharactersEntity> characters, bool hasReachedMax,
+            int count, bool isGridView)?
         loaded,
     TResult? Function()? searchLoading,
     TResult? Function(String message)? searchError,
@@ -1626,8 +1776,8 @@ class _$SearchCharactersLoadSuccessImpl
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(
-            List<CharactersEntity> characters, bool hasReachedMax, int count)?
+    TResult Function(List<CharactersEntity> characters, bool hasReachedMax,
+            int count, bool isGridView)?
         loaded,
     TResult Function()? searchLoading,
     TResult Function(String message)? searchError,

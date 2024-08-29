@@ -32,7 +32,7 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
   }
 
   void _resetFilters() {
-    //TODO: add bloc or cubit to filter and remove setState
+    //TODO: add bloc or cubit to filter and remove setState ----------- ADD ValueNotifier
     setState(() {
       selectedStatus = '';
       selectedGender = '';

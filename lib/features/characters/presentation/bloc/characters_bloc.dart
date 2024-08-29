@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -18,6 +17,7 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
     _searchScrollController.addListener(_onScrollSearch);
     on<FetchCharacters>(_onFetchCharacters);
     on<SearchCharacters>(_onSearchCharacters);
+    on<ToggleGridView>(_onToggleView);
   }
 
   final ScrollController _scrollController = ScrollController();
@@ -27,6 +27,7 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
   final CharactersUseCases useCases;
   int totalCount = 0;
   String query = '';
+  bool isGridView = false;
 
   int currentPage = 1;
   int searchCurrentPage = 1;
@@ -43,8 +44,8 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
   void _onFetchCharacters(
       FetchCharacters event, Emitter<CharactersState> emit) async {
     if (hasReachedMax) return;
-    if (state is _CharactersInitial || state is _CharactersLoading) {
-      emit(const _CharactersLoading());
+    if (state is _CharactersInitial) {
+      emit(const CharactersState.loading());
     }
     if (selectedStatus != event.status || selectedGender != event.gender) {
       allCharacters.clear();
@@ -56,19 +57,19 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
     final result = await useCases.getCharacters(
         currentPage, selectedStatus, selectedGender);
     result.fold(
-      (error) => emit(_CharactersError(error)),
+      (error) => emit(CharactersState.error(error)),
       (data) {
         hasReachedMax = data.info.pages == currentPage;
-        final characterEntity = data.mapToEntity();
         if (currentPage <= data.info.pages) {
-          allCharacters.addAll(characterEntity);
+          allCharacters.addAll(data.charactersEntity);
           currentPage++;
+          totalCount= data.info.count;
           emit(
-            _CharactersLoadSuccess(
-              characters: List.from(allCharacters),
-              count: data.info.count,
-              hasReachedMax: hasReachedMax,
-            ),
+            CharactersState.loaded(
+                characters: List.from(allCharacters),
+                count: totalCount,
+                hasReachedMax: hasReachedMax,
+                isGridView: isGridView),
           );
         }
       },
@@ -85,7 +86,7 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
       query = '';
       return;
     } else if (query != event.name) {
-      emit(const _SearchCharactersLoading());
+      emit(const CharactersState.searchLoading());
       allSearchCharacters.clear();
       searchCurrentPage = 1;
       query = event.name;
@@ -94,17 +95,16 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
 
     result.fold(
       (error) {
-        emit(_SearchCharactersError(error));
+        emit(CharactersState.searchError(error));
       },
       (data) {
         hasReachedMaxSearch = data.info.pages == searchCurrentPage;
-        final characterEntity = data.mapToEntity();
 
         if (searchCurrentPage <= data.info.pages) {
-          allSearchCharacters.addAll(characterEntity);
+          allSearchCharacters.addAll(data.charactersEntity);
           searchCurrentPage++;
           emit(
-            _SearchCharactersLoadSuccess(
+            CharactersState.searchLoaded(
               characters: List.from(allSearchCharacters),
               hasReachedMax: hasReachedMaxSearch,
             ),
@@ -114,11 +114,22 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
     );
   }
 
-  @override
-  void onTransition(Transition<CharactersEvent, CharactersState> transition) {
-    super.onTransition(transition);
-    log('data-unique: transition: $transition ');
+  void _onToggleView(ToggleGridView event, Emitter<CharactersState> emit) {
+    isGridView = !isGridView;
+    emit(
+      CharactersState.loaded(
+        characters: List.from(allCharacters),
+        count: totalCount,
+        hasReachedMax: hasReachedMax,
+        isGridView: isGridView,
+      ),
+    );
   }
+  // @override
+  // void onTransition(Transition<CharactersEvent, CharactersState> transition) {
+  //   super.onTransition(transition);
+  //   log('data-unique: transition: $transition ');
+  // }
 
   @override
   Future<void> close() {
