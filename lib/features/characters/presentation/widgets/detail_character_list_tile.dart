@@ -12,6 +12,7 @@ class DetailCharacterListTile extends StatelessWidget {
   final String title;
   final String? routerUrl;
   // TODO: add routerUrl
+  
   @override
   Widget build(BuildContext context) {
     return ListTile(

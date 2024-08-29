@@ -14,8 +14,10 @@ class DetailAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const appBarHeight = 83;
     return AppBar(
       toolbarHeight: 230,
+      centerTitle: false,
       leading: Column(
         children: [
           IconButton(
@@ -69,7 +71,7 @@ class DetailAppBar extends StatelessWidget {
                 ),
               ),
               Positioned(
-                left: (MediaQuery.of(context).size.width / 2) - 83,
+                left: (MediaQuery.of(context).size.width / 2) - appBarHeight,
                 top: (MediaQuery.of(context).size.width / 3.5),
                 child: CircleAvatar(
                   radius: 83,

@@ -9,10 +9,10 @@ import 'package:rick_and_morty/features/characters/presentation/pages/sub_pages/
 import 'package:rick_and_morty/features/characters/presentation/pages/characters_page.dart';
 import 'package:rick_and_morty/features/characters/presentation/pages/sub_pages/characters_search_page.dart';
 import 'package:rick_and_morty/features/episodes/domain/entities/episodes_entity.dart';
-import 'package:rick_and_morty/features/episodes/presentation/pages/episode_detail_page.dart';
+import 'package:rick_and_morty/features/episodes/presentation/pages/sub_pages/episode_detail_page.dart';
 import 'package:rick_and_morty/features/episodes/presentation/pages/episodes_page.dart';
 import 'package:rick_and_morty/features/locations/domain/entities/location_entity.dart';
-import 'package:rick_and_morty/features/locations/presentation/pages/location_details_page.dart';
+import 'package:rick_and_morty/features/locations/presentation/pages/sub_pages/location_details_page.dart';
 import 'package:rick_and_morty/features/locations/presentation/pages/locations_page.dart';
 import 'package:rick_and_morty/features/settings/presentation/pages/settings_page.dart';
 import 'package:rick_and_morty/shared/pages/home/home_page.dart';

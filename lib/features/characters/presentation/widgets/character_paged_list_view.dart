@@ -5,32 +5,33 @@ import 'package:rick_and_morty/features/characters/presentation/widgets/list_til
 class CharacterPagedListView extends StatelessWidget {
   const CharacterPagedListView({
     super.key,
-    required ScrollController scrollController,
-    required List<CharactersEntity> characters,
-    required bool hasReachedMax,
-  })  : _scrollController = scrollController,
-        _characters = characters,
-        _hasReachedMax = hasReachedMax;
-  final ScrollController _scrollController;
-  final List<CharactersEntity> _characters;
-  final bool _hasReachedMax;
+    required this.scrollController,
+    required this.characters,
+    required this.hasReachedMax,
+  });
+
+  final ScrollController scrollController;
+  final List<CharactersEntity> characters;
+  final bool hasReachedMax;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: ListView.separated(
-        controller: _scrollController,
-        itemCount: _characters.length + (_hasReachedMax ? 0 : 1),
+        controller: scrollController,
+        itemCount: characters.length + (hasReachedMax ? 0 : 1),
         separatorBuilder: (context, index) {
           return const SizedBox(height: 16);
         },
         itemBuilder: (context, index) {
-          if (index >= _characters.length) {
+          if (index >= characters.length) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
-          return CustomListTile(character: _characters[index]);
+          final character = characters[index];
+          return CustomListTile(character: character);
         },
       ),
     );

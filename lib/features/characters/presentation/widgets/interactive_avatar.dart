@@ -8,6 +8,7 @@ class InteractiveAvatar extends StatelessWidget {
 
   final double radius;
   final String imageurl;
+  
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -15,9 +16,7 @@ class InteractiveAvatar extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) {
-              return ImageDetails(imageUrl: imageurl);
-            },
+            builder: (context) => ImageDetails(imageUrl: imageurl),
           ),
         );
       },

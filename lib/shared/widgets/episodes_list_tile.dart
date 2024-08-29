@@ -52,12 +52,7 @@ class EpisodeTile extends StatelessWidget {
             .labelLarge
             ?.copyWith(color: AppColors.textGray),
       ),
-      trailing: const Icon(
-        Icons.arrow_forward_ios,
-      ),
-      onTap: () {
-        // Define the action on tap
-      },
+      trailing: const Icon(Icons.arrow_forward_ios),
     );
   }
 }

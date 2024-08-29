@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rick_and_morty/features/characters/domain/entities/entities.dart';
+import 'package:rick_and_morty/features/characters/presentation/constants/enum_filter.dart';
 import 'package:rick_and_morty/features/characters/presentation/widgets/detail_circle_avatar.dart';
 import 'package:rick_and_morty/generated/locale_keys.g.dart';
 
@@ -18,10 +19,12 @@ class CustomGridTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
+
+    const alive = Status.alive;
+    const male = Gender.male;
+    
     return GestureDetector(
-      onTap: () {
-        context.go(AppRouter.charactersDetails, extra: character);
-      },
+      onTap: () => context.go(AppRouter.charactersDetails, extra: character),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -29,17 +32,15 @@ class CustomGridTile extends StatelessWidget {
             radius: 60,
             imageurl: character.image,
           ),
-          const SizedBox(
-            height: 18,
-          ),
+          const SizedBox(height: 18),
           Flexible(
             child: Text(
-              character.status == 'Alive'
+              character.status == alive.description
                   ? LocaleKeys.alive.tr()
                   : LocaleKeys.dead.tr(),
               textAlign: TextAlign.center,
               style: theme.bodySmall?.copyWith(
-                color: character.status == 'Alive'
+                color: character.status == alive.description
                     ? AppColors.statusAlive
                     : AppColors.statusDead,
               ),
@@ -55,7 +56,7 @@ class CustomGridTile extends StatelessWidget {
           ),
           Flexible(
             child: Text(
-              '${character.species}/${character.gender == 'Male' ? LocaleKeys.male_g.tr() : LocaleKeys.female_g.tr()}',
+              '${character.species}/${character.gender == male.description ? LocaleKeys.male_g.tr() : LocaleKeys.female_g.tr()}',
               textAlign: TextAlign.center,
               style: theme.labelSmall?.copyWith(
                 color: AppColors.textGray,
