@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:rick_and_morty/core/router/app_router.dart';
 import 'package:rick_and_morty/core/styles/app_colors.dart';
 import 'package:rick_and_morty/features/characters/domain/entities/entities.dart';
+import 'package:rick_and_morty/features/characters/presentation/constants/enum_filter.dart';
 import 'package:rick_and_morty/features/characters/presentation/widgets/detail_circle_avatar.dart';
 import 'package:rick_and_morty/generated/locale_keys.g.dart';
 
@@ -17,6 +18,8 @@ class CustomListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const alive = Status.alive;
+    const male = Gender.male;
     return ListTile(
       contentPadding: const EdgeInsets.all(0),
       horizontalTitleGap: 10,
@@ -29,11 +32,11 @@ class CustomListTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            character.status == 'Alive'
+            character.status == alive.description
                 ? LocaleKeys.alive.tr()
                 : LocaleKeys.dead.tr(),
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: character.status == 'Alive'
+                  color: character.status == alive.description
                       ? AppColors.statusAlive
                       : AppColors.statusDead,
                 ),
@@ -45,7 +48,7 @@ class CustomListTile extends StatelessWidget {
         ],
       ),
       subtitle: Text(
-        '${character.species}/${character.gender == 'Male' ? LocaleKeys.male_g.tr() : LocaleKeys.female_g.tr()}',
+        '${character.species}/${character.gender == male.description ? LocaleKeys.male_g.tr() : LocaleKeys.female_g.tr()}',
         style: Theme.of(context)
             .textTheme
             .labelSmall

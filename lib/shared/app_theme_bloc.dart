@@ -61,7 +61,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
       case ThemeMode.light:
         return AppTheme.lightTheme;
       default:
-        return AppTheme.lightTheme; // or AppTheme.systemTheme if you have one
+        return AppTheme.lightTheme;
     }
   }
 }

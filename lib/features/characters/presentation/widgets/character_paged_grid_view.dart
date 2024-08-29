@@ -6,27 +6,28 @@ import 'package:rick_and_morty/features/characters/presentation/widgets/grid_til
 class CharacterPagedGridView extends StatelessWidget {
   const CharacterPagedGridView({
     super.key,
-    required ScrollController scrollController,
-    required List<CharactersEntity> characters,
-    required bool hasReachedMax,
-  })  : _scrollController = scrollController,
-        _characters = characters;
-  final ScrollController _scrollController;
-  final List<CharactersEntity> _characters;
+    required this.scrollController,
+    required this.characters,
+  });
+
+  final ScrollController scrollController;
+  final List<CharactersEntity> characters;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: GridView.builder(
-        controller: _scrollController,
-        itemCount: _characters.length,
+        controller: scrollController,
+        itemCount: characters.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           mainAxisSpacing: 24,
           childAspectRatio: 0.85,
         ),
         itemBuilder: (context, index) {
-          return CustomGridTile(character: _characters[index]);
+          final character = characters[index];
+          return CustomGridTile(character: character);
         },
       ),
     );

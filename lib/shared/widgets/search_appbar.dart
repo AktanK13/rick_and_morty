@@ -21,9 +21,7 @@ class SearchAppbar extends StatelessWidget implements PreferredSizeWidget {
       title: Hero(
         tag: 'searchField',
         child: TextField(
-          onTap: () {
-            context.push(AppRouter.charactersSearch);
-          },
+          onTap: () => context.push(AppRouter.charactersSearch),
           readOnly: true,
           style: Theme.of(context).textTheme.bodyMedium,
           decoration: InputDecoration(

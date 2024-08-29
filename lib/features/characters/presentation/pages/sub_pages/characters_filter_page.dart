@@ -42,6 +42,12 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
+    const alive = Status.alive;
+    const dead = Status.dead;
+    const statusUnknown = Status.unknown;
+    const male = Gender.male;
+    const female = Gender.female;
+    const genderUnknown = Gender.unknown;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -86,11 +92,11 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                     LocaleKeys.alive.tr(),
                     style: theme.titleLarge,
                   ),
-                  value: Status.alive.toString(),
+                  value: alive.description,
                   groupValue: selectedStatus,
                   onChanged: (value) {
                     setState(() {
-                      selectedStatus = value ?? Status.alive.toString();
+                      selectedStatus = value ?? alive.description;
                     });
                   },
                 ),
@@ -100,11 +106,11 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                     LocaleKeys.dead.tr(),
                     style: theme.titleLarge,
                   ),
-                  value: Status.dead.toString(),
+                  value: dead.description,
                   groupValue: selectedStatus,
                   onChanged: (value) {
                     setState(() {
-                      selectedStatus = value ?? Status.dead.toString();
+                      selectedStatus = value ?? dead.description;
                     });
                   },
                 ),
@@ -114,11 +120,11 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                     LocaleKeys.unknow.tr(),
                     style: theme.titleLarge,
                   ),
-                  value: '',
+                  value: statusUnknown.description,
                   groupValue: selectedStatus,
                   onChanged: (value) {
                     setState(() {
-                      selectedStatus = value ?? '';
+                      selectedStatus = value ?? statusUnknown.description;
                     });
                   },
                 ),
@@ -130,21 +136,18 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                       .bodySmall
                       ?.copyWith(color: AppColors.textGray),
                 ),
-                const SizedBox(
-                  height: 8,
-                ),
+                const SizedBox(height: 8),
                 RadioListTile<String>(
                   contentPadding: const EdgeInsets.all(0),
                   title: Text(
                     LocaleKeys.male_g.tr(),
                     style: theme.titleLarge,
                   ),
-                  //TODO: add enum
-                  value: Gender.male.toString(),
+                  value: male.description,
                   groupValue: selectedGender,
                   onChanged: (value) {
                     setState(() {
-                      selectedGender = value ?? Gender.male.toString();
+                      selectedGender = value ?? male.description;
                     });
                   },
                 ),
@@ -154,11 +157,11 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                     LocaleKeys.female_g.tr(),
                     style: theme.titleLarge,
                   ),
-                  value: Gender.female.toString(),
+                  value: female.description,
                   groupValue: selectedGender,
                   onChanged: (value) {
                     setState(() {
-                      selectedGender = value ?? Gender.female.toString();
+                      selectedGender = value ?? female.description;
                     });
                   },
                 ),
@@ -168,11 +171,11 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                     LocaleKeys.unknow.tr(),
                     style: theme.titleLarge,
                   ),
-                  value: '',
+                  value: genderUnknown.description,
                   groupValue: selectedGender,
                   onChanged: (value) {
                     setState(() {
-                      selectedGender = value ?? '';
+                      selectedGender = value ?? genderUnknown.description;
                     });
                   },
                 ),

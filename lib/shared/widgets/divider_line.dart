@@ -7,16 +7,12 @@ class DividerLine extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(
-          height: 36,
-        ),
+        const SizedBox(height: 36),
         Divider(
           height: 2,
           color: Theme.of(context).dividerColor,
         ),
-        const SizedBox(
-          height: 36,
-        ),
+        const SizedBox(height: 36),
       ],
     );
   }

@@ -11,19 +11,14 @@ class NoData extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(
-              height: 60,
-            ),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2.5,
               child: Image.asset(AppPng.notFound),
             ),
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             Text(
               'Персонажи не найдены',
               textAlign: TextAlign.center,

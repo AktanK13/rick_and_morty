@@ -6,26 +6,31 @@ import 'package:rick_and_morty/features/characters/domain/entities/entities.dart
 import 'package:rick_and_morty/features/characters/presentation/widgets/interactive_avatar.dart';
 
 class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
-  final double expandedHeight;
-  final bool hideTitleWhenExpanded;
-  final CharactersEntity character;
-
   CustomSliverDelegate({
     required this.character,
     required this.expandedHeight,
     this.hideTitleWhenExpanded = true,
   });
 
+  final double expandedHeight;
+  final bool hideTitleWhenExpanded;
+  final CharactersEntity character;
+
+  static const double _avatarTopPositionProcent = 1.7;
+  static const double _proportionProcent = 2.0;
+  static const double _heightProcent = 2.4;
+
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     final appBarSize = expandedHeight - shrinkOffset;
-    final avatarTopPosition = expandedHeight / 1.7 - shrinkOffset;
-    final proportion = 2 - (expandedHeight / appBarSize);
+    final avatarTopPosition =
+        expandedHeight / _avatarTopPositionProcent - shrinkOffset;
+    final proportion = _proportionProcent - (expandedHeight / appBarSize);
     final percent = proportion < 0 || proportion > 1 ? 0.0 : proportion;
 
     return SizedBox(
-      height: expandedHeight + expandedHeight / 2.3,
+      height: expandedHeight + expandedHeight / _heightProcent,
       child: Stack(
         children: [
           SizedBox(
@@ -93,7 +98,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  double get maxExtent => expandedHeight + expandedHeight / 2;
+  double get maxExtent => expandedHeight + expandedHeight / _proportionProcent;
 
   @override
   double get minExtent => kToolbarHeight;

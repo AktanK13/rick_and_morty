@@ -4,7 +4,7 @@ import 'package:rick_and_morty/features/characters/presentation/bloc/characters_
 import 'package:rick_and_morty/features/characters/presentation/pages/sub_pages/characters_header.dart';
 import 'package:rick_and_morty/features/characters/presentation/widgets/character_paged_grid_view.dart';
 import 'package:rick_and_morty/features/characters/presentation/widgets/character_paged_list_view.dart';
-import 'package:rick_and_morty/shared/pages/not_found.dart';
+import 'package:rick_and_morty/shared/pages/no_data.dart';
 import 'package:rick_and_morty/shared/widgets/search_appbar.dart';
 
 class CharactersPage extends StatelessWidget {
@@ -28,7 +28,7 @@ class CharactersPage extends StatelessWidget {
                   initial: () => const SizedBox.shrink(),
                   loading: () =>
                       const Center(child: CircularProgressIndicator()),
-                  error: (error) => const NotFound(),
+                  error: (error) => const NoData(),
                   loaded: (characters, hasReachedMax, count, isGridView) {
                     return RefreshIndicator(
                       onRefresh: () => bloc.refreshPage(),
@@ -36,7 +36,6 @@ class CharactersPage extends StatelessWidget {
                           ? CharacterPagedGridView(
                               scrollController: bloc.scrollController,
                               characters: characters,
-                              hasReachedMax: hasReachedMax,
                             )
                           : CharacterPagedListView(
                               scrollController: bloc.scrollController,
@@ -55,5 +54,3 @@ class CharactersPage extends StatelessWidget {
     );
   }
 }
-
-

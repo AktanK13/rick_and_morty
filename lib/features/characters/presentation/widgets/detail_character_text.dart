@@ -9,8 +9,9 @@ class DetailCharacterText extends StatelessWidget {
   final String title;
   @override
   Widget build(BuildContext context) {
+    const padding = 16;
     return SizedBox(
-      width: MediaQuery.of(context).size.width / 2 - 16,
+      width: MediaQuery.of(context).size.width / 2 - padding,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
