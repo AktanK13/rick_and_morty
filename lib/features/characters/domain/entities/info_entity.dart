@@ -1,13 +1,11 @@
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class InfoEntity extends Equatable {
-  const InfoEntity( {
-    required this.count,
-    required this.pages,
-  });
-  final int count;
-  final int pages;
+part 'info_entity.freezed.dart';
 
-  @override
-  List<Object?> get props => [count, pages];
+@freezed
+class InfoEntity with _$InfoEntity {
+  const factory InfoEntity({
+    required int count,
+    required int pages,
+  }) = _InfoEntity;
 }

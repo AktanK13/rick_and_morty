@@ -1,4 +1,3 @@
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,9 +43,7 @@ class SettingList extends StatelessWidget {
                 ?.copyWith(color: AppColors.textGray),
           ),
           trailing: const Icon(Icons.arrow_forward_ios),
-          onTap: () {
-            _showThemeDialog(context);
-          },
+          onTap: () => _showThemeDialog(context),
         ),
         const SizedBox(height: 12),
         ListTile(
@@ -59,7 +56,7 @@ class SettingList extends StatelessWidget {
             LocaleKeys.language.tr(),
             style: Theme.of(context).textTheme.titleLarge,
           ),
-          //TODO: change to setable
+          //TODO: change to setable status theme in listtile
           subtitle: Text(
             LocaleKeys.theme_enabled.tr(),
             style: Theme.of(context)
@@ -68,9 +65,7 @@ class SettingList extends StatelessWidget {
                 ?.copyWith(color: AppColors.textGray),
           ),
           trailing: const Icon(Icons.arrow_forward_ios),
-          onTap: () {
-            _showLangDialog(context);
-          },
+          onTap: () => _showLangDialog(context),
         ),
         const DividerLine(),
         Text(
@@ -93,9 +88,7 @@ class SettingList extends StatelessWidget {
               .bodySmall
               ?.copyWith(color: AppColors.textGray),
         ),
-        const SizedBox(
-          height: 12,
-        ),
+        const SizedBox(height: 12),
         Text(
           'Rick & Morty  v1.0.0',
           style: Theme.of(context).textTheme.labelMedium,
@@ -188,9 +181,7 @@ class SettingList extends StatelessWidget {
                 LocaleKeys.cancel.tr(),
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
+              onPressed: () => Navigator.pop(context),
             ),
           ],
         );
@@ -205,7 +196,8 @@ class SettingList extends StatelessWidget {
         final locale = context.locale;
         return AlertDialog(
           shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10))),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
           titlePadding: const EdgeInsets.all(20),
           contentPadding: const EdgeInsets.all(0),
           title: Text(
@@ -249,9 +241,7 @@ class SettingList extends StatelessWidget {
                 LocaleKeys.cancel.tr(),
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
+              onPressed: () => Navigator.pop(context),
             ),
           ],
         );

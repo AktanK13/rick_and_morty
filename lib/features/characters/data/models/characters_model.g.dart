@@ -10,8 +10,8 @@ _$CharactersModelImpl _$$CharactersModelImplFromJson(
         Map<String, dynamic> json) =>
     _$CharactersModelImpl(
       info: Info.fromJson(json['info'] as Map<String, dynamic>),
-      results: (json['results'] as List<dynamic>)
-          .map((e) => Results.fromJson(e as Map<String, dynamic>))
+      resultsCharacters: (json['results'] as List<dynamic>)
+          .map((e) => ResultsCharacters.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -19,7 +19,7 @@ Map<String, dynamic> _$$CharactersModelImplToJson(
         _$CharactersModelImpl instance) =>
     <String, dynamic>{
       'info': instance.info,
-      'results': instance.results,
+      'results': instance.resultsCharacters,
     };
 
 _$InfoImpl _$$InfoImplFromJson(Map<String, dynamic> json) => _$InfoImpl(

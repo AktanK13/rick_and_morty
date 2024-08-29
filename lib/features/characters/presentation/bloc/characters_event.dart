@@ -9,4 +9,6 @@ class CharactersEvent with _$CharactersEvent {
   const factory CharactersEvent.search({
     required String name,
   }) = SearchCharacters;
+  const factory CharactersEvent.toggleGridView() =
+      ToggleGridView;
 }

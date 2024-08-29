@@ -81,8 +81,8 @@ final router = GoRouter(
                 GoRoute(
                   path: 'details',
                   builder: (BuildContext context, GoRouterState state) {
-                    final LocationsEntity location =
-                        GoRouterState.of(context).extra as LocationsEntity;
+                    final LocationEntity location =
+                        GoRouterState.of(context).extra as LocationEntity;
                     return LocationDetailsPage(
                       location: location,
                     );

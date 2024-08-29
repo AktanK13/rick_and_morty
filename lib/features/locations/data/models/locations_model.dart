@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rick_and_morty/features/locations/domain/entities/location_entity.dart';
+import 'package:rick_and_morty/features/locations/domain/entities/main.entity.dart';
 
 part 'locations_model.freezed.dart';
 part 'locations_model.g.dart';
@@ -9,14 +10,17 @@ class LocationsModel with _$LocationsModel {
   const LocationsModel._();
   const factory LocationsModel({
     required Info info,
-    required List<Results> results,
+     @JsonKey(name: "results") required List<ResultsLocations> locationResults,
   }) = _LocationsModel;
 
   factory LocationsModel.fromJson(Map<String, dynamic> json) =>
       _$LocationsModelFromJson(json);
 
-  List<LocationsEntity> mapToEntity() {
-    return results.map((result) => result.toEntity()).toList();
+  MainEntity mapToEntity() {
+    return MainEntity(
+      info: info,
+      locationEntity: locationResults.map((result) => result.toEntity()).toList(),
+    );
   }
 }
 
@@ -33,9 +37,9 @@ class Info with _$Info {
 }
 
 @freezed
-class Results with _$Results {
-  const Results._();
-  const factory Results({
+class ResultsLocations with _$ResultsLocations {
+  const ResultsLocations._();
+  const factory ResultsLocations({
     required int id,
     required String name,
     String? type,
@@ -45,11 +49,11 @@ class Results with _$Results {
     required String created,
   }) = _Results;
 
-  factory Results.fromJson(Map<String, dynamic> json) =>
-      _$ResultsFromJson(json);
+  factory ResultsLocations.fromJson(Map<String, dynamic> json) =>
+      _$ResultsLocationsFromJson(json);
 
-  LocationsEntity toEntity() {
-    return LocationsEntity(
+  LocationEntity toEntity() {
+    return LocationEntity(
       id: id,
       name: name,
       type: type ?? '',
