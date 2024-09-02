@@ -23,6 +23,7 @@ class CustomListTile extends StatelessWidget {
     return ListTile(
       contentPadding: const EdgeInsets.all(0),
       horizontalTitleGap: 10,
+      minLeadingWidth: 80,
       minVerticalPadding: 0,
       onTap: () => context.go(AppRouter.charactersDetails, extra: character),
       dense: false,

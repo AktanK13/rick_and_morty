@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rick_and_morty/features/characters/domain/entities/entities.dart';
@@ -13,149 +11,111 @@ part 'characters_state.dart';
 class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
   CharactersBloc({required this.useCases})
       : super(const CharactersState.initial()) {
-    _scrollController.addListener(_onScroll);
-    _searchScrollController.addListener(_onScrollSearch);
+    useCases.pagination.scrollController.addListener(_onScroll);
+    useCases.searchPagination.scrollController.addListener(_onScrollSearch);
     on<FetchCharacters>(_onFetchCharacters);
     on<SearchCharacters>(_onSearchCharacters);
     on<ToggleGridView>(_onToggleView);
   }
 
-  final ScrollController _scrollController = ScrollController();
-  final ScrollController _searchScrollController = ScrollController();
-  final TextEditingController _textFieldController = TextEditingController();
-
   final CharactersUseCases useCases;
-  int totalCount = 0;
-  String query = '';
-  bool isGridView = false;
-
-  int currentPage = 1;
-  int searchCurrentPage = 1;
-
-  bool hasReachedMax = false;
-  bool hasReachedMaxSearch = false;
-
-  String selectedStatus = '';
-  String selectedGender = '';
-
-  List<CharactersEntity> allCharacters = [];
-  List<CharactersEntity> allSearchCharacters = [];
 
   void _onFetchCharacters(
       FetchCharacters event, Emitter<CharactersState> emit) async {
-    if (hasReachedMax) return;
+    if (useCases.pagination.hasReachedMax) return;
+
     if (state is _CharactersInitial) {
       emit(const CharactersState.loading());
     }
-    if (selectedStatus != event.status || selectedGender != event.gender) {
-      allCharacters.clear();
-      currentPage = 1;
-      selectedStatus = event.status;
-      selectedGender = event.gender;
-      _scrollController.jumpTo(0);
+
+    if (useCases.pagination.selectedStatus != event.status ||
+        useCases.pagination.selectedGender != event.gender) {
+      useCases.pagination.reset(status: event.status, gender: event.gender);
+      useCases.pagination.scrollController.jumpTo(0);
     }
-    final result = await useCases.getCharacters(
-        currentPage, selectedStatus, selectedGender);
+
+    final result = await useCases.getCharacters();
     result.fold(
       (error) => emit(CharactersState.error(error)),
       (data) {
-        hasReachedMax = data.info.pages == currentPage;
-        if (currentPage <= data.info.pages) {
-          allCharacters.addAll(data.charactersEntity);
-          currentPage++;
-          totalCount= data.info.count;
-          emit(
-            CharactersState.loaded(
-                characters: List.from(allCharacters),
-                count: totalCount,
-                hasReachedMax: hasReachedMax,
-                isGridView: isGridView),
-          );
-        }
+        emit(
+          CharactersState.loaded(
+            characters: List.from(useCases.pagination.allCharacters),
+            count: data.info.count,
+            hasReachedMax: useCases.pagination.hasReachedMax,
+            isGridView: useCases.viewState.isGridView,
+          ),
+        );
       },
     );
   }
 
   void _onSearchCharacters(
       SearchCharacters event, Emitter<CharactersState> emit) async {
-    if (hasReachedMaxSearch && query == event.name) return;
-    if (event.name == "") {
-      emit(const _SearchCharactersError("isEmpty"));
-      allSearchCharacters.clear();
-      searchCurrentPage = 1;
-      query = '';
+    if (useCases.searchPagination.hasReachedMaxSearch &&
+        useCases.searchPagination.query == event.name) return;
+
+    if (event.name.isEmpty) {
+      emit(const _SearchCharactersError(""));
+      useCases.searchPagination.reset(query: '');
       return;
-    } else if (query != event.name) {
-      emit(const CharactersState.searchLoading());
-      allSearchCharacters.clear();
-      searchCurrentPage = 1;
-      query = event.name;
     }
-    final result = await useCases.searchCharacters(searchCurrentPage, query);
 
+    if (useCases.searchPagination.query != event.name) {
+      emit(const CharactersState.searchLoading());
+      useCases.searchPagination.query == event.name;
+    }
+
+    final result = await useCases.searchCharacters(query: event.name);
     result.fold(
-      (error) {
-        emit(CharactersState.searchError(error));
-      },
+      (error) => emit(CharactersState.searchError(error)),
       (data) {
-        hasReachedMaxSearch = data.info.pages == searchCurrentPage;
-
-        if (searchCurrentPage <= data.info.pages) {
-          allSearchCharacters.addAll(data.charactersEntity);
-          searchCurrentPage++;
-          emit(
-            CharactersState.searchLoaded(
-              characters: List.from(allSearchCharacters),
-              hasReachedMax: hasReachedMaxSearch,
-            ),
-          );
-        }
+        emit(
+          CharactersState.searchLoaded(
+            characters:
+                List.from(useCases.searchPagination.allSearchCharacters),
+            hasReachedMax: useCases.searchPagination.hasReachedMaxSearch,
+          ),
+        );
       },
     );
   }
 
   void _onToggleView(ToggleGridView event, Emitter<CharactersState> emit) {
-    isGridView = !isGridView;
+    useCases.toggleView();
     emit(
       CharactersState.loaded(
-        characters: List.from(allCharacters),
-        count: totalCount,
-        hasReachedMax: hasReachedMax,
-        isGridView: isGridView,
+        characters: List.from(useCases.pagination.allCharacters),
+        count: useCases.pagination.allCharacters.length,
+        hasReachedMax: useCases.pagination.hasReachedMax,
+        isGridView: useCases.viewState.isGridView,
       ),
     );
   }
+
   // @override
   // void onTransition(Transition<CharactersEvent, CharactersState> transition) {
   //   super.onTransition(transition);
-  //   log('data-unique: transition: $transition ');
+  //   log('data-unique: transition: ${transition} ');
   // }
 
-  @override
-  Future<void> close() {
-    _scrollController
-      ..removeListener(_onScroll)
-      ..dispose();
-    _searchScrollController
-      ..removeListener(_onScroll)
-      ..dispose();
-    _textFieldController.dispose();
-    return super.close();
-  }
-
   void _onScroll() {
-    if (_scrollController.position.pixels ==
-            _scrollController.position.maxScrollExtent &&
-        !hasReachedMax) {
-      add(FetchCharacters(status: selectedStatus, gender: selectedGender));
+    if (useCases.pagination.scrollController.position.pixels ==
+            useCases.pagination.scrollController.position.maxScrollExtent &&
+        !useCases.pagination.hasReachedMax) {
+      add(FetchCharacters(
+        status: useCases.pagination.selectedStatus,
+        gender: useCases.pagination.selectedGender,
+      ));
     }
   }
 
   void _onScrollSearch() {
-    if (_searchScrollController.position.pixels ==
-            _searchScrollController.position.maxScrollExtent &&
-        !hasReachedMaxSearch) {
-      add(SearchCharacters(name: query));
+    if (useCases.searchPagination.scrollController.position.pixels ==
+            useCases
+                .searchPagination.scrollController.position.maxScrollExtent &&
+        !useCases.searchPagination.hasReachedMaxSearch) {
+      add(SearchCharacters(name: useCases.searchPagination.query));
     }
   }
 
@@ -163,7 +123,9 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
     add(const FetchCharacters(status: '', gender: ''));
   }
 
-  ScrollController get scrollController => _scrollController;
-  ScrollController get searchScrollController => _searchScrollController;
-  TextEditingController get textFieldController => _textFieldController;
+  @override
+  Future<void> close() {
+    useCases.dispose();
+    return super.close();
+  }
 }

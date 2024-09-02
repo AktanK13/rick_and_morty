@@ -38,8 +38,8 @@ class SearchAppbar extends StatelessWidget implements PreferredSizeWidget {
               onPressed: () async {
                 final result =
                     await context.push(AppRouter.charactersFilter, extra: {
-                  'status': context.read<CharactersBloc>().selectedStatus,
-                  'gender': context.read<CharactersBloc>().selectedGender,
+                  'status': context.read<CharactersBloc>().useCases.pagination.selectedStatus,
+                  'gender': context.read<CharactersBloc>().useCases.pagination.selectedGender,
                 });
                 if (!context.mounted) return;
                 if (result != null && result is Map<String, String>) {

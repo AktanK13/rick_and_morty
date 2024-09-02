@@ -17,7 +17,6 @@ class CharactersSearchPage extends StatefulWidget {
 }
 
 class _CharactersSearchPageState extends State<CharactersSearchPage> {
-  //TODO: remove Timer and switch to stateless
   Timer? _debounce;
   bool isEmpty = false;
 
@@ -42,7 +41,8 @@ class _CharactersSearchPageState extends State<CharactersSearchPage> {
         title: Hero(
           tag: 'searchField',
           child: TextField(
-            controller: context.read<CharactersBloc>().textFieldController,
+            controller:
+                context.read<CharactersBloc>().useCases.textFieldController,
             onChanged: (String query) {
               if (_debounce?.isActive ?? false) _debounce?.cancel();
               _debounce = Timer(const Duration(milliseconds: 500), () {
@@ -70,7 +70,11 @@ class _CharactersSearchPageState extends State<CharactersSearchPage> {
               ),
               suffixIcon: GestureDetector(
                 onTap: () {
-                  context.read<CharactersBloc>().textFieldController.clear();
+                  context
+                      .read<CharactersBloc>()
+                      .useCases
+                      .textFieldController
+                      .clear();
                   context
                       .read<CharactersBloc>()
                       .add(const SearchCharacters(name: ""));
@@ -100,13 +104,11 @@ class _CharactersSearchPageState extends State<CharactersSearchPage> {
               builder: (context, state) {
                 final bloc = context.read<CharactersBloc>();
                 return state.maybeWhen(
-                  //TODO: remove unuseless state
                   initial: () => const SizedBox.shrink(),
                   searchLoading: () => const Center(
                     child: CircularProgressIndicator(),
                   ),
                   searchError: (message) {
-                    //TODO: remove string
                     return message.isEmpty
                         ? const SizedBox.shrink()
                         : const NotFound();
@@ -115,7 +117,8 @@ class _CharactersSearchPageState extends State<CharactersSearchPage> {
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: SearchListView(
-                        scrollController: bloc.searchScrollController,
+                        scrollController:
+                            bloc.useCases.searchPagination.scrollController,
                         characters: characters,
                         isLoading: hasReachedMax,
                       ),

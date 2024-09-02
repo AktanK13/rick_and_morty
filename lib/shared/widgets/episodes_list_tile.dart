@@ -20,13 +20,17 @@ class EpisodeTile extends StatelessWidget {
     return ListTile(
       contentPadding: const EdgeInsets.all(0),
       visualDensity: const VisualDensity(vertical: 4),
-      leading: ClipRRect(
-        borderRadius: BorderRadius.circular(8.0),
-        child: Image.network(
-          imageUrl,
-          width: 74,
-          height: 74,
-          fit: BoxFit.fitHeight,
+      leading: SizedBox(
+        width: 74,
+        height: 74,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8.0),
+          child: Image.network(
+            imageUrl,
+            width: 74,
+            height: 74,
+            fit: BoxFit.fitHeight,
+          ),
         ),
       ),
       title: Column(
