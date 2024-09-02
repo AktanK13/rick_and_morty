@@ -21,7 +21,7 @@ class EpisodeListView extends StatelessWidget {
     return RefreshIndicator(
       onRefresh: () => bloc.refreshPage(),
       child: ListView.separated(
-        controller: bloc.scrollController,
+        controller: bloc.usecase.pagination.scrollController,
         itemCount: episodes.length + (hasReachedMax ? 0 : 1),
         separatorBuilder: (context, index) {
           return const SizedBox(height: 16);

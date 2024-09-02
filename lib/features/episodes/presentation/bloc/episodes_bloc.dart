@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rick_and_morty/features/episodes/domain/entities/episodes_entity.dart';
@@ -13,37 +12,28 @@ part 'episodes_state.dart';
 
 class EpisodesBloc extends Bloc<EpisodesEvent, EpisodesState> {
   EpisodesBloc({required this.usecase}) : super(const EpisodesState.initial()) {
-    _scrollController.addListener(_onScroll);
+    usecase.pagination.scrollController.addListener(_onScroll);
     on<FetchEpisodes>(_onFetchEpisodes);
   }
 
-  final ScrollController _scrollController = ScrollController();
   final EpisodesUsecase usecase;
-  int currentPage = 1;
-  bool hasReachedMax = false;
-  List<EpisodesEntity> allEpisode = [];
 
   void _onFetchEpisodes(
       FetchEpisodes event, Emitter<EpisodesState> emit) async {
-    if (hasReachedMax) return;
+    if (usecase.pagination.hasReachedMax) return;
     if (state is _EpisodesInitialState) {
       emit(const EpisodesState.loading());
     }
-    final result = await usecase.getEpisodes(currentPage);
+    final result = await usecase.getEpisodes();
     result.fold(
       (error) => emit(EpisodesState.error(error)),
       (data) {
-        hasReachedMax = data.info.pages == currentPage;
-        if (currentPage <= data.info.pages) {
-          allEpisode.addAll(data.episodeEntity);
-          currentPage++;
-          emit(
-            EpisodesState.loaded(
-              episodes: List.from(allEpisode),
-              hasReachedMax: hasReachedMax,
-            ),
-          );
-        }
+        emit(
+          EpisodesState.loaded(
+            episodes: List.from(usecase.pagination.allEpisodes),
+            hasReachedMax: usecase.pagination.hasReachedMax,
+          ),
+        );
       },
     );
   }
@@ -56,16 +46,14 @@ class EpisodesBloc extends Bloc<EpisodesEvent, EpisodesState> {
 
   @override
   Future<void> close() {
-    _scrollController
-      ..removeListener(_onScroll)
-      ..dispose();
+    usecase.pagination.dispose();
     return super.close();
   }
 
   void _onScroll() {
-    if (_scrollController.position.pixels ==
-            _scrollController.position.maxScrollExtent &&
-        !hasReachedMax) {
+    if (usecase.pagination.scrollController.position.pixels ==
+            usecase.pagination.scrollController.position.maxScrollExtent &&
+        !usecase.pagination.hasReachedMax) {
       add(const FetchEpisodes());
     }
   }
@@ -73,6 +61,4 @@ class EpisodesBloc extends Bloc<EpisodesEvent, EpisodesState> {
   Future<void> refreshPage() async {
     add(const FetchEpisodes());
   }
-
-  ScrollController get scrollController => _scrollController;
 }

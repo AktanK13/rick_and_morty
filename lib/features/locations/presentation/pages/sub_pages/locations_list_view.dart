@@ -23,7 +23,7 @@ class LocationsListView extends StatelessWidget {
     return RefreshIndicator(
       onRefresh: () => bloc.refreshPage(),
       child: ListView.separated(
-        controller: bloc.scrollController,
+        controller: bloc.usecase.pagination.scrollController,
         itemCount: locations.length + (hasReachedMax ? 0 : 1),
         separatorBuilder: (context, index) {
           return const SizedBox(height: 16);

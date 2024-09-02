@@ -14,37 +14,28 @@ part 'locations_state.dart';
 class LocationsBloc extends Bloc<LocationsEvent, LocationsState> {
   LocationsBloc({required this.usecase})
       : super(const LocationsState.initial()) {
-    _scrollController.addListener(_onScroll);
+    usecase.pagination.scrollController.addListener(_onScroll);
     on<FetchLocations>(_onFetchLocations);
   }
 
-  final ScrollController _scrollController = ScrollController();
   final LocationsUseCases usecase;
-  int currentPage = 1;
-  bool hasReachedMax = false;
-  List<LocationEntity> allLocation = [];
 
   void _onFetchLocations(
       FetchLocations event, Emitter<LocationsState> emit) async {
-    if (hasReachedMax) return;
+    if (usecase.pagination.hasReachedMax) return;
     if (state is _LocationsInitialState) {
       emit(const LocationsState.loading());
     }
-    final result = await usecase.getLocations(currentPage);
+    final result = await usecase.getLocations();
     result.fold(
       (error) => emit(LocationsState.error(error)),
       (data) {
-        hasReachedMax = data.info.pages == currentPage;
-        if (currentPage <= data.info.pages) {
-          allLocation.addAll(data.locationEntity);
-          currentPage++;
-          emit(
-            LocationsState.loaded(
-              hasReachedMax: hasReachedMax,
-              locations: List.from(allLocation),
-            ),
-          );
-        }
+        emit(
+          LocationsState.loaded(
+            hasReachedMax: usecase.pagination.hasReachedMax,
+            locations: List.from(usecase.pagination.allLocations),
+          ),
+        );
       },
     );
   }
@@ -57,16 +48,14 @@ class LocationsBloc extends Bloc<LocationsEvent, LocationsState> {
 
   @override
   Future<void> close() {
-    _scrollController
-      ..removeListener(_onScroll)
-      ..dispose();
+    usecase.pagination.dispose();
     return super.close();
   }
 
   void _onScroll() {
-    if (_scrollController.position.pixels ==
-            _scrollController.position.maxScrollExtent &&
-        !hasReachedMax) {
+    if (usecase.pagination.scrollController.position.pixels ==
+            usecase.pagination.scrollController.position.maxScrollExtent &&
+        !usecase.pagination.hasReachedMax) {
       add(const FetchLocations());
     }
   }
@@ -74,6 +63,4 @@ class LocationsBloc extends Bloc<LocationsEvent, LocationsState> {
   Future<void> refreshPage() async {
     add(const FetchLocations());
   }
-
-  ScrollController get scrollController => _scrollController;
 }
