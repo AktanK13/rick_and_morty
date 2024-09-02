@@ -20,9 +20,9 @@ class CharactersUseCases {
       pagination.selectedStatus,
       pagination.selectedGender,
     );
-
     return result.map((data) {
       pagination.updatePagination(data);
+
       return data;
     });
   }

@@ -32,14 +32,18 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
     if (useCases.pagination.selectedStatus != event.status ||
         useCases.pagination.selectedGender != event.gender) {
       useCases.pagination.reset(status: event.status, gender: event.gender);
-      useCases.pagination.scrollController.jumpTo(0);
+      if (useCases.pagination.scrollController.hasClients) {
+        useCases.pagination.scrollController.jumpTo(0);
+      }
     }
 
     final result = await useCases.getCharacters();
+    // log('data-unique: result: ${result} ');
     result.fold(
       (error) => emit(CharactersState.error(error)),
       (data) {
-        log('data-unique: data.info.count: ${data.info.count} ');
+        // log('data-unique: fetched data:___________________ ${data} characters');
+        log('data-unique: useCases.pagination.allCharacters: ${useCases.pagination.allCharacters} ');
         emit(
           CharactersState.loaded(
             characters: List.from(useCases.pagination.allCharacters),
@@ -95,11 +99,11 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
     );
   }
 
-  // @override
-  // void onTransition(Transition<CharactersEvent, CharactersState> transition) {
-  //   super.onTransition(transition);
-  //   log('data-unique: transition: ${transition} ');
-  // }
+  @override
+  void onTransition(Transition<CharactersEvent, CharactersState> transition) {
+    super.onTransition(transition);
+    log('data-unique: transition: ${transition} ');
+  }
 
   void _onScroll() {
     if (useCases.pagination.scrollController.position.pixels ==

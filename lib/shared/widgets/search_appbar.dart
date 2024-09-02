@@ -1,10 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rick_and_morty/core/router/app_router.dart';
 import 'package:rick_and_morty/core/styles/app_colors.dart';
-import 'package:rick_and_morty/features/characters/presentation/bloc/characters_bloc.dart';
 
 import '../../generated/locale_keys.g.dart';
 
@@ -36,20 +34,7 @@ class SearchAppbar extends StatelessWidget implements PreferredSizeWidget {
             suffixIcon: IconButton(
               icon: const Icon(Icons.filter_list),
               onPressed: () async {
-                final result =
-                    await context.push(AppRouter.charactersFilter, extra: {
-                  'status': context.read<CharactersBloc>().useCases.pagination.selectedStatus,
-                  'gender': context.read<CharactersBloc>().useCases.pagination.selectedGender,
-                });
-                if (!context.mounted) return;
-                if (result != null && result is Map<String, String>) {
-                  context.read<CharactersBloc>().add(
-                        FetchCharacters(
-                          status: result['status'] ?? '',
-                          gender: result['gender'] ?? '',
-                        ),
-                      );
-                }
+                context.push(AppRouter.charactersFilter);
               },
             ),
             iconColor: textfieldTheme.iconColor,
