@@ -11,6 +11,8 @@ class CharactersState with _$CharactersState {
     @Default(false) bool hasReachedMax,
     @Default(0) int count,
     @Default(false) bool isGridView,
+    @Default(FilterStatus.unknown) FilterStatus? filterStatus,
+    @Default(FilterGender.unknown) FilterGender? filterGender,
   }) = _CharactersLoadSuccess;
 
   const factory CharactersState.searchLoading() = _SearchCharactersLoading;

@@ -18,23 +18,29 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CharactersEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String status, String gender) fetch,
+    required TResult Function(FilterStatus status, FilterGender gender) fetch,
     required TResult Function(String name) search,
     required TResult Function() toggleGridView,
+    required TResult Function(FilterStatus filterStatus) toggleStatusFilter,
+    required TResult Function(FilterGender filterGender) toggleGenderFilter,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String status, String gender)? fetch,
+    TResult? Function(FilterStatus status, FilterGender gender)? fetch,
     TResult? Function(String name)? search,
     TResult? Function()? toggleGridView,
+    TResult? Function(FilterStatus filterStatus)? toggleStatusFilter,
+    TResult? Function(FilterGender filterGender)? toggleGenderFilter,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String status, String gender)? fetch,
+    TResult Function(FilterStatus status, FilterGender gender)? fetch,
     TResult Function(String name)? search,
     TResult Function()? toggleGridView,
+    TResult Function(FilterStatus filterStatus)? toggleStatusFilter,
+    TResult Function(FilterGender filterGender)? toggleGenderFilter,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -43,6 +49,8 @@ mixin _$CharactersEvent {
     required TResult Function(FetchCharacters value) fetch,
     required TResult Function(SearchCharacters value) search,
     required TResult Function(ToggleGridView value) toggleGridView,
+    required TResult Function(ToggleStatusFilter value) toggleStatusFilter,
+    required TResult Function(ToggleGenderFilter value) toggleGenderFilter,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -50,6 +58,8 @@ mixin _$CharactersEvent {
     TResult? Function(FetchCharacters value)? fetch,
     TResult? Function(SearchCharacters value)? search,
     TResult? Function(ToggleGridView value)? toggleGridView,
+    TResult? Function(ToggleStatusFilter value)? toggleStatusFilter,
+    TResult? Function(ToggleGenderFilter value)? toggleGenderFilter,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -57,6 +67,8 @@ mixin _$CharactersEvent {
     TResult Function(FetchCharacters value)? fetch,
     TResult Function(SearchCharacters value)? search,
     TResult Function(ToggleGridView value)? toggleGridView,
+    TResult Function(ToggleStatusFilter value)? toggleStatusFilter,
+    TResult Function(ToggleGenderFilter value)? toggleGenderFilter,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -89,7 +101,7 @@ abstract class _$$FetchCharactersImplCopyWith<$Res> {
           $Res Function(_$FetchCharactersImpl) then) =
       __$$FetchCharactersImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String status, String gender});
+  $Res call({FilterStatus status, FilterGender gender});
 }
 
 /// @nodoc
@@ -112,11 +124,11 @@ class __$$FetchCharactersImplCopyWithImpl<$Res>
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as String,
+              as FilterStatus,
       gender: null == gender
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
-              as String,
+              as FilterGender,
     ));
   }
 }
@@ -127,9 +139,9 @@ class _$FetchCharactersImpl implements FetchCharacters {
   const _$FetchCharactersImpl({required this.status, required this.gender});
 
   @override
-  final String status;
+  final FilterStatus status;
   @override
-  final String gender;
+  final FilterGender gender;
 
   @override
   String toString() {
@@ -160,9 +172,11 @@ class _$FetchCharactersImpl implements FetchCharacters {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String status, String gender) fetch,
+    required TResult Function(FilterStatus status, FilterGender gender) fetch,
     required TResult Function(String name) search,
     required TResult Function() toggleGridView,
+    required TResult Function(FilterStatus filterStatus) toggleStatusFilter,
+    required TResult Function(FilterGender filterGender) toggleGenderFilter,
   }) {
     return fetch(status, gender);
   }
@@ -170,9 +184,11 @@ class _$FetchCharactersImpl implements FetchCharacters {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String status, String gender)? fetch,
+    TResult? Function(FilterStatus status, FilterGender gender)? fetch,
     TResult? Function(String name)? search,
     TResult? Function()? toggleGridView,
+    TResult? Function(FilterStatus filterStatus)? toggleStatusFilter,
+    TResult? Function(FilterGender filterGender)? toggleGenderFilter,
   }) {
     return fetch?.call(status, gender);
   }
@@ -180,9 +196,11 @@ class _$FetchCharactersImpl implements FetchCharacters {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String status, String gender)? fetch,
+    TResult Function(FilterStatus status, FilterGender gender)? fetch,
     TResult Function(String name)? search,
     TResult Function()? toggleGridView,
+    TResult Function(FilterStatus filterStatus)? toggleStatusFilter,
+    TResult Function(FilterGender filterGender)? toggleGenderFilter,
     required TResult orElse(),
   }) {
     if (fetch != null) {
@@ -197,6 +215,8 @@ class _$FetchCharactersImpl implements FetchCharacters {
     required TResult Function(FetchCharacters value) fetch,
     required TResult Function(SearchCharacters value) search,
     required TResult Function(ToggleGridView value) toggleGridView,
+    required TResult Function(ToggleStatusFilter value) toggleStatusFilter,
+    required TResult Function(ToggleGenderFilter value) toggleGenderFilter,
   }) {
     return fetch(this);
   }
@@ -207,6 +227,8 @@ class _$FetchCharactersImpl implements FetchCharacters {
     TResult? Function(FetchCharacters value)? fetch,
     TResult? Function(SearchCharacters value)? search,
     TResult? Function(ToggleGridView value)? toggleGridView,
+    TResult? Function(ToggleStatusFilter value)? toggleStatusFilter,
+    TResult? Function(ToggleGenderFilter value)? toggleGenderFilter,
   }) {
     return fetch?.call(this);
   }
@@ -217,6 +239,8 @@ class _$FetchCharactersImpl implements FetchCharacters {
     TResult Function(FetchCharacters value)? fetch,
     TResult Function(SearchCharacters value)? search,
     TResult Function(ToggleGridView value)? toggleGridView,
+    TResult Function(ToggleStatusFilter value)? toggleStatusFilter,
+    TResult Function(ToggleGenderFilter value)? toggleGenderFilter,
     required TResult orElse(),
   }) {
     if (fetch != null) {
@@ -228,11 +252,11 @@ class _$FetchCharactersImpl implements FetchCharacters {
 
 abstract class FetchCharacters implements CharactersEvent {
   const factory FetchCharacters(
-      {required final String status,
-      required final String gender}) = _$FetchCharactersImpl;
+      {required final FilterStatus status,
+      required final FilterGender gender}) = _$FetchCharactersImpl;
 
-  String get status;
-  String get gender;
+  FilterStatus get status;
+  FilterGender get gender;
 
   /// Create a copy of CharactersEvent
   /// with the given fields replaced by the non-null parameter values.
@@ -310,9 +334,11 @@ class _$SearchCharactersImpl implements SearchCharacters {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String status, String gender) fetch,
+    required TResult Function(FilterStatus status, FilterGender gender) fetch,
     required TResult Function(String name) search,
     required TResult Function() toggleGridView,
+    required TResult Function(FilterStatus filterStatus) toggleStatusFilter,
+    required TResult Function(FilterGender filterGender) toggleGenderFilter,
   }) {
     return search(name);
   }
@@ -320,9 +346,11 @@ class _$SearchCharactersImpl implements SearchCharacters {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String status, String gender)? fetch,
+    TResult? Function(FilterStatus status, FilterGender gender)? fetch,
     TResult? Function(String name)? search,
     TResult? Function()? toggleGridView,
+    TResult? Function(FilterStatus filterStatus)? toggleStatusFilter,
+    TResult? Function(FilterGender filterGender)? toggleGenderFilter,
   }) {
     return search?.call(name);
   }
@@ -330,9 +358,11 @@ class _$SearchCharactersImpl implements SearchCharacters {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String status, String gender)? fetch,
+    TResult Function(FilterStatus status, FilterGender gender)? fetch,
     TResult Function(String name)? search,
     TResult Function()? toggleGridView,
+    TResult Function(FilterStatus filterStatus)? toggleStatusFilter,
+    TResult Function(FilterGender filterGender)? toggleGenderFilter,
     required TResult orElse(),
   }) {
     if (search != null) {
@@ -347,6 +377,8 @@ class _$SearchCharactersImpl implements SearchCharacters {
     required TResult Function(FetchCharacters value) fetch,
     required TResult Function(SearchCharacters value) search,
     required TResult Function(ToggleGridView value) toggleGridView,
+    required TResult Function(ToggleStatusFilter value) toggleStatusFilter,
+    required TResult Function(ToggleGenderFilter value) toggleGenderFilter,
   }) {
     return search(this);
   }
@@ -357,6 +389,8 @@ class _$SearchCharactersImpl implements SearchCharacters {
     TResult? Function(FetchCharacters value)? fetch,
     TResult? Function(SearchCharacters value)? search,
     TResult? Function(ToggleGridView value)? toggleGridView,
+    TResult? Function(ToggleStatusFilter value)? toggleStatusFilter,
+    TResult? Function(ToggleGenderFilter value)? toggleGenderFilter,
   }) {
     return search?.call(this);
   }
@@ -367,6 +401,8 @@ class _$SearchCharactersImpl implements SearchCharacters {
     TResult Function(FetchCharacters value)? fetch,
     TResult Function(SearchCharacters value)? search,
     TResult Function(ToggleGridView value)? toggleGridView,
+    TResult Function(ToggleStatusFilter value)? toggleStatusFilter,
+    TResult Function(ToggleGenderFilter value)? toggleGenderFilter,
     required TResult orElse(),
   }) {
     if (search != null) {
@@ -430,9 +466,11 @@ class _$ToggleGridViewImpl implements ToggleGridView {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String status, String gender) fetch,
+    required TResult Function(FilterStatus status, FilterGender gender) fetch,
     required TResult Function(String name) search,
     required TResult Function() toggleGridView,
+    required TResult Function(FilterStatus filterStatus) toggleStatusFilter,
+    required TResult Function(FilterGender filterGender) toggleGenderFilter,
   }) {
     return toggleGridView();
   }
@@ -440,9 +478,11 @@ class _$ToggleGridViewImpl implements ToggleGridView {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String status, String gender)? fetch,
+    TResult? Function(FilterStatus status, FilterGender gender)? fetch,
     TResult? Function(String name)? search,
     TResult? Function()? toggleGridView,
+    TResult? Function(FilterStatus filterStatus)? toggleStatusFilter,
+    TResult? Function(FilterGender filterGender)? toggleGenderFilter,
   }) {
     return toggleGridView?.call();
   }
@@ -450,9 +490,11 @@ class _$ToggleGridViewImpl implements ToggleGridView {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String status, String gender)? fetch,
+    TResult Function(FilterStatus status, FilterGender gender)? fetch,
     TResult Function(String name)? search,
     TResult Function()? toggleGridView,
+    TResult Function(FilterStatus filterStatus)? toggleStatusFilter,
+    TResult Function(FilterGender filterGender)? toggleGenderFilter,
     required TResult orElse(),
   }) {
     if (toggleGridView != null) {
@@ -467,6 +509,8 @@ class _$ToggleGridViewImpl implements ToggleGridView {
     required TResult Function(FetchCharacters value) fetch,
     required TResult Function(SearchCharacters value) search,
     required TResult Function(ToggleGridView value) toggleGridView,
+    required TResult Function(ToggleStatusFilter value) toggleStatusFilter,
+    required TResult Function(ToggleGenderFilter value) toggleGenderFilter,
   }) {
     return toggleGridView(this);
   }
@@ -477,6 +521,8 @@ class _$ToggleGridViewImpl implements ToggleGridView {
     TResult? Function(FetchCharacters value)? fetch,
     TResult? Function(SearchCharacters value)? search,
     TResult? Function(ToggleGridView value)? toggleGridView,
+    TResult? Function(ToggleStatusFilter value)? toggleStatusFilter,
+    TResult? Function(ToggleGenderFilter value)? toggleGenderFilter,
   }) {
     return toggleGridView?.call(this);
   }
@@ -487,6 +533,8 @@ class _$ToggleGridViewImpl implements ToggleGridView {
     TResult Function(FetchCharacters value)? fetch,
     TResult Function(SearchCharacters value)? search,
     TResult Function(ToggleGridView value)? toggleGridView,
+    TResult Function(ToggleStatusFilter value)? toggleStatusFilter,
+    TResult Function(ToggleGenderFilter value)? toggleGenderFilter,
     required TResult orElse(),
   }) {
     if (toggleGridView != null) {
@@ -501,14 +549,341 @@ abstract class ToggleGridView implements CharactersEvent {
 }
 
 /// @nodoc
+abstract class _$$ToggleStatusFilterImplCopyWith<$Res> {
+  factory _$$ToggleStatusFilterImplCopyWith(_$ToggleStatusFilterImpl value,
+          $Res Function(_$ToggleStatusFilterImpl) then) =
+      __$$ToggleStatusFilterImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({FilterStatus filterStatus});
+}
+
+/// @nodoc
+class __$$ToggleStatusFilterImplCopyWithImpl<$Res>
+    extends _$CharactersEventCopyWithImpl<$Res, _$ToggleStatusFilterImpl>
+    implements _$$ToggleStatusFilterImplCopyWith<$Res> {
+  __$$ToggleStatusFilterImplCopyWithImpl(_$ToggleStatusFilterImpl _value,
+      $Res Function(_$ToggleStatusFilterImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CharactersEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? filterStatus = null,
+  }) {
+    return _then(_$ToggleStatusFilterImpl(
+      filterStatus: null == filterStatus
+          ? _value.filterStatus
+          : filterStatus // ignore: cast_nullable_to_non_nullable
+              as FilterStatus,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ToggleStatusFilterImpl implements ToggleStatusFilter {
+  const _$ToggleStatusFilterImpl({required this.filterStatus});
+
+  @override
+  final FilterStatus filterStatus;
+
+  @override
+  String toString() {
+    return 'CharactersEvent.toggleStatusFilter(filterStatus: $filterStatus)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ToggleStatusFilterImpl &&
+            (identical(other.filterStatus, filterStatus) ||
+                other.filterStatus == filterStatus));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, filterStatus);
+
+  /// Create a copy of CharactersEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ToggleStatusFilterImplCopyWith<_$ToggleStatusFilterImpl> get copyWith =>
+      __$$ToggleStatusFilterImplCopyWithImpl<_$ToggleStatusFilterImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(FilterStatus status, FilterGender gender) fetch,
+    required TResult Function(String name) search,
+    required TResult Function() toggleGridView,
+    required TResult Function(FilterStatus filterStatus) toggleStatusFilter,
+    required TResult Function(FilterGender filterGender) toggleGenderFilter,
+  }) {
+    return toggleStatusFilter(filterStatus);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(FilterStatus status, FilterGender gender)? fetch,
+    TResult? Function(String name)? search,
+    TResult? Function()? toggleGridView,
+    TResult? Function(FilterStatus filterStatus)? toggleStatusFilter,
+    TResult? Function(FilterGender filterGender)? toggleGenderFilter,
+  }) {
+    return toggleStatusFilter?.call(filterStatus);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(FilterStatus status, FilterGender gender)? fetch,
+    TResult Function(String name)? search,
+    TResult Function()? toggleGridView,
+    TResult Function(FilterStatus filterStatus)? toggleStatusFilter,
+    TResult Function(FilterGender filterGender)? toggleGenderFilter,
+    required TResult orElse(),
+  }) {
+    if (toggleStatusFilter != null) {
+      return toggleStatusFilter(filterStatus);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(FetchCharacters value) fetch,
+    required TResult Function(SearchCharacters value) search,
+    required TResult Function(ToggleGridView value) toggleGridView,
+    required TResult Function(ToggleStatusFilter value) toggleStatusFilter,
+    required TResult Function(ToggleGenderFilter value) toggleGenderFilter,
+  }) {
+    return toggleStatusFilter(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(FetchCharacters value)? fetch,
+    TResult? Function(SearchCharacters value)? search,
+    TResult? Function(ToggleGridView value)? toggleGridView,
+    TResult? Function(ToggleStatusFilter value)? toggleStatusFilter,
+    TResult? Function(ToggleGenderFilter value)? toggleGenderFilter,
+  }) {
+    return toggleStatusFilter?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(FetchCharacters value)? fetch,
+    TResult Function(SearchCharacters value)? search,
+    TResult Function(ToggleGridView value)? toggleGridView,
+    TResult Function(ToggleStatusFilter value)? toggleStatusFilter,
+    TResult Function(ToggleGenderFilter value)? toggleGenderFilter,
+    required TResult orElse(),
+  }) {
+    if (toggleStatusFilter != null) {
+      return toggleStatusFilter(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ToggleStatusFilter implements CharactersEvent {
+  const factory ToggleStatusFilter({required final FilterStatus filterStatus}) =
+      _$ToggleStatusFilterImpl;
+
+  FilterStatus get filterStatus;
+
+  /// Create a copy of CharactersEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ToggleStatusFilterImplCopyWith<_$ToggleStatusFilterImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ToggleGenderFilterImplCopyWith<$Res> {
+  factory _$$ToggleGenderFilterImplCopyWith(_$ToggleGenderFilterImpl value,
+          $Res Function(_$ToggleGenderFilterImpl) then) =
+      __$$ToggleGenderFilterImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({FilterGender filterGender});
+}
+
+/// @nodoc
+class __$$ToggleGenderFilterImplCopyWithImpl<$Res>
+    extends _$CharactersEventCopyWithImpl<$Res, _$ToggleGenderFilterImpl>
+    implements _$$ToggleGenderFilterImplCopyWith<$Res> {
+  __$$ToggleGenderFilterImplCopyWithImpl(_$ToggleGenderFilterImpl _value,
+      $Res Function(_$ToggleGenderFilterImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CharactersEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? filterGender = null,
+  }) {
+    return _then(_$ToggleGenderFilterImpl(
+      filterGender: null == filterGender
+          ? _value.filterGender
+          : filterGender // ignore: cast_nullable_to_non_nullable
+              as FilterGender,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ToggleGenderFilterImpl implements ToggleGenderFilter {
+  const _$ToggleGenderFilterImpl({required this.filterGender});
+
+  @override
+  final FilterGender filterGender;
+
+  @override
+  String toString() {
+    return 'CharactersEvent.toggleGenderFilter(filterGender: $filterGender)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ToggleGenderFilterImpl &&
+            (identical(other.filterGender, filterGender) ||
+                other.filterGender == filterGender));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, filterGender);
+
+  /// Create a copy of CharactersEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ToggleGenderFilterImplCopyWith<_$ToggleGenderFilterImpl> get copyWith =>
+      __$$ToggleGenderFilterImplCopyWithImpl<_$ToggleGenderFilterImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(FilterStatus status, FilterGender gender) fetch,
+    required TResult Function(String name) search,
+    required TResult Function() toggleGridView,
+    required TResult Function(FilterStatus filterStatus) toggleStatusFilter,
+    required TResult Function(FilterGender filterGender) toggleGenderFilter,
+  }) {
+    return toggleGenderFilter(filterGender);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(FilterStatus status, FilterGender gender)? fetch,
+    TResult? Function(String name)? search,
+    TResult? Function()? toggleGridView,
+    TResult? Function(FilterStatus filterStatus)? toggleStatusFilter,
+    TResult? Function(FilterGender filterGender)? toggleGenderFilter,
+  }) {
+    return toggleGenderFilter?.call(filterGender);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(FilterStatus status, FilterGender gender)? fetch,
+    TResult Function(String name)? search,
+    TResult Function()? toggleGridView,
+    TResult Function(FilterStatus filterStatus)? toggleStatusFilter,
+    TResult Function(FilterGender filterGender)? toggleGenderFilter,
+    required TResult orElse(),
+  }) {
+    if (toggleGenderFilter != null) {
+      return toggleGenderFilter(filterGender);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(FetchCharacters value) fetch,
+    required TResult Function(SearchCharacters value) search,
+    required TResult Function(ToggleGridView value) toggleGridView,
+    required TResult Function(ToggleStatusFilter value) toggleStatusFilter,
+    required TResult Function(ToggleGenderFilter value) toggleGenderFilter,
+  }) {
+    return toggleGenderFilter(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(FetchCharacters value)? fetch,
+    TResult? Function(SearchCharacters value)? search,
+    TResult? Function(ToggleGridView value)? toggleGridView,
+    TResult? Function(ToggleStatusFilter value)? toggleStatusFilter,
+    TResult? Function(ToggleGenderFilter value)? toggleGenderFilter,
+  }) {
+    return toggleGenderFilter?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(FetchCharacters value)? fetch,
+    TResult Function(SearchCharacters value)? search,
+    TResult Function(ToggleGridView value)? toggleGridView,
+    TResult Function(ToggleStatusFilter value)? toggleStatusFilter,
+    TResult Function(ToggleGenderFilter value)? toggleGenderFilter,
+    required TResult orElse(),
+  }) {
+    if (toggleGenderFilter != null) {
+      return toggleGenderFilter(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ToggleGenderFilter implements CharactersEvent {
+  const factory ToggleGenderFilter({required final FilterGender filterGender}) =
+      _$ToggleGenderFilterImpl;
+
+  FilterGender get filterGender;
+
+  /// Create a copy of CharactersEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ToggleGenderFilterImplCopyWith<_$ToggleGenderFilterImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$CharactersState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(List<CharactersEntity> characters,
-            bool hasReachedMax, int count, bool isGridView)
+    required TResult Function(
+            List<CharactersEntity> characters,
+            bool hasReachedMax,
+            int count,
+            bool isGridView,
+            FilterStatus? filterStatus,
+            FilterGender? filterGender)
         loaded,
     required TResult Function() searchLoading,
     required TResult Function(String message) searchError,
@@ -522,8 +897,13 @@ mixin _$CharactersState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(List<CharactersEntity> characters, bool hasReachedMax,
-            int count, bool isGridView)?
+    TResult? Function(
+            List<CharactersEntity> characters,
+            bool hasReachedMax,
+            int count,
+            bool isGridView,
+            FilterStatus? filterStatus,
+            FilterGender? filterGender)?
         loaded,
     TResult? Function()? searchLoading,
     TResult? Function(String message)? searchError,
@@ -536,8 +916,13 @@ mixin _$CharactersState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(List<CharactersEntity> characters, bool hasReachedMax,
-            int count, bool isGridView)?
+    TResult Function(
+            List<CharactersEntity> characters,
+            bool hasReachedMax,
+            int count,
+            bool isGridView,
+            FilterStatus? filterStatus,
+            FilterGender? filterGender)?
         loaded,
     TResult Function()? searchLoading,
     TResult Function(String message)? searchError,
@@ -647,8 +1032,13 @@ class _$CharactersInitialImpl implements _CharactersInitial {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(List<CharactersEntity> characters,
-            bool hasReachedMax, int count, bool isGridView)
+    required TResult Function(
+            List<CharactersEntity> characters,
+            bool hasReachedMax,
+            int count,
+            bool isGridView,
+            FilterStatus? filterStatus,
+            FilterGender? filterGender)
         loaded,
     required TResult Function() searchLoading,
     required TResult Function(String message) searchError,
@@ -665,8 +1055,13 @@ class _$CharactersInitialImpl implements _CharactersInitial {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(List<CharactersEntity> characters, bool hasReachedMax,
-            int count, bool isGridView)?
+    TResult? Function(
+            List<CharactersEntity> characters,
+            bool hasReachedMax,
+            int count,
+            bool isGridView,
+            FilterStatus? filterStatus,
+            FilterGender? filterGender)?
         loaded,
     TResult? Function()? searchLoading,
     TResult? Function(String message)? searchError,
@@ -682,8 +1077,13 @@ class _$CharactersInitialImpl implements _CharactersInitial {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(List<CharactersEntity> characters, bool hasReachedMax,
-            int count, bool isGridView)?
+    TResult Function(
+            List<CharactersEntity> characters,
+            bool hasReachedMax,
+            int count,
+            bool isGridView,
+            FilterStatus? filterStatus,
+            FilterGender? filterGender)?
         loaded,
     TResult Function()? searchLoading,
     TResult Function(String message)? searchError,
@@ -792,8 +1192,13 @@ class _$CharactersLoadingImpl implements _CharactersLoading {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(List<CharactersEntity> characters,
-            bool hasReachedMax, int count, bool isGridView)
+    required TResult Function(
+            List<CharactersEntity> characters,
+            bool hasReachedMax,
+            int count,
+            bool isGridView,
+            FilterStatus? filterStatus,
+            FilterGender? filterGender)
         loaded,
     required TResult Function() searchLoading,
     required TResult Function(String message) searchError,
@@ -810,8 +1215,13 @@ class _$CharactersLoadingImpl implements _CharactersLoading {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(List<CharactersEntity> characters, bool hasReachedMax,
-            int count, bool isGridView)?
+    TResult? Function(
+            List<CharactersEntity> characters,
+            bool hasReachedMax,
+            int count,
+            bool isGridView,
+            FilterStatus? filterStatus,
+            FilterGender? filterGender)?
         loaded,
     TResult? Function()? searchLoading,
     TResult? Function(String message)? searchError,
@@ -827,8 +1237,13 @@ class _$CharactersLoadingImpl implements _CharactersLoading {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(List<CharactersEntity> characters, bool hasReachedMax,
-            int count, bool isGridView)?
+    TResult Function(
+            List<CharactersEntity> characters,
+            bool hasReachedMax,
+            int count,
+            bool isGridView,
+            FilterStatus? filterStatus,
+            FilterGender? filterGender)?
         loaded,
     TResult Function()? searchLoading,
     TResult Function(String message)? searchError,
@@ -965,8 +1380,13 @@ class _$CharactersErrorImpl implements _CharactersError {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(List<CharactersEntity> characters,
-            bool hasReachedMax, int count, bool isGridView)
+    required TResult Function(
+            List<CharactersEntity> characters,
+            bool hasReachedMax,
+            int count,
+            bool isGridView,
+            FilterStatus? filterStatus,
+            FilterGender? filterGender)
         loaded,
     required TResult Function() searchLoading,
     required TResult Function(String message) searchError,
@@ -983,8 +1403,13 @@ class _$CharactersErrorImpl implements _CharactersError {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(List<CharactersEntity> characters, bool hasReachedMax,
-            int count, bool isGridView)?
+    TResult? Function(
+            List<CharactersEntity> characters,
+            bool hasReachedMax,
+            int count,
+            bool isGridView,
+            FilterStatus? filterStatus,
+            FilterGender? filterGender)?
         loaded,
     TResult? Function()? searchLoading,
     TResult? Function(String message)? searchError,
@@ -1000,8 +1425,13 @@ class _$CharactersErrorImpl implements _CharactersError {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(List<CharactersEntity> characters, bool hasReachedMax,
-            int count, bool isGridView)?
+    TResult Function(
+            List<CharactersEntity> characters,
+            bool hasReachedMax,
+            int count,
+            bool isGridView,
+            FilterStatus? filterStatus,
+            FilterGender? filterGender)?
         loaded,
     TResult Function()? searchLoading,
     TResult Function(String message)? searchError,
@@ -1085,7 +1515,9 @@ abstract class _$$CharactersLoadSuccessImplCopyWith<$Res> {
       {List<CharactersEntity> characters,
       bool hasReachedMax,
       int count,
-      bool isGridView});
+      bool isGridView,
+      FilterStatus? filterStatus,
+      FilterGender? filterGender});
 }
 
 /// @nodoc
@@ -1105,6 +1537,8 @@ class __$$CharactersLoadSuccessImplCopyWithImpl<$Res>
     Object? hasReachedMax = null,
     Object? count = null,
     Object? isGridView = null,
+    Object? filterStatus = freezed,
+    Object? filterGender = freezed,
   }) {
     return _then(_$CharactersLoadSuccessImpl(
       characters: null == characters
@@ -1123,6 +1557,14 @@ class __$$CharactersLoadSuccessImplCopyWithImpl<$Res>
           ? _value.isGridView
           : isGridView // ignore: cast_nullable_to_non_nullable
               as bool,
+      filterStatus: freezed == filterStatus
+          ? _value.filterStatus
+          : filterStatus // ignore: cast_nullable_to_non_nullable
+              as FilterStatus?,
+      filterGender: freezed == filterGender
+          ? _value.filterGender
+          : filterGender // ignore: cast_nullable_to_non_nullable
+              as FilterGender?,
     ));
   }
 }
@@ -1134,7 +1576,9 @@ class _$CharactersLoadSuccessImpl implements _CharactersLoadSuccess {
       {required final List<CharactersEntity> characters,
       this.hasReachedMax = false,
       this.count = 0,
-      this.isGridView = false})
+      this.isGridView = false,
+      this.filterStatus = FilterStatus.unknown,
+      this.filterGender = FilterGender.unknown})
       : _characters = characters;
 
   final List<CharactersEntity> _characters;
@@ -1154,10 +1598,16 @@ class _$CharactersLoadSuccessImpl implements _CharactersLoadSuccess {
   @override
   @JsonKey()
   final bool isGridView;
+  @override
+  @JsonKey()
+  final FilterStatus? filterStatus;
+  @override
+  @JsonKey()
+  final FilterGender? filterGender;
 
   @override
   String toString() {
-    return 'CharactersState.loaded(characters: $characters, hasReachedMax: $hasReachedMax, count: $count, isGridView: $isGridView)';
+    return 'CharactersState.loaded(characters: $characters, hasReachedMax: $hasReachedMax, count: $count, isGridView: $isGridView, filterStatus: $filterStatus, filterGender: $filterGender)';
   }
 
   @override
@@ -1171,7 +1621,11 @@ class _$CharactersLoadSuccessImpl implements _CharactersLoadSuccess {
                 other.hasReachedMax == hasReachedMax) &&
             (identical(other.count, count) || other.count == count) &&
             (identical(other.isGridView, isGridView) ||
-                other.isGridView == isGridView));
+                other.isGridView == isGridView) &&
+            (identical(other.filterStatus, filterStatus) ||
+                other.filterStatus == filterStatus) &&
+            (identical(other.filterGender, filterGender) ||
+                other.filterGender == filterGender));
   }
 
   @override
@@ -1180,7 +1634,9 @@ class _$CharactersLoadSuccessImpl implements _CharactersLoadSuccess {
       const DeepCollectionEquality().hash(_characters),
       hasReachedMax,
       count,
-      isGridView);
+      isGridView,
+      filterStatus,
+      filterGender);
 
   /// Create a copy of CharactersState
   /// with the given fields replaced by the non-null parameter values.
@@ -1197,8 +1653,13 @@ class _$CharactersLoadSuccessImpl implements _CharactersLoadSuccess {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(List<CharactersEntity> characters,
-            bool hasReachedMax, int count, bool isGridView)
+    required TResult Function(
+            List<CharactersEntity> characters,
+            bool hasReachedMax,
+            int count,
+            bool isGridView,
+            FilterStatus? filterStatus,
+            FilterGender? filterGender)
         loaded,
     required TResult Function() searchLoading,
     required TResult Function(String message) searchError,
@@ -1206,7 +1667,8 @@ class _$CharactersLoadSuccessImpl implements _CharactersLoadSuccess {
             List<CharactersEntity> characters, bool hasReachedMax)
         searchLoaded,
   }) {
-    return loaded(characters, hasReachedMax, count, isGridView);
+    return loaded(characters, hasReachedMax, count, isGridView, filterStatus,
+        filterGender);
   }
 
   @override
@@ -1215,15 +1677,21 @@ class _$CharactersLoadSuccessImpl implements _CharactersLoadSuccess {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(List<CharactersEntity> characters, bool hasReachedMax,
-            int count, bool isGridView)?
+    TResult? Function(
+            List<CharactersEntity> characters,
+            bool hasReachedMax,
+            int count,
+            bool isGridView,
+            FilterStatus? filterStatus,
+            FilterGender? filterGender)?
         loaded,
     TResult? Function()? searchLoading,
     TResult? Function(String message)? searchError,
     TResult? Function(List<CharactersEntity> characters, bool hasReachedMax)?
         searchLoaded,
   }) {
-    return loaded?.call(characters, hasReachedMax, count, isGridView);
+    return loaded?.call(characters, hasReachedMax, count, isGridView,
+        filterStatus, filterGender);
   }
 
   @override
@@ -1232,8 +1700,13 @@ class _$CharactersLoadSuccessImpl implements _CharactersLoadSuccess {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(List<CharactersEntity> characters, bool hasReachedMax,
-            int count, bool isGridView)?
+    TResult Function(
+            List<CharactersEntity> characters,
+            bool hasReachedMax,
+            int count,
+            bool isGridView,
+            FilterStatus? filterStatus,
+            FilterGender? filterGender)?
         loaded,
     TResult Function()? searchLoading,
     TResult Function(String message)? searchError,
@@ -1242,7 +1715,8 @@ class _$CharactersLoadSuccessImpl implements _CharactersLoadSuccess {
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(characters, hasReachedMax, count, isGridView);
+      return loaded(characters, hasReachedMax, count, isGridView, filterStatus,
+          filterGender);
     }
     return orElse();
   }
@@ -1299,12 +1773,16 @@ abstract class _CharactersLoadSuccess implements CharactersState {
       {required final List<CharactersEntity> characters,
       final bool hasReachedMax,
       final int count,
-      final bool isGridView}) = _$CharactersLoadSuccessImpl;
+      final bool isGridView,
+      final FilterStatus? filterStatus,
+      final FilterGender? filterGender}) = _$CharactersLoadSuccessImpl;
 
   List<CharactersEntity> get characters;
   bool get hasReachedMax;
   int get count;
   bool get isGridView;
+  FilterStatus? get filterStatus;
+  FilterGender? get filterGender;
 
   /// Create a copy of CharactersState
   /// with the given fields replaced by the non-null parameter values.
@@ -1360,8 +1838,13 @@ class _$SearchCharactersLoadingImpl implements _SearchCharactersLoading {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(List<CharactersEntity> characters,
-            bool hasReachedMax, int count, bool isGridView)
+    required TResult Function(
+            List<CharactersEntity> characters,
+            bool hasReachedMax,
+            int count,
+            bool isGridView,
+            FilterStatus? filterStatus,
+            FilterGender? filterGender)
         loaded,
     required TResult Function() searchLoading,
     required TResult Function(String message) searchError,
@@ -1378,8 +1861,13 @@ class _$SearchCharactersLoadingImpl implements _SearchCharactersLoading {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(List<CharactersEntity> characters, bool hasReachedMax,
-            int count, bool isGridView)?
+    TResult? Function(
+            List<CharactersEntity> characters,
+            bool hasReachedMax,
+            int count,
+            bool isGridView,
+            FilterStatus? filterStatus,
+            FilterGender? filterGender)?
         loaded,
     TResult? Function()? searchLoading,
     TResult? Function(String message)? searchError,
@@ -1395,8 +1883,13 @@ class _$SearchCharactersLoadingImpl implements _SearchCharactersLoading {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(List<CharactersEntity> characters, bool hasReachedMax,
-            int count, bool isGridView)?
+    TResult Function(
+            List<CharactersEntity> characters,
+            bool hasReachedMax,
+            int count,
+            bool isGridView,
+            FilterStatus? filterStatus,
+            FilterGender? filterGender)?
         loaded,
     TResult Function()? searchLoading,
     TResult Function(String message)? searchError,
@@ -1534,8 +2027,13 @@ class _$SearchCharactersErrorImpl implements _SearchCharactersError {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(List<CharactersEntity> characters,
-            bool hasReachedMax, int count, bool isGridView)
+    required TResult Function(
+            List<CharactersEntity> characters,
+            bool hasReachedMax,
+            int count,
+            bool isGridView,
+            FilterStatus? filterStatus,
+            FilterGender? filterGender)
         loaded,
     required TResult Function() searchLoading,
     required TResult Function(String message) searchError,
@@ -1552,8 +2050,13 @@ class _$SearchCharactersErrorImpl implements _SearchCharactersError {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(List<CharactersEntity> characters, bool hasReachedMax,
-            int count, bool isGridView)?
+    TResult? Function(
+            List<CharactersEntity> characters,
+            bool hasReachedMax,
+            int count,
+            bool isGridView,
+            FilterStatus? filterStatus,
+            FilterGender? filterGender)?
         loaded,
     TResult? Function()? searchLoading,
     TResult? Function(String message)? searchError,
@@ -1569,8 +2072,13 @@ class _$SearchCharactersErrorImpl implements _SearchCharactersError {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(List<CharactersEntity> characters, bool hasReachedMax,
-            int count, bool isGridView)?
+    TResult Function(
+            List<CharactersEntity> characters,
+            bool hasReachedMax,
+            int count,
+            bool isGridView,
+            FilterStatus? filterStatus,
+            FilterGender? filterGender)?
         loaded,
     TResult Function()? searchLoading,
     TResult Function(String message)? searchError,
@@ -1741,8 +2249,13 @@ class _$SearchCharactersLoadSuccessImpl
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(List<CharactersEntity> characters,
-            bool hasReachedMax, int count, bool isGridView)
+    required TResult Function(
+            List<CharactersEntity> characters,
+            bool hasReachedMax,
+            int count,
+            bool isGridView,
+            FilterStatus? filterStatus,
+            FilterGender? filterGender)
         loaded,
     required TResult Function() searchLoading,
     required TResult Function(String message) searchError,
@@ -1759,8 +2272,13 @@ class _$SearchCharactersLoadSuccessImpl
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(List<CharactersEntity> characters, bool hasReachedMax,
-            int count, bool isGridView)?
+    TResult? Function(
+            List<CharactersEntity> characters,
+            bool hasReachedMax,
+            int count,
+            bool isGridView,
+            FilterStatus? filterStatus,
+            FilterGender? filterGender)?
         loaded,
     TResult? Function()? searchLoading,
     TResult? Function(String message)? searchError,
@@ -1776,8 +2294,13 @@ class _$SearchCharactersLoadSuccessImpl
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(List<CharactersEntity> characters, bool hasReachedMax,
-            int count, bool isGridView)?
+    TResult Function(
+            List<CharactersEntity> characters,
+            bool hasReachedMax,
+            int count,
+            bool isGridView,
+            FilterStatus? filterStatus,
+            FilterGender? filterGender)?
         loaded,
     TResult Function()? searchLoading,
     TResult Function(String message)? searchError,

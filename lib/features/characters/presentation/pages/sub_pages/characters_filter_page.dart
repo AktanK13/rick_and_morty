@@ -15,15 +15,14 @@ class CharactersFilterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
 
-    final CharactersBloc bloc = context.read<CharactersBloc>();
-    final selectedStatus =
-        ValueNotifier<String>(bloc.useCases.pagination.selectedStatus);
-    final selectedGender =
-        ValueNotifier<String>(bloc.useCases.pagination.selectedGender);
+    var selectedStatus =
+        context.watch<CharactersBloc>().useCases.pagination.selectedStatus;
+    var selectedGender =
+        context.watch<CharactersBloc>().useCases.pagination.selectedGender;
 
     void resetFilters() {
-      selectedStatus.value = '';
-      selectedGender.value = '';
+      selectedStatus = FilterStatus.unknown;
+      selectedGender = FilterGender.unknown;
     }
 
     return SafeArea(
@@ -38,24 +37,15 @@ class CharactersFilterPage extends StatelessWidget {
               icon: const Icon(Icons.arrow_back_ios), onPressed: context.pop),
           centerTitle: false,
           actions: [
-            ValueListenableBuilder<String>(
-              valueListenable: selectedStatus,
-              builder: (context, status, _) {
-                return ValueListenableBuilder<String>(
-                  valueListenable: selectedGender,
-                  builder: (context, gender, _) {
-                    return IconButton(
-                      icon: Icon(
-                        Icons.filter_alt_off,
-                        color: status == '' && gender == ''
-                            ? AppColors.buttonDisabled
-                            : AppColors.statusDead,
-                      ),
-                      onPressed: resetFilters,
-                    );
-                  },
-                );
-              },
+            IconButton(
+              icon: Icon(
+                Icons.filter_alt_off,
+                color: selectedStatus == FilterStatus.unknown &&
+                        selectedGender == FilterGender.unknown
+                    ? AppColors.buttonDisabled
+                    : AppColors.statusDead,
+              ),
+              onPressed: resetFilters,
             ),
           ],
         ),
@@ -70,41 +60,36 @@ class CharactersFilterPage extends StatelessWidget {
                   style: theme.bodySmall?.copyWith(color: AppColors.textGray),
                 ),
                 const SizedBox(height: 8),
-                ValueListenableBuilder<String>(
-                  valueListenable: selectedStatus,
-                  builder: (context, value, _) {
-                    return Column(
-                      children: [
-                        RadioListTile<String>(
-                          contentPadding: const EdgeInsets.all(0),
-                          title: Text(LocaleKeys.alive.tr(),
-                              style: theme.titleLarge),
-                          value: Status.alive.description,
-                          groupValue: value,
-                          onChanged: (newValue) =>
-                              selectedStatus.value = newValue ?? '',
-                        ),
-                        RadioListTile<String>(
-                          contentPadding: const EdgeInsets.all(0),
-                          title: Text(LocaleKeys.dead.tr(),
-                              style: theme.titleLarge),
-                          value: Status.dead.description,
-                          groupValue: value,
-                          onChanged: (newValue) =>
-                              selectedStatus.value = newValue ?? '',
-                        ),
-                        RadioListTile<String>(
-                          contentPadding: const EdgeInsets.all(0),
-                          title: Text(LocaleKeys.unknow.tr(),
-                              style: theme.titleLarge),
-                          value: Status.unknown.description,
-                          groupValue: value,
-                          onChanged: (newValue) =>
-                              selectedStatus.value = newValue ?? '',
-                        ),
-                      ],
-                    );
-                  },
+                Column(
+                  children: [
+                    RadioListTile<FilterStatus>(
+                      contentPadding: const EdgeInsets.all(0),
+                      title:
+                          Text(LocaleKeys.alive.tr(), style: theme.titleLarge),
+                      value: FilterStatus.alive,
+                      groupValue: selectedStatus,
+                      onChanged: (newValue) =>
+                          selectedStatus = newValue ?? FilterStatus.unknown,
+                    ),
+                    RadioListTile<FilterStatus>(
+                      contentPadding: const EdgeInsets.all(0),
+                      title:
+                          Text(LocaleKeys.dead.tr(), style: theme.titleLarge),
+                      value: FilterStatus.dead,
+                      groupValue: selectedStatus,
+                      onChanged: (newValue) =>
+                          selectedStatus = newValue ?? FilterStatus.unknown,
+                    ),
+                    RadioListTile<FilterStatus>(
+                      contentPadding: const EdgeInsets.all(0),
+                      title:
+                          Text(LocaleKeys.unknow.tr(), style: theme.titleLarge),
+                      value: FilterStatus.unknown,
+                      groupValue: selectedStatus,
+                      onChanged: (newValue) =>
+                          selectedStatus = newValue ?? FilterStatus.unknown,
+                    ),
+                  ],
                 ),
                 const DividerLine(),
                 Text(
@@ -112,41 +97,36 @@ class CharactersFilterPage extends StatelessWidget {
                   style: theme.bodySmall?.copyWith(color: AppColors.textGray),
                 ),
                 const SizedBox(height: 8),
-                ValueListenableBuilder<String>(
-                  valueListenable: selectedGender,
-                  builder: (context, value, _) {
-                    return Column(
-                      children: [
-                        RadioListTile<String>(
-                          contentPadding: const EdgeInsets.all(0),
-                          title: Text(LocaleKeys.male_g.tr(),
-                              style: theme.titleLarge),
-                          value: Gender.male.description,
-                          groupValue: value,
-                          onChanged: (newValue) =>
-                              selectedGender.value = newValue ?? '',
-                        ),
-                        RadioListTile<String>(
-                          contentPadding: const EdgeInsets.all(0),
-                          title: Text(LocaleKeys.female_g.tr(),
-                              style: theme.titleLarge),
-                          value: Gender.female.description,
-                          groupValue: value,
-                          onChanged: (newValue) =>
-                              selectedGender.value = newValue ?? '',
-                        ),
-                        RadioListTile<String>(
-                          contentPadding: const EdgeInsets.all(0),
-                          title: Text(LocaleKeys.unknow.tr(),
-                              style: theme.titleLarge),
-                          value: Gender.unknown.description,
-                          groupValue: value,
-                          onChanged: (newValue) =>
-                              selectedGender.value = newValue ?? '',
-                        ),
-                      ],
-                    );
-                  },
+                Column(
+                  children: [
+                    RadioListTile<FilterGender>(
+                      contentPadding: const EdgeInsets.all(0),
+                      title:
+                          Text(LocaleKeys.male_g.tr(), style: theme.titleLarge),
+                      value: FilterGender.male,
+                      groupValue: selectedGender,
+                      onChanged: (newValue) =>
+                          selectedGender = newValue ?? FilterGender.unknown,
+                    ),
+                    RadioListTile<FilterGender>(
+                      contentPadding: const EdgeInsets.all(0),
+                      title: Text(LocaleKeys.female_g.tr(),
+                          style: theme.titleLarge),
+                      value: FilterGender.female,
+                      groupValue: selectedGender,
+                      onChanged: (newValue) =>
+                          selectedGender = newValue ?? FilterGender.unknown,
+                    ),
+                    RadioListTile<FilterGender>(
+                      contentPadding: const EdgeInsets.all(0),
+                      title:
+                          Text(LocaleKeys.unknow.tr(), style: theme.titleLarge),
+                      value: FilterGender.unknown,
+                      groupValue: selectedGender,
+                      onChanged: (newValue) =>
+                          selectedGender = newValue ?? FilterGender.unknown,
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -154,10 +134,10 @@ class CharactersFilterPage extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            bloc.add(
+            context.read<CharactersBloc>().add(
               FetchCharacters(
-                status: selectedStatus.value,
-                gender: selectedGender.value,
+                status: selectedStatus,
+                gender: selectedGender,
               ),
             );
             context.pop();

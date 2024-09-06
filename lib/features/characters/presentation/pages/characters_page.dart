@@ -28,7 +28,7 @@ class CharactersPage extends StatelessWidget {
                   loading: () =>
                       const Center(child: CircularProgressIndicator()),
                   error: (error) => const NoData(),
-                  loaded: (characters, hasReachedMax, count, isGridView) {
+                  loaded: (characters, hasReachedMax, count, isGridView, status, gender) {
                     return RefreshIndicator(
                       onRefresh: () => bloc.refreshPage(),
                       child: isGridView

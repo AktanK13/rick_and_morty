@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rick_and_morty/features/characters/domain/entities/entities.dart';
 import 'package:rick_and_morty/features/characters/domain/usecases/use_cases.dart';
+import 'package:rick_and_morty/features/characters/presentation/constants/enum_filter.dart';
 
 part 'characters_bloc.freezed.dart';
 part 'characters_event.dart';
@@ -17,6 +18,8 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
     on<FetchCharacters>(_onFetchCharacters);
     on<SearchCharacters>(_onSearchCharacters);
     on<ToggleGridView>(_onToggleView);
+    on<FilterStatus>(_onToggleFilterStatus);
+    on<FilterGender>(_onToggleFilterGender);
   }
 
   final CharactersUseCases useCases;
@@ -29,8 +32,8 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
       emit(const CharactersState.loading());
     }
 
-    if (useCases.pagination.selectedStatus != event.status ||
-        useCases.pagination.selectedGender != event.gender) {
+    if (useCases.pagination.selectedStatus != event.status.description ||
+        useCases.pagination.selectedGender != event.gender.description) {
       useCases.pagination.reset(status: event.status, gender: event.gender);
       if (useCases.pagination.scrollController.hasClients) {
         useCases.pagination.scrollController.jumpTo(0);
@@ -38,18 +41,17 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
     }
 
     final result = await useCases.getCharacters();
-    // log('data-unique: result: ${result} ');
     result.fold(
       (error) => emit(CharactersState.error(error)),
       (data) {
-        // log('data-unique: fetched data:___________________ ${data} characters');
-        log('data-unique: useCases.pagination.allCharacters: ${useCases.pagination.allCharacters} ');
         emit(
           CharactersState.loaded(
             characters: List.from(useCases.pagination.allCharacters),
             count: data.info.count,
             hasReachedMax: useCases.pagination.hasReachedMax,
             isGridView: useCases.viewState.isGridView,
+            filterStatus: event.status,
+            filterGender: event.gender,
           ),
         );
       },
@@ -88,7 +90,21 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
   }
 
   void _onToggleView(ToggleGridView event, Emitter<CharactersState> emit) {
+    emit(
+      CharactersState.loaded(
+        characters: List.from(useCases.pagination.allCharacters),
+        count: useCases.pagination.allCharacters.length,
+        hasReachedMax: useCases.pagination.hasReachedMax,
+        isGridView: useCases.viewState.isGridView,
+      ),
+    );
     useCases.toggleView();
+  }
+
+  void _onToggleFilterStatus(
+    FilterStatus event,
+    Emitter<CharactersState> emit,
+  ) async {
     emit(
       CharactersState.loaded(
         characters: List.from(useCases.pagination.allCharacters),
@@ -126,7 +142,10 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
   }
 
   Future<void> refreshPage() async {
-    add(const FetchCharacters(status: '', gender: ''));
+    add(const FetchCharacters(
+      status: FilterStatus.unknown,
+      gender: FilterGender.unknown,
+    ));
   }
 
   @override

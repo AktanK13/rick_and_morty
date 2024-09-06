@@ -3,6 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:rick_and_morty/features/characters/domain/entities/entities.dart';
 import 'package:rick_and_morty/features/characters/domain/entities/main_entity.dart';
 import 'package:rick_and_morty/features/characters/domain/repositories/characters_repository.dart';
+import 'package:rick_and_morty/features/characters/presentation/constants/enum_filter.dart';
 
 class CharactersUseCases {
   CharactersUseCases({required this.repository})
@@ -17,8 +18,8 @@ class CharactersUseCases {
   Future<Either<String, MainEntity>> getCharacters() async {
     final result = await repository.getCharacters(
       pagination.currentPage,
-      pagination.selectedStatus,
-      pagination.selectedGender,
+      pagination.selectedStatus.name,
+      pagination.selectedGender.name,
     );
     return result.map((data) {
       pagination.updatePagination(data);
@@ -55,8 +56,8 @@ class CharactersUseCases {
 class Pagination {
   int currentPage = 1;
   bool hasReachedMax = false;
-  String selectedStatus = '';
-  String selectedGender = '';
+  FilterStatus selectedStatus = FilterStatus.unknown;
+  FilterGender selectedGender = FilterGender.unknown;
   List<CharactersEntity> allCharacters = [];
   final ScrollController scrollController = ScrollController();
 
@@ -68,7 +69,7 @@ class Pagination {
     }
   }
 
-  void reset({required String status, required String gender}) {
+  void reset({required FilterStatus status, required FilterGender gender}) {
     currentPage = 1;
     hasReachedMax = false;
     selectedStatus = status;

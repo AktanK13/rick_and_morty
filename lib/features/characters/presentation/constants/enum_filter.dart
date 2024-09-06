@@ -1,19 +1,19 @@
-enum Status { alive, dead, unknown }
+enum FilterStatus { alive, dead, unknown }
 
-enum Gender { male, female, unknown }
+enum FilterGender { male, female, unknown }
 
-extension CharacterStatusExtension on Status {
+extension CharacterStatusExtension on FilterStatus {
   String get description => switch (this) {
-        Status.alive => "Alive",
-        Status.dead => "Dead",
-        Status.unknown => ""
+        FilterStatus.alive => "Alive",
+        FilterStatus.dead => "Dead",
+        FilterStatus.unknown => ""
       };
 }
 
-extension CharacterGenderExtension on Gender {
+extension CharacterGenderExtension on FilterGender {
   String get description => switch (this) {
-        Gender.male => "Male",
-        Gender.female => "Female",
-        Gender.unknown => "",
+        FilterGender.male => "Male",
+        FilterGender.female => "Female",
+        FilterGender.unknown => "",
       };
 }

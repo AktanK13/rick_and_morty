@@ -20,9 +20,9 @@ class CustomGridTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
 
-    const alive = Status.alive;
-    const male = Gender.male;
-    
+    const alive = FilterStatus.alive;
+    const male = FilterGender.male;
+
     return GestureDetector(
       onTap: () => context.go(AppRouter.charactersDetails, extra: character),
       child: Column(

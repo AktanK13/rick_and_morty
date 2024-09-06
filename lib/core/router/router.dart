@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:rick_and_morty/core/utils/injections.dart';
 import 'package:rick_and_morty/features/characters/domain/entities/entities.dart';
 import 'package:rick_and_morty/features/characters/presentation/bloc/characters_bloc.dart';
+import 'package:rick_and_morty/features/characters/presentation/constants/enum_filter.dart';
 import 'package:rick_and_morty/features/characters/presentation/pages/sub_pages/characters_detail_page.dart';
 import 'package:rick_and_morty/features/characters/presentation/pages/sub_pages/characters_filter_page.dart';
 import 'package:rick_and_morty/features/characters/presentation/pages/characters_page.dart';
@@ -35,7 +36,10 @@ final router = GoRouter(
               path: '/characters',
               builder: (context, state) => BlocProvider(
                 create: (context) => getIt<CharactersBloc>()
-                  ..add(const FetchCharacters(status: '', gender: '')),
+                  ..add(const FetchCharacters(
+                    status: FilterStatus.unknown,
+                    gender: FilterGender.unknown,
+                  )),
                 child: const CharactersPage(),
               ),
               routes: [

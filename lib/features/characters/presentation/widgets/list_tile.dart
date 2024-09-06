@@ -18,8 +18,8 @@ class CustomListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const alive = Status.alive;
-    const male = Gender.male;
+    const alive = FilterStatus.alive;
+    const male = FilterGender.male;
     return ListTile(
       contentPadding: const EdgeInsets.all(0),
       horizontalTitleGap: 10,

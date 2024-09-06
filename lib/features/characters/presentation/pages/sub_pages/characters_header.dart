@@ -28,7 +28,7 @@ class CharactersHeader extends StatelessWidget {
                   LocaleKeys.total_characters.tr(),
                   style: theme.bodySmall?.copyWith(color: AppColors.textGray),
                 ),
-                loaded: (characters, hasReachMax, count, isGridView) => Text(
+                loaded: (characters, hasReachMax, count, isGridView, status, gender) => Text(
                   '${LocaleKeys.total_characters.tr()}$count',
                   style: theme.bodySmall?.copyWith(color: AppColors.textGray),
                 ),
@@ -40,7 +40,7 @@ class CharactersHeader extends StatelessWidget {
         BlocBuilder<CharactersBloc, CharactersState>(
           builder: (context, state) {
             final isGridView = state.maybeWhen(
-              loaded: (_, __, ___, isGridView) => isGridView,
+              loaded: (_, __, ___, isGridView, status, gender) => isGridView,
               orElse: () => false,
             );
             return IconButton(
