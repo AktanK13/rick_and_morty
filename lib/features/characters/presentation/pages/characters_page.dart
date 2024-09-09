@@ -34,11 +34,13 @@ class CharactersPage extends StatelessWidget {
                       onRefresh: () => bloc.refreshPage(),
                       child: isGridView
                           ? CharacterPagedGridView(
-                              scrollController: bloc.useCases.pagination.scrollController,
+                              scrollController:
+                                  bloc.useCases.pagination.scrollController,
                               characters: characters,
                             )
                           : CharacterPagedListView(
-                              scrollController: bloc.useCases.pagination.scrollController,
+                              scrollController:
+                                  bloc.useCases.pagination.scrollController,
                               characters: characters,
                               hasReachedMax: hasReachedMax,
                             ),
