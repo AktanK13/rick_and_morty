@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -39,7 +38,6 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
     result.fold(
       (error) => emit(CharactersState.error(error)),
       (data) {
-        log('data-unique: data.info.count: ${data.info.count} ');
         emit(
           CharactersState.loaded(
             characters: List.from(useCases.pagination.allCharacters),

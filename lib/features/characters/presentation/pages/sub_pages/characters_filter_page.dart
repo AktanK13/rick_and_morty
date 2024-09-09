@@ -21,22 +21,26 @@ class CharactersFilterPage extends StatefulWidget {
 }
 
 class _CharactersFilterPageState extends State<CharactersFilterPage> {
-  String selectedStatus = '';
-  String selectedGender = '';
+  late ValueNotifier<String> selectedStatus;
+  late ValueNotifier<String> selectedGender;
 
   @override
   void initState() {
     super.initState();
-    selectedStatus = widget.extra["status"] ?? '';
-    selectedGender = widget.extra["gender"] ?? '';
+    selectedStatus = ValueNotifier<String>(widget.extra["status"] ?? '');
+    selectedGender = ValueNotifier<String>(widget.extra["gender"] ?? '');
+  }
+
+  @override
+  void dispose() {
+    selectedStatus.dispose();
+    selectedGender.dispose();
+    super.dispose();
   }
 
   void _resetFilters() {
-    //TODO: add bloc or cubit to filter and remove setState ----------- ADD ValueNotifier
-    setState(() {
-      selectedStatus = '';
-      selectedGender = '';
-    });
+    selectedStatus.value = '';
+    selectedGender.value = '';
   }
 
   @override
@@ -48,6 +52,7 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
     const male = Gender.male;
     const female = Gender.female;
     const genderUnknown = Gender.unknown;
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -60,15 +65,25 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
               icon: const Icon(Icons.arrow_back_ios), onPressed: context.pop),
           centerTitle: false,
           actions: [
-            IconButton(
-              icon: Icon(
-                Icons.filter_alt_off,
-                color: selectedStatus == Status.unknown.toString() &&
-                        selectedGender == Gender.unknown.toString()
-                    ? AppColors.buttonDisabled
-                    : AppColors.statusDead,
-              ),
-              onPressed: _resetFilters,
+            ValueListenableBuilder<String>(
+              valueListenable: selectedStatus,
+              builder: (context, status, _) {
+                return ValueListenableBuilder<String>(
+                  valueListenable: selectedGender,
+                  builder: (context, gender, _) {
+                    return IconButton(
+                      icon: Icon(
+                        Icons.filter_alt_off,
+                        color: (status == Status.unknown.description &&
+                                gender == Gender.unknown.description)
+                            ? AppColors.buttonDisabled
+                            : AppColors.statusDead,
+                      ),
+                      onPressed: _resetFilters,
+                    );
+                  },
+                );
+              },
             ),
           ],
         ),
@@ -86,46 +101,50 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                       ?.copyWith(color: AppColors.textGray),
                 ),
                 const SizedBox(height: 8),
-                RadioListTile<String>(
-                  contentPadding: const EdgeInsets.all(0),
-                  title: Text(
-                    LocaleKeys.alive.tr(),
-                    style: theme.titleLarge,
-                  ),
-                  value: alive.description,
-                  groupValue: selectedStatus,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedStatus = value ?? alive.description;
-                    });
-                  },
-                ),
-                RadioListTile<String>(
-                  contentPadding: const EdgeInsets.all(0),
-                  title: Text(
-                    LocaleKeys.dead.tr(),
-                    style: theme.titleLarge,
-                  ),
-                  value: dead.description,
-                  groupValue: selectedStatus,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedStatus = value ?? dead.description;
-                    });
-                  },
-                ),
-                RadioListTile<String>(
-                  contentPadding: const EdgeInsets.all(0),
-                  title: Text(
-                    LocaleKeys.unknow.tr(),
-                    style: theme.titleLarge,
-                  ),
-                  value: statusUnknown.description,
-                  groupValue: selectedStatus,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedStatus = value ?? statusUnknown.description;
-                    });
+                ValueListenableBuilder<String>(
+                  valueListenable: selectedStatus,
+                  builder: (context, status, _) {
+                    return Column(
+                      children: [
+                        RadioListTile<String>(
+                          contentPadding: const EdgeInsets.all(0),
+                          title: Text(
+                            LocaleKeys.alive.tr(),
+                            style: theme.titleLarge,
+                          ),
+                          value: alive.description,
+                          groupValue: status,
+                          onChanged: (value) {
+                            selectedStatus.value = value ?? alive.description;
+                          },
+                        ),
+                        RadioListTile<String>(
+                          contentPadding: const EdgeInsets.all(0),
+                          title: Text(
+                            LocaleKeys.dead.tr(),
+                            style: theme.titleLarge,
+                          ),
+                          value: dead.description,
+                          groupValue: status,
+                          onChanged: (value) {
+                            selectedStatus.value = value ?? dead.description;
+                          },
+                        ),
+                        RadioListTile<String>(
+                          contentPadding: const EdgeInsets.all(0),
+                          title: Text(
+                            LocaleKeys.unknow.tr(),
+                            style: theme.titleLarge,
+                          ),
+                          value: statusUnknown.description,
+                          groupValue: status,
+                          onChanged: (value) {
+                            selectedStatus.value =
+                                value ?? statusUnknown.description;
+                          },
+                        ),
+                      ],
+                    );
                   },
                 ),
                 const DividerLine(),
@@ -137,46 +156,50 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
                       ?.copyWith(color: AppColors.textGray),
                 ),
                 const SizedBox(height: 8),
-                RadioListTile<String>(
-                  contentPadding: const EdgeInsets.all(0),
-                  title: Text(
-                    LocaleKeys.male_g.tr(),
-                    style: theme.titleLarge,
-                  ),
-                  value: male.description,
-                  groupValue: selectedGender,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedGender = value ?? male.description;
-                    });
-                  },
-                ),
-                RadioListTile<String>(
-                  contentPadding: const EdgeInsets.all(0),
-                  title: Text(
-                    LocaleKeys.female_g.tr(),
-                    style: theme.titleLarge,
-                  ),
-                  value: female.description,
-                  groupValue: selectedGender,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedGender = value ?? female.description;
-                    });
-                  },
-                ),
-                RadioListTile<String>(
-                  contentPadding: const EdgeInsets.all(0),
-                  title: Text(
-                    LocaleKeys.unknow.tr(),
-                    style: theme.titleLarge,
-                  ),
-                  value: genderUnknown.description,
-                  groupValue: selectedGender,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedGender = value ?? genderUnknown.description;
-                    });
+                ValueListenableBuilder<String>(
+                  valueListenable: selectedGender,
+                  builder: (context, gender, _) {
+                    return Column(
+                      children: [
+                        RadioListTile<String>(
+                          contentPadding: const EdgeInsets.all(0),
+                          title: Text(
+                            LocaleKeys.male_g.tr(),
+                            style: theme.titleLarge,
+                          ),
+                          value: male.description,
+                          groupValue: gender,
+                          onChanged: (value) {
+                            selectedGender.value = value ?? male.description;
+                          },
+                        ),
+                        RadioListTile<String>(
+                          contentPadding: const EdgeInsets.all(0),
+                          title: Text(
+                            LocaleKeys.female_g.tr(),
+                            style: theme.titleLarge,
+                          ),
+                          value: female.description,
+                          groupValue: gender,
+                          onChanged: (value) {
+                            selectedGender.value = value ?? female.description;
+                          },
+                        ),
+                        RadioListTile<String>(
+                          contentPadding: const EdgeInsets.all(0),
+                          title: Text(
+                            LocaleKeys.unknow.tr(),
+                            style: theme.titleLarge,
+                          ),
+                          value: genderUnknown.description,
+                          groupValue: gender,
+                          onChanged: (value) {
+                            selectedGender.value =
+                                value ?? genderUnknown.description;
+                          },
+                        ),
+                      ],
+                    );
                   },
                 ),
               ],
@@ -186,8 +209,8 @@ class _CharactersFilterPageState extends State<CharactersFilterPage> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             context.pop({
-              'status': selectedStatus,
-              'gender': selectedGender,
+              'status': selectedStatus.value,
+              'gender': selectedGender.value,
             });
           },
           child: const Icon(Icons.check),
